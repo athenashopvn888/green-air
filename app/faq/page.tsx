@@ -17,7 +17,7 @@ const FAQ_CATEGORIES = [
     title: "📍 Location & Hours",
     faqs: [
       { q: "Where is Green Air Cannabis located?", a: "We are located at 7060 Airport Rd, Mississauga, ON L4T 2G8. We're easily accessible by TTC bus routes and close to major highways like the 401." },
-      { q: "What are your hours?", a: "We are open Open 24 Hours a day, 7 days a week, 365 days a year. Walk in anytime — no appointment needed." },
+      { q: "What are your hours?", a: "We are open daily from 10:00 AM to 01:00 AM. Walk in anytime — no appointment needed." },
       { q: "Is there parking nearby?", a: "Yes. Free street parking is available nearby on surrounding streets in the evenings. We're also easily accessible by local transit." },
       { q: "How far are you from Mississauga?", a: "We're just 5 minutes from the highways and central transit routes. We are centrally located and easy to reach." },
       { q: "What's the best way to get to Green Air Cannabis?", a: "We're easily accessible by car, bus, or foot. We are easily accessible by car, local transit, or bus routes. Free parking is available on surrounding streets." },
@@ -48,7 +48,7 @@ const FAQ_CATEGORIES = [
   {
     title: "🛒 Shopping & Experience",
     faqs: [
-      { q: "Do I need an appointment?", a: "No! Green Air Cannabis is walk-in only. Just show up anytime — we're open Open 24 Hours." },
+      { q: "Do I need an appointment?", a: "No! Green Air Cannabis is walk-in only. Just show up anytime — we are open daily from 10:00 AM to 01:00 AM." },
       { q: "Can I order online?", a: "Currently, Green Air Cannabis is an in-store shopping experience only. You can browse our live menu online to see what's in stock before visiting." },
       { q: "Do you offer delivery?", a: "Delivery is coming soon! Visit our delivery page to sign up for email notifications when we launch our delivery service." },
       { q: "What payment methods do you accept?", a: "We accept cash and debit. No credit cards at this time." },
