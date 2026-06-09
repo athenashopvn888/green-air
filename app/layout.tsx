@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s | Green Air Cannabis",
   },
   description:
-    "Shop 200+ premium cannabis strains at Green Air Cannabis. Exotic, Premium, AAA+, AA & Budget flower from $3/g. Mississauga's uplifting dispensary at 7060 Airport Rd. Open 24 Hours.",
+    "Shop 200+ premium cannabis strains at Green Air Cannabis. Exotic, Premium, AAA+, AA & Budget flower from $3/g. Mississauga's uplifting dispensary at 7060 Airport Rd. Open Daily: 10:00 AM - 01:00 AM.",
   keywords: [
     "cannabis dispensary Mississauga",
     "weed store Mississauga",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     siteName: "Green Air Cannabis",
     title: "Green Air Cannabis — Premium Mississauga Cannabis Dispensary",
     description:
-      "200+ strains from $3/g. Exotic to Budget. Mississauga's uplifting dispensary at 7060 Airport Rd. Open 24 Hours.",
+      "200+ strains from $3/g. Exotic to Budget. Mississauga's uplifting dispensary at 7060 Airport Rd. Open Daily: 10:00 AM - 01:00 AM.",
     images: [
       {
         url: "https://greenaircannabis.com/wp-content/uploads/2026/04/46Oi5.jpg",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Green Air Cannabis — Mississauga's Uplifting Dispensary",
-    description: "200+ strains from $3/g. Open 24 Hours at 7060 Airport Rd, Mississauga.",
+    description: "200+ strains from $3/g. Open Daily: 10:00 AM - 01:00 AM at 7060 Airport Rd, Mississauga.",
     images: ["https://greenaircannabis.com/wp-content/uploads/2026/04/46Oi5.jpg"],
   },
   robots: {
@@ -75,7 +75,7 @@ const jsonLd = {
   additionalType: "https://schema.org/Store",
   "@id": "https://greenaircannabis.com",
   name: "Green Air Cannabis",
-  description: "Cannabis dispensary at 7060 Airport Rd in Mississauga, ON. Shop exotic, premium, AAA+, AA, and budget flower tiers plus edibles, prerolls, and vapes. Open 24 Hours.",
+  description: "Cannabis dispensary at 7060 Airport Rd in Mississauga, ON. Shop exotic, premium, AAA+, AA, and budget flower tiers plus edibles, prerolls, and vapes. Open Daily: 10:00 AM - 01:00 AM.",
   url: "https://greenaircannabis.com",
   telephone: "+14377071207",
   image: "https://greenaircannabis.com/wp-content/uploads/2026/04/7Clmh.jpg",
@@ -94,13 +94,21 @@ const jsonLd = {
     longitude: -79.3832,
   },
   openingHoursSpecification: [
-    {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-      opens: "00:00",
-      closes: "23:59",
-    },
-  ],
+  {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "10:00",
+    "closes": "01:00"
+  }
+],
   sameAs: [
     "https://greenaircannabis.com/",
     "https://greenaircannabis.com/",
