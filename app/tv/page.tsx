@@ -673,7 +673,7 @@ function AddOnsCard({ items, hiIdx }: { items: Item[]; hiIdx: number }) {
 const TICKER_SLIDES = [
   "🔥 Green Air Cannabis — 7060 Airport Rd, Mississauga",
   "200+ Strains In Stock",
-  "Open Daily: 10:00 AM - 01:00 AM",
+  "Open Daily: 10:00 AM - 02:00 AM",
   "ALL SALES ARE FINAL",
   "🎮 Play Games at greenaircannabis.com/games",
 ];

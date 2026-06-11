@@ -128,7 +128,7 @@ export default async function ItemsCategoryPage({
           <div className={styles.visitCta}>
             <h3 className={styles.visitTitle}>Visit Green Air Cannabis</h3>
             <p className={styles.visitText}>
-              7060 Airport Rd, Mississauga, ON L4T 2G8 · Open Daily: 10:00 AM - 01:00 AM
+              7060 Airport Rd, Mississauga, ON L4T 2G8 · Open Daily: 10:00 AM - 02:00 AM
             </p>
             <a
               href="https://greenaircannabis.com/"

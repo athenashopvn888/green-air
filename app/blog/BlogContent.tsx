@@ -236,7 +236,7 @@ export default function BlogContent() {
         <div className={styles.ctaInner}>
           <h2 className={styles.ctaTitle}>Ready to Shop?</h2>
           <p className={styles.ctaSub}>
-            200+ strains · Exotic to Budget · Open Daily: 10:00 AM - 01:00 AM
+            200+ strains · Exotic to Budget · Open Daily: 10:00 AM - 02:00 AM
           </p>
           <div className={styles.ctaBtns}>
             <Link href="/exotic" className={styles.ctaBtn}>

@@ -101,7 +101,7 @@ export default function DeliveryContent() {
         <div className={styles.ctaSection}>
           <p className={styles.ctaText}>
             Can&apos;t wait? Visit us in-store at <strong>7060 Airport Rd, Mississauga</strong> —
-            we are <strong>Open Daily: 10:00 AM - 01:00 AM</strong>. Call <strong>(437) 707-1207</strong>.
+            we are <strong>Open Daily: 10:00 AM - 02:00 AM</strong>. Call <strong>(437) 707-1207</strong>.
           </p>
         </div>
       </div>

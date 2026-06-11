@@ -128,7 +128,7 @@ export default function PostContent() {
 
         <div className={styles.cta}>
           <p>
-            <strong>Green Air Cannabis</strong> — 7060 Airport Rd, Mississauga · Open Daily: 10:00 AM - 01:00 AM · (437) 707-1207
+            <strong>Green Air Cannabis</strong> — 7060 Airport Rd, Mississauga · Open Daily: 10:00 AM - 02:00 AM · (437) 707-1207
           </p>
           <Link href="/exotic" className={styles.ctaBtn}>Browse Our Menu</Link>
         </div>

@@ -14,7 +14,7 @@ export default function Footer() {
             <p className={styles.desc}>
               Your Local Cannabis Dispensary At 7060 Airport Rd, Mississauga. Visit
               Green Air Cannabis For Premium Flower, Edibles, Vapes &amp; More.
-              Open: Open Daily: 10:00 AM - 01:00 AM.
+              Open: Open Daily: 10:00 AM - 02:00 AM.
             </p>
             <div className={styles.buttons}>
               <a
@@ -49,7 +49,7 @@ export default function Footer() {
             </div>
             <div className={styles.infoBlock}>
               <span className={styles.infoLabel}>Hours:</span>
-              <span className={styles.highlight}>Open Daily: 10:00 AM - 01:00 AM</span>
+              <span className={styles.highlight}>Open Daily: 10:00 AM - 02:00 AM</span>
             </div>
           </div>
 
