@@ -306,7 +306,7 @@ export default function HomePage() {
               Welcome to <strong>Green Air Cannabis</strong>, Mississauga's premier cannabis destination at 7060 Airport Rd. We carry an electrifying selection of top-shelf strains — from ultra-rare exotics to solid everyday budget picks.
             </p>
             <p className={styles.seoPanelText}>
-              We are open Open Daily: 10:00 AM - 02:00 AM — Green Air Cannabis is here to serve you. Our live menu is constantly refreshed with the freshest drops, premium prerolls, artisan edibles, and everything in between. Whether you're winding down or stocking up for the weekend, our knowledgeable staff is always here for you.
+              We are open Open Daily: 10:00 AM - 02:00 AM — Green Air Cannabis is here to serve you. Our live menu is constantly refreshed with the freshest drops, premium prerolls, artisan edibles, and everything in between. Whether you're winding down or stocking up for the weekend, our knowledgeable staff can help during listed store hours.
             </p>
             <p className={styles.seoPanelText}>
               Searching for a cannabis dispensary in Mississauga or the surrounding area? Green Air Cannabis is your go-to destination for premium flower, potent prerolls, and artisan edibles. Our six-tier pricing system means quality cannabis at every budget level — starting from just $3/g.
@@ -367,14 +367,6 @@ export default function HomePage() {
           </div>
 
           <div className={styles.reviewCtaRow}>
-            <a
-              href="https://greenaircannabis.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.reviewsWrite}
-            >
-              ✍ Write a Google Review
-            </a>
           </div>
         </div>
       </section>
@@ -406,14 +398,6 @@ export default function HomePage() {
                 <br />
                 Mississauga, ON L4T 2G8
                 <br />
-                <a
-                  href="https://greenaircannabis.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.storeLink}
-                >
-                  Get Directions →
-                </a>
               </p>
             </div>
             <div className={styles.storeCard}>
@@ -438,16 +422,6 @@ export default function HomePage() {
 
           {/* Map wrapper */}
           <div className={styles.mapWrap}>
-            <iframe
-              src="https://maps.google.com/maps?q=7060%20Airport%20Rd,+Mississauga,+ON+L4T%202G8&t=&z=15&ie=UTF8&iwloc=&output=embed"
-              width="100%"
-              height="350"
-              style={{ border: 0, display: "block" }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Green Air Cannabis — 7060 Airport Rd, Mississauga"
-            ></iframe>
           </div>
         </div>
       </section>

@@ -110,26 +110,8 @@ export default async function SeoLandingPage({
           <div className={styles.section}>
             <h2 className={styles.sectionTitle}>Find Us</h2>
             <div className={styles.mapWrap}>
-              <iframe
-                src="https://maps.google.com/maps?q=7060%20Airport%20Rd,+Mississauga,+ON+L4T%202G8&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                width="100%"
-                height="350"
-                style={{ border: 0, borderRadius: "var(--radius-lg)" }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Green Air Cannabis — 7060 Airport Rd, Mississauga"
-              />
             </div>
             <div className={styles.visitBtns}>
-              <a
-                href="https://greenaircannabis.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.visitBtn}
-              >
-                📍 Get Directions
-              </a>
             </div>
           </div>
 

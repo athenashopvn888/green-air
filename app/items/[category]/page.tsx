@@ -130,14 +130,6 @@ export default async function ItemsCategoryPage({
             <p className={styles.visitText}>
               7060 Airport Rd, Mississauga, ON L4T 2G8 · Open Daily: 10:00 AM - 02:00 AM
             </p>
-            <a
-              href="https://greenaircannabis.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.visitBtn}
-            >
-              📍 Get Directions
-            </a>
           </div>
         </div>
       </section>

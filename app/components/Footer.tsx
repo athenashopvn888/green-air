@@ -17,20 +17,6 @@ export default function Footer() {
               Open: Open Daily: 10:00 AM - 02:00 AM.
             </p>
             <div className={styles.buttons}>
-              <a
-                href="tel:+14377071207"
-                className={styles.btnPrimary}
-              >
-                Call Now
-              </a>
-              <a
-                href="https://greenaircannabis.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.btnSecondary}
-              >
-                Get Directions
-              </a>
             </div>
           </div>
 

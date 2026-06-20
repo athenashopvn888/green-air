@@ -98,7 +98,7 @@ export const TIER_SEO: Record<string, TierSeoData> = {
 
   BUDGET: {
     seoTitle: "Budget Cannabis Mississauga — Cheap Weed From $3/g",
-    seoIntro: "Cheap weed in Mississauga starting at $3/g. Green Air Cannabis Budget tier features shreds and value ounces for cost-conscious smokers. Open daily on Mississauga St.",
+    seoIntro: "Cheap weed in Mississauga starting at $3/g. Green Air Cannabis Budget tier features shreds and value ounces for cost-conscious smokers. Check current store hours before visiting Green Air Cannabis.",
     sections: [
       {
         heading: "Affordable Cannabis Without Compromise",

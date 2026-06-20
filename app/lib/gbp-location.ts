@@ -24,8 +24,8 @@ export const gbpLocation = {
     "Accessories"
   ],
   menuUrl: "/",
-  directionsUrl: "https://www.google.com/maps/search/?api=1&query=7060%20Airport%20Rd%2C%20Mississauga%2C%20ON%20L4T%202G8",
-  mapEmbedUrl: "https://maps.google.com/maps?q=7060%20Airport%20Rd%2C%20Mississauga%2C%20ON%20L4T%202G8&t=&z=15&ie=UTF8&iwloc=&output=embed",
+  directionsUrl: "",
+  mapEmbedUrl: "",
   latitude: "43.6532",
   longitude: "-79.3832",
   hours: ["Open Daily: 10:00 AM - 02:00 AM"],
