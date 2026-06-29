@@ -5,11 +5,11 @@ import AgeGate from "./components/AgeGate";
 export const metadata: Metadata = {
   metadataBase: new URL("https://greenaircannabis.com"),
   title: {
-    default: "Green Air Cannabis — Premium Cannabis Dispensary, Mississauga",
+    default: "Green Air Cannabis | Mississauga Dispensary",
     template: "%s | Green Air Cannabis",
   },
   description:
-    "Shop 200+ premium cannabis strains at Green Air Cannabis. Exotic, Premium, AAA+, AA & Budget flower from $3/g. Mississauga's uplifting dispensary at 7060 Airport Rd. Open Daily: 10:00 AM - 02:00 AM.",
+    "Green Air Cannabis is a Mississauga cannabis dispensary on Airport Rd with adult 19+ store info and category browsing for flower, pre-rolls, vapes, edibles, concentrates, and accessories. Open Daily: 10:00 AM - 02:00 AM.",
   keywords: [
     "cannabis dispensary Mississauga",
     "weed store Mississauga",
