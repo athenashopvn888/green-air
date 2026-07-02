@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import BlogContent from "./BlogContent";
+import { STORE_BLOG_CONFIG } from "./staticPosts";
 
 export const metadata: Metadata = {
-  title: "Cannabis Blog & Guides — Green Air Cannabis | Mississauga",
-  description: "Read the latest strain reviews, dosing guides, and cannabis news from Green Air Cannabis in Mississauga.",
+  title: `${STORE_BLOG_CONFIG.storeName} Blog | Adult 19+ Store Guides`,
+  description: `Read adult 19+ store guides and local visit-planning notes from ${STORE_BLOG_CONFIG.storeName}.`,
   alternates: {
-    canonical: "https://greenaircannabis.com/blog",
+    canonical: `https://${STORE_BLOG_CONFIG.domain}/blog`,
   },
 };
 
