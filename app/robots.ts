@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://greenaircannabis.com/sitemap.xml",
+    sitemap: "https://www.greenaircannabis.com/sitemap.xml",
   };
 }

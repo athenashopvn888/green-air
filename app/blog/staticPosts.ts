@@ -25,7 +25,7 @@ export const STORE_BLOG_CONFIG = {
   storeCode: "GAC01",
   storeName: "Green Air Cannabis",
   city: "Mississauga",
-  domain: "greenaircannabis.com",
+  domain: "www.greenaircannabis.com",
   storePath: "/weed-dispensary-mississauga",
 };
 
