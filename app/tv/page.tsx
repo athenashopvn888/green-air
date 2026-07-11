@@ -675,7 +675,6 @@ const TICKER_SLIDES = [
   "200+ Strains In Stock",
   "Open Daily: 10:00 AM - 02:00 AM",
   "ALL SALES ARE FINAL",
-  "🎮 Play Games at greenaircannabis.com/games",
 ];
 
 function VerticalTicker() {
