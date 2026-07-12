@@ -133,7 +133,7 @@ export function GBPLandingPage() {
         </p>
         <p className={styles.infoText}>
           For a fuller local overview, read the{" "}
-          <Link href="/blog/green-air-cannabis-mississauga-store-guide">Green Air Mississauga guide</Link>.
+          <Link href="/resources">Resources</Link>.
         </p>
       </section>
 
