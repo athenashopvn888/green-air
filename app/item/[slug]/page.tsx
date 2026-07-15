@@ -29,7 +29,7 @@ export async function generateMetadata({
     title: `${item.name} | ${item.category} | Green Air Cannabis Mississauga`,
     description: itemData.metaDescription,
     alternates: {
-      canonical: `https://greenaircannabis.com/item/${slug}`,
+      canonical: `https://www.greenaircannabis.com/item/${slug}`,
     },
     openGraph: {
       title: `${item.name} | Green Air Cannabis`,
@@ -54,9 +54,8 @@ function getJsonLd(item: ItemProduct) {
 
   const offers: any = {
     "@type": "Offer",
-    url: `https://greenaircannabis.com/item/${item.slug}`,
+    url: `https://www.greenaircannabis.com/item/${item.slug}`,
     priceCurrency: "CAD",
-    availability: "https://schema.org/InStock",
     itemCondition: "https://schema.org/NewCondition",
     seller: { "@type": "Organization", name: "Green Air Cannabis" },
     hasMerchantReturnPolicy: {
@@ -74,7 +73,7 @@ function getJsonLd(item: ItemProduct) {
     "@context": "https://schema.org",
     "@type": "Product",
     name: item.name,
-    image: item.image ? [item.image.startsWith('http') ? item.image : `https://greenaircannabis.com${item.image.startsWith('/') ? '' : '/'}${item.image}`] : undefined,
+    image: item.image ? [item.image.startsWith('http') ? item.image : `https://www.greenaircannabis.com${item.image.startsWith('/') ? '' : '/'}${item.image}`] : undefined,
     description: itemData.description,
     brand: { "@type": "Brand", name: "Green Air Cannabis" },
     sku: cleanSku(item.sku || item.slug),
@@ -93,19 +92,19 @@ function getBreadcrumbJsonLd(item: ItemProduct) {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://greenaircannabis.com"
+        "item": "https://www.greenaircannabis.com"
       },
       {
         "@type": "ListItem",
         "position": 2,
         "name": item.category,
-        "item": `https://greenaircannabis.com/items/${catSlug}`
+        "item": `https://www.greenaircannabis.com/items/${catSlug}`
       },
       {
         "@type": "ListItem",
         "position": 3,
         "name": item.name,
-        "item": `https://greenaircannabis.com/item/${item.slug}`
+        "item": `https://www.greenaircannabis.com/item/${item.slug}`
       }
     ]
   };

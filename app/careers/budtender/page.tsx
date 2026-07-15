@@ -6,11 +6,11 @@ import BudtenderApplicationForm from "./BudtenderApplicationForm";
 import styles from "./budtender.module.css";
 
 export const metadata: Metadata = {
-  title: "Budtender Or Manager Application | Green Air Cannabis",
+  title: { absolute: "Budtender Or Manager Application | Green Air Cannabis" },
   description:
     "Apply for budtender or manager opportunities at Green Air Cannabis in Mississauga. Submit availability, retail experience, motivation, determination, and customer-service answers.",
   alternates: {
-    canonical: "https://greenaircannabis.com/careers/budtender",
+    canonical: "https://www.greenaircannabis.com/careers/budtender",
   },
 };
 

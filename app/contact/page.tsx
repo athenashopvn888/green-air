@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Visit Green Air Cannabis at 7060 Airport Rd, Mississauga, ON L4T 2G8. We are open daily from 10:00 AM to 02:00 AM. Walk-ins welcome.",
   alternates: {
-    canonical: "https://greenaircannabis.com/contact",
+    canonical: "https://www.greenaircannabis.com/contact",
   },
   openGraph: {
     title: "Contact Green Air Cannabis — Mississauga Dispensary",
@@ -74,16 +74,16 @@ export default function ContactPage() {
                 <br />
                 Just walk in and our staff will
                 <br />
-                help you find the perfect strain.
+                help you browse the menu categories.
               </p>
               <div className={styles.featureList}>
                 <div className={styles.featureItem}>
                   <span className={styles.featureCheck}>✓</span>
-                  200+ strains in stock
+                  Flower tiers and cannabis categories
                 </div>
                 <div className={styles.featureItem}>
                   <span className={styles.featureCheck}>✓</span>
-                  Lab-tested &amp; safe
+                  Adult 19+ store information
                 </div>
                 <div className={styles.featureItem}>
                   <span className={styles.featureCheck}>✓</span>

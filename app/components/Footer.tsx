@@ -62,7 +62,7 @@ export default function Footer() {
               <Link href="/weed-dispensary-mississauga/">Green Air Cannabis Weed Dispensary in Mississauga</Link>
               <Link href="/contact">Contact Us</Link>
               <a
-                href="https://greenaircannabis.com/"
+                href="https://www.greenaircannabis.com/"
                 target="_blank"
                 rel="noopener noreferrer"
               >

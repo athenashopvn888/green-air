@@ -34,11 +34,11 @@ export async function generateMetadata({
     title: seo?.seoTitle || `${tierInfo.config.name} Cannabis Flower — ${flowers.length} Strains`,
     description: seo?.seoIntro || `Shop ${flowers.length} ${tierInfo.config.name.toLowerCase()} cannabis strains at Green Air Cannabis.`,
     alternates: {
-      canonical: `https://greenaircannabis.com/${tierSlug}`,
+      canonical: `https://www.greenaircannabis.com/${tierSlug}`,
     },
     openGraph: {
       title: `${tierInfo.config.name} Flower | Green Air Cannabis`,
-      description: `${flowers.length} curated ${tierInfo.config.name.toLowerCase()} strains in stock now. From $${tierInfo.config.unitPrice}/g.`,
+      description: `Browse the ${tierInfo.config.name.toLowerCase()} flower tier and review current menu details.`,
     },
   };
 }

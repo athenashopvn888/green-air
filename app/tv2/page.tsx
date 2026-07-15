@@ -135,7 +135,7 @@ function ItemCard({ title, accent, items, hiIdx, preset }: {
 /* -- TICKER -- */
 const TICKER_SLIDES = [
   "🔥 Green Air Cannabis — 7060 Airport Rd, Mississauga",
-  "200+ Strains In Stock",
+  "Browse Flower Tiers",
   "Open Daily: 10:00 AM - 02:00 AM",
   "Pre-Rolls · Edibles · Vapes · Concentrates",
   "ALL SALES ARE FINAL",

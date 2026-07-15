@@ -3,7 +3,7 @@ import "./globals.css";
 import AgeGate from "./components/AgeGate";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://greenaircannabis.com"),
+  metadataBase: new URL("https://www.greenaircannabis.com"),
   title: {
     default: "Green Air Cannabis | Mississauga Dispensary",
     template: "%s | Green Air Cannabis",
@@ -29,14 +29,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_CA",
-    url: "https://greenaircannabis.com",
+    url: "https://www.greenaircannabis.com",
     siteName: "Green Air Cannabis",
     title: "Green Air Cannabis — Premium Mississauga Cannabis Dispensary",
     description:
-      "200+ strains from $3/g. Exotic to Budget. Mississauga's uplifting dispensary at 7060 Airport Rd. Open Daily: 10:00 AM - 02:00 AM.",
+      "Browse flower tiers and cannabis categories at Green Air Cannabis on Airport Rd in Mississauga. Open Daily: 10:00 AM - 02:00 AM.",
     images: [
       {
-        url: "https://greenaircannabis.com/wp-content/uploads/2026/04/46Oi5.jpg",
+        url: "https://www.greenaircannabis.com/wp-content/uploads/2026/04/46Oi5.jpg",
         width: 1200,
         height: 630,
         alt: "Green Air Cannabis — Premium Cannabis Dispensary Mississauga",
@@ -46,8 +46,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Green Air Cannabis — Mississauga's Uplifting Dispensary",
-    description: "200+ strains from $3/g. Open Daily: 10:00 AM - 02:00 AM at 7060 Airport Rd, Mississauga.",
-    images: ["https://greenaircannabis.com/wp-content/uploads/2026/04/46Oi5.jpg"],
+    description: "Browse Green Air Cannabis categories. Open Daily: 10:00 AM - 02:00 AM at 7060 Airport Rd, Mississauga.",
+    images: ["https://www.greenaircannabis.com/wp-content/uploads/2026/04/46Oi5.jpg"],
   },
   robots: {
     index: true,
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://greenaircannabis.com",
+    canonical: "https://www.greenaircannabis.com",
   },
   verification: {
     // google: "your-google-verification-code",
@@ -73,12 +73,12 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Store",
   additionalType: "https://schema.org/Store",
-  "@id": "https://greenaircannabis.com",
+  "@id": "https://www.greenaircannabis.com",
   name: "Green Air Cannabis",
   description: "Cannabis dispensary at 7060 Airport Rd in Mississauga, ON. Shop exotic, premium, AAA+, AA, and budget flower tiers plus edibles, prerolls, and vapes. Open Daily: 10:00 AM - 02:00 AM.",
-  url: "https://greenaircannabis.com",
+  url: "https://www.greenaircannabis.com",
   telephone: "+14377071207",
-  image: "https://greenaircannabis.com/wp-content/uploads/2026/04/7Clmh.jpg",
+  image: "https://www.greenaircannabis.com/wp-content/uploads/2026/04/7Clmh.jpg",
   priceRange: "$3 - $12/g",
   address: {
     "@type": "PostalAddress",
@@ -110,10 +110,10 @@ const jsonLd = {
   }
 ],
   sameAs: [
-    "https://greenaircannabis.com/",
-    "https://greenaircannabis.com/",
+    "https://www.greenaircannabis.com/",
+    "https://www.greenaircannabis.com/",
   ],
-  hasMap: "https://greenaircannabis.com/",
+  hasMap: "https://www.greenaircannabis.com/",
   areaServed: {
     "@type": "City",
     name: "Mississauga",

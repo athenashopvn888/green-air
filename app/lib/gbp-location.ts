@@ -1,7 +1,7 @@
 // Auto-generated Google Business Profile Local SEO Location Configuration
 export const gbpLocation = {
   storeName: "Green Air Cannabis",
-  domain: "greenaircannabis.com",
+  domain: "www.greenaircannabis.com",
   city: "Mississauga",
   province: "ON",
   country: "CA",
@@ -32,7 +32,7 @@ export const gbpLocation = {
   seoTitle: "Green Air Cannabis | Weed Dispensary in Mississauga",
   metaDescription: "Green Air Cannabis is a local weed dispensary in Mississauga offering flower, pre-rolls, edibles, vapes, concentrates, CBD, and service for adults 19+.",
   localLandmarks: ["Airport Road", "Malton", "Mississauga"],
-  introVariant: "Green Air Cannabis is your welcoming neighborhood weed dispensary in Mississauga, located at 7060 Airport Rd near Malton / Airport. We carry a massive selection of weed, cannabis flower, pre-rolls, edibles, THC vapes, concentrates, and smoking accessories for adults 19+. Conveniently located near Malton, our cannabis store and weed shop is designed to make finding the perfect strain easy and accessible.",
+  introVariant: "Green Air Cannabis is a neighborhood weed dispensary in Mississauga, located at 7060 Airport Rd near Malton. Adults 19+ can browse cannabis flower, pre-rolls, edibles, THC vapes, concentrates, and smoking accessories. Visit the store page and menu categories for current details.",
   neighborhoodDescription: "Located in the vibrant Malton / Airport district, our cannabis store fits right into this active and historic community, surrounded by local retail shops and convenient transit links.",
   parkingNote: "Free parking is available in the retail plaza lot",
   transitNote: "Accessible by MiWay routes serving the surrounding Mississauga area.",
