@@ -217,6 +217,17 @@ export default function HomePage() {
       )}
 
       {/* ── BENTO MOSAIC HERO ── */}
+      <section className={styles.hiringCallout} aria-label="Hiring at Green Air Cannabis" style={{ "--hire-accent": "#34d399", "--hire-accent-soft": "rgba(52, 211, 153, 0.14)", "--hire-accent-border": "rgba(52, 211, 153, 0.32)" } as React.CSSProperties}>
+        <div className={styles.hiringCalloutInner}>
+          <div>
+            <span className={styles.hiringEyebrow}>Budtenders / Managers Wanted</span>
+            <h2>Join Green Air</h2>
+            <p>Airport Road needs friendly, reliable people who can keep the counter clear, calm, and helpful. Online applications only. Please do not call the store about hiring.</p>
+          </div>
+          <Link href="/careers/budtender" className={styles.hiringButton}>Apply Online</Link>
+        </div>
+      </section>
+
       <section className={styles.hero}>
         <div className={styles.heroBg} />
         <div className={styles.heroOverlay} />
