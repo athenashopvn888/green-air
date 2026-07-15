@@ -77,7 +77,7 @@ const LOCAL_FAQS = [
   },
   {
     q: "Where is Green Air Cannabis located?",
-    a: "We are located at 7060 Airport Rd, Mississauga, ON L4T 2G8. Visit us in person or call us at (437) 707-1207. Free evening street parking is available.",
+    a: "We are located at 7060 Airport Rd, Mississauga, ON L4T 2G8. Visit us in person or call us at (437) 707-1207. Free evening street parking is listed.",
   },
   {
     q: "What is the cheapest weed at Green Air Cannabis?",
@@ -330,7 +330,7 @@ export default function HomePage() {
               If cheap weed or affordable weed is the goal, start with Budget and AA flower before moving up. If premium flower or exotic flower is the mood, open those lanes first and compare the current details there.
             </p>
             <p className={styles.seoPanelText}>
-              Menus change, so use the current menu and staff for product names, prices, and availability before you make the trip.
+              Menus change, so use the current menu and staff for product names, prices, and listings before you make the trip.
             </p>
           </div>
         </div>

@@ -187,7 +187,7 @@ export const CATEGORY_CONFIG: Record<string, CategoryInfo> = {
     seoDescription: "Disposable vape listings are easiest to compare inside their own category. Check the current menu and ask staff if a detail matters before choosing.",
     faqs: [
       { q: "Where should disposable vape shoppers start?", a: "Open the disposable vape category and compare the current listings." },
-      { q: "Should shoppers confirm current options?", a: "Yes. Product names and availability can change, so confirm through the menu or staff." },
+      { q: "Should shoppers confirm current options?", a: "Yes. Product names and listings can change, so confirm through the menu or staff." },
     ],
   },
   CONCENTRATES: {
@@ -227,8 +227,8 @@ export const CATEGORY_CONFIG: Record<string, CategoryInfo> = {
     seoIntro: "Browse specialty items only where they are listed on the current Green Air Cannabis menu.",
     seoDescription: "Specialty listings can vary. Use the current menu for what is shown at this store and ask staff before choosing.",
     faqs: [
-      { q: "What specialty items are available?", a: "Selection can change. Check the current menu for this location." },
-      { q: "Does availability vary?", a: "Yes. Use the current menu or staff for current details." },
+      { q: "What specialty items are listed?", a: "Selection can change. Check the current menu for this location." },
+      { q: "Do listings vary?", a: "Yes. Use the current menu or staff for current details." },
     ],
   },
   CIGARETTES: {
@@ -240,7 +240,7 @@ export const CATEGORY_CONFIG: Record<string, CategoryInfo> = {
     faqs: [
       { q: "Does Green Air Cannabis list Native cigarettes?", a: "Check the cigarette category for current Native smoke listings and brand names." },
       { q: "What brands may be shown?", a: "The menu may show Canadian Lights, Canadian Full, Putters, Canadian Goose Full, Canadian Goose Lights, Canadian Menthol, Canadian Classics Original, and Canadian Classics Silver. Confirm current options before visiting." },
-      { q: "Are $25 cartons guaranteed?", a: "No. Where $25 carton-style listings are shown, confirm current price and availability through the menu or staff." },
+      { q: "Are $25 cartons guaranteed?", a: "No. Where $25 carton-style listings are shown, confirm current price and listings through the menu or staff." },
     ],
   },
 };

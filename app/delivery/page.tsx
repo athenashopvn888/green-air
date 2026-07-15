@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Delivery Coming Soon — Green Air Cannabis | Mississauga",
   description: "Get notified when Green Air Cannabis launches same-day weed delivery across Mississauga and surrounding areas.",
   alternates: {
-    canonical: "https://www.greenaircannabis.com/delivery",
+    canonical: "https://greenaircannabis.com/delivery",
   },
 };
 

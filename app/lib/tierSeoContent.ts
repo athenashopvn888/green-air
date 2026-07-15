@@ -29,8 +29,8 @@ export const TIER_SEO: Record<string, TierSeoData> = {
         "a": "Open the Exotic tier, compare the current product details, and ask staff when a note needs a current answer."
       },
       {
-        "q": "Does Exotic availability change?",
-        "a": "Yes. Product names, prices, and availability can change, so confirm through the current menu or staff."
+        "q": "Does Exotic listings change?",
+        "a": "Yes. Product names, prices, and listings can change, so confirm through the current menu or staff."
       },
       {
         "q": "Where should shoppers go after this Exotic guide?",
@@ -61,8 +61,8 @@ export const TIER_SEO: Record<string, TierSeoData> = {
         "a": "Open the Premium tier, compare the current product details, and ask staff when a note needs a current answer."
       },
       {
-        "q": "Does Premium availability change?",
-        "a": "Yes. Product names, prices, and availability can change, so confirm through the current menu or staff."
+        "q": "Does Premium listings change?",
+        "a": "Yes. Product names, prices, and listings can change, so confirm through the current menu or staff."
       },
       {
         "q": "Where should shoppers go after this Premium guide?",
@@ -93,8 +93,8 @@ export const TIER_SEO: Record<string, TierSeoData> = {
         "a": "Open the AAA+ tier, compare the current product details, and ask staff when a note needs a current answer."
       },
       {
-        "q": "Does AAA+ availability change?",
-        "a": "Yes. Product names, prices, and availability can change, so confirm through the current menu or staff."
+        "q": "Does AAA+ listings change?",
+        "a": "Yes. Product names, prices, and listings can change, so confirm through the current menu or staff."
       },
       {
         "q": "Where should shoppers go after this AAA+ guide?",
@@ -125,8 +125,8 @@ export const TIER_SEO: Record<string, TierSeoData> = {
         "a": "Open the AA tier, compare the current product details, and ask staff when a note needs a current answer."
       },
       {
-        "q": "Does AA availability change?",
-        "a": "Yes. Product names, prices, and availability can change, so confirm through the current menu or staff."
+        "q": "Does AA listings change?",
+        "a": "Yes. Product names, prices, and listings can change, so confirm through the current menu or staff."
       },
       {
         "q": "Where should shoppers go after this AA guide?",
@@ -157,8 +157,8 @@ export const TIER_SEO: Record<string, TierSeoData> = {
         "a": "Open the Budget tier, compare the current product details, and ask staff when a note needs a current answer."
       },
       {
-        "q": "Does Budget availability change?",
-        "a": "Yes. Product names, prices, and availability can change, so confirm through the current menu or staff."
+        "q": "Does Budget listings change?",
+        "a": "Yes. Product names, prices, and listings can change, so confirm through the current menu or staff."
       },
       {
         "q": "Where should shoppers go after this Budget guide?",
