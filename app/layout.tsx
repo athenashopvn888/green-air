@@ -77,7 +77,7 @@ const jsonLd = {
   name: "Green Air Cannabis",
   description: "Cannabis dispensary at 7060 Airport Rd in Mississauga, ON. Shop exotic, premium, AAA+, AA, and budget flower tiers plus edibles, prerolls, and vapes. Open Daily: 10:00 AM - 02:00 AM.",
   url: "https://www.greenaircannabis.com",
-  telephone: "+14377071207",
+  telephone: "+12895149467",
   image: "https://www.greenaircannabis.com/wp-content/uploads/2026/04/7Clmh.jpg",
   priceRange: "$3 - $12/g",
   address: {
