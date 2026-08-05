@@ -9,8 +9,8 @@ export const gbpLocation = {
   address: "7060 Airport Rd, Mississauga, ON L4T 2G8",
   streetAddress: "7060 Airport Rd",
   postalCode: "L4T 2G8",
-  phone: "(437) 707-1207",
-  phoneIntl: "+14377071207",
+  phone: "+1 (289) 514-9467",
+  phoneIntl: "+12895149467",
   neighborhood: "Malton / Airport",
   nearbyAreas: ["Airport Road", "Malton", "Mississauga", "Pearson Airport", "Derry Road", "Goreway Drive", "MiWay"],
   products: [

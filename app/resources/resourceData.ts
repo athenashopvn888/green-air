@@ -154,7 +154,7 @@ export const RESOURCE_PAGES: ResourcePage[] = [
     "sections": [
       {
         "heading": "Choose A Shelf Before A Strain",
-        "body": "After selecting the tier, compare only the names currently shown inside it. Read the displayed size, format, price, and product notes together instead of carrying assumptions from another shelf."
+        "body": "After selecting the tier, compare only the names currently shown inside it. Read the displayed size, format, price, and product details together instead of carrying assumptions from another shelf."
       },
       {
         "heading": "Move Between Tiers Deliberately",
