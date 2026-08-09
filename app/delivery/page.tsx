@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import DeliveryContent from "./DeliveryContent";
+import menu from "./delivery-menu.json";
 
 export const metadata: Metadata = {
-  title: "Delivery Coming Soon — Green Air Cannabis | Mississauga",
-  description: "Get notified when Green Air Cannabis launches same-day weed delivery across Mississauga and surrounding areas.",
-  alternates: {
-    canonical: "https://greenaircannabis.com/delivery",
-  },
+  title: "Delivery Menu | Green Air Cannabis",
+  description: "Browse the Green Air Cannabis delivery product catalog and compare flower tiers and prices.",
+  alternates: { canonical: "https://www.greenaircannabis.com/delivery" },
 };
 
 export default function DeliveryPage() {
-  return <DeliveryContent />;
+  const structuredData = { "@context": "https://schema.org", "@type": "CollectionPage", name: "Green Air Cannabis Delivery Menu", url: "https://www.greenaircannabis.com/delivery", mainEntity: { "@type": "ItemList", numberOfItems: menu.products.length, itemListElement: menu.products.map((product, index) => ({ "@type": "ListItem", position: index + 1, name: product.name })) } };
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} /><DeliveryContent /></>;
 }
