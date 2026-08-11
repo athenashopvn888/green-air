@@ -19,7 +19,6 @@ async function payload(response: Response) {
   if (!response.ok) throw new Error(data.message || "Web Chat is temporarily unavailable.");
   return data;
 }
-
 function readBase64(blob: Blob) {
   return new Promise<string>((resolve, reject) => {
     const reader = new FileReader();
@@ -216,4 +215,3 @@ export default function GreenAirWebChat() {
     </section>}
   </aside>;
 }
-
