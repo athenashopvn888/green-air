@@ -9,4 +9,5 @@ assert.ok(delivery.includes("store=GAC01")); assert.ok(!chat.includes('storeId: 
 assert.doesNotMatch(`${chat}\n${delivery}`, /href=["'{`]sms:|DELIVERY TEXT NUMBER|Reply YES|YES confirmation/i);
 assert.doesNotMatch(delivery, /Call <strong>|href=["'{`]tel:/i, "Delivery page must not expose a customer-facing phone CTA");
 assert.doesNotMatch(`${chat}\n${delivery}`, /SOD_(?:OPERATOR_ALERT|DISPATCHER_MAIN)_PHONE|Dispatcher Main/i);
+assert.doesNotMatch(`${chat}\n${delivery}`, /â|Ã|Â/u, "Public delivery UI must not contain mojibake");
 console.log("Green Air Cannabis consent Web Chat contract passed.");
