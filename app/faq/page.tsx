@@ -16,7 +16,7 @@ const FAQ_CATEGORIES = [
     title: "Location and Hours",
     faqs: [
       { q: "Where is Green Air Cannabis located?", a: "Green Air Cannabis is listed at 7060 Airport Rd, Mississauga, ON L4T 2G8. Use the store page for directions and contact options before visiting." },
-      { q: "What are the listed hours?", a: "Open Daily: 10:00 AM - 02:00 AM. Check the current store page or contact staff before visiting if timing matters." },
+      { q: "What are the listed hours?", a: "Green Air Cannabis is open 24 hours daily. Check the current store page or contact staff before visiting if timing matters." },
       { q: "What is the best way to plan the visit?", a: "Start with the store page, confirm directions and listed hours, then open the menu category that matches the visit." },
     ],
   },
