@@ -70,7 +70,7 @@ const EXPLORE_CATEGORIES = [
 const LOCAL_FAQS = [
   {
     q: "What are the hours for Green Air Cannabis?",
-    a: "Green Air Cannabis at 7060 Airport Rd, Mississauga is open daily from 10:00 AM to 02:00 AM. Walk in anytime — no appointment needed.",
+    a: "Green Air Cannabis at 7060 Airport Rd, Mississauga is open 24 hours daily. Walk in anytime — no appointment needed.",
   },
   {
     q: "What cannabis products do you carry?",
@@ -227,7 +227,7 @@ export default function HomePage() {
             <img src="/storeFavicon.webp" alt="Green Air Cannabis Icon" style={{ height: "60px", width: "60px", objectFit: "contain", borderRadius: "8px", marginBottom: "8px" }} />
             <h1 className={styles.brandTitle}>GREEN AIR CANNABIS</h1>
             <p className={styles.brandSub}>Premium Cannabis Dispensary</p>
-            <div className={styles.brandBadge}>Open Daily: 10:00 AM - 02:00 AM</div>
+            <div className={styles.brandBadge}>Open 24 Hours</div>
           </div>
 
           {/* Bento Grid */}
@@ -417,7 +417,7 @@ export default function HomePage() {
               <p className={styles.storeCardText}>
                 Open 7 Days a Week
                 <br />
-                <span className={styles.storeHighlight}>Open Daily: 10:00 AM - 02:00 AM</span>
+                <span className={styles.storeHighlight}>Open 24 Hours</span>
               </p>
             </div>
             <div className={styles.storeCard}>

@@ -28,7 +28,7 @@ export const gbpLocation = {
   mapEmbedUrl: "",
   latitude: "43.6532",
   longitude: "-79.3832",
-  hours: ["Open Daily: 10:00 AM - 02:00 AM"],
+  hours: ["Open 24 Hours"],
   seoTitle: "Green Air Cannabis | Weed Dispensary in Mississauga",
   metaDescription: "Green Air Cannabis is a local weed dispensary in Mississauga offering flower, pre-rolls, edibles, vapes, concentrates, CBD, and service for adults 19+.",
   localLandmarks: ["Airport Road", "Malton", "Mississauga"],
