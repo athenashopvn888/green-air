@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { TIER_CONFIG, CATEGORY_CONFIG, allFlowers, allItems } from "./lib/products";
 import { SEO_PAGES } from "./lib/seoPages";
+import { LEGACY_SEO_SLUGS } from "./lib/seoRouteAliases";
 import { RESOURCE_PAGES } from "./resources/resourceData";
 
 const BASE = "https://www.greenaircannabis.com";
@@ -50,7 +51,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }));
 
   /* SEO landing pages */
-  const seoPages: MetadataRoute.Sitemap = SEO_PAGES.map((p) => ({
+  const seoPages: MetadataRoute.Sitemap = SEO_PAGES.filter(
+    (p) => !LEGACY_SEO_SLUGS.has(p.slug),
+  ).map((p) => ({
     url: `${BASE}/info/${p.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
@@ -68,4 +71,3 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [...staticPages, ...tierPages, ...itemPages, ...flowerPages, ...itemDetailPages, ...resourcePages, ...seoPages];
 }
-

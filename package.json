@@ -10,6 +10,7 @@
     "start": "next start",
     "lint": "eslint",
     "test:staff-photo": "node --experimental-strip-types --experimental-specifier-resolution=node --test tests/staff-photo.test.ts",
+    "test:seo-routes": "node --experimental-strip-types --experimental-specifier-resolution=node --test tests/seo-route-cleanup.test.ts",
     "verify:delivery-images": "node scripts/verify-athena-delivery-images.mjs"
   },
   "dependencies": {
