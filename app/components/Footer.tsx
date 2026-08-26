@@ -55,10 +55,10 @@ export default function Footer() {
               <Link href="/resources">Resources</Link>
               <Link href="/faq">FAQ</Link>
               <Link href="/delivery">Delivery Menu</Link>
-              <Link href="/info/york-weed-dispensary">Mississauga Dispensary</Link>
-              <Link href="/info/cheap-weed-york">Cheap Weed Mississauga</Link>
-              <Link href="/info/native-cigarettes-york">Native Cigarettes</Link>
-              <Link href="/info/weed-store-near-mississauga">Weed Store Near Mississauga</Link>
+              <Link href="/info/mississauga-weed-dispensary">Mississauga Dispensary</Link>
+              <Link href="/info/cheap-weed-mississauga">Cheap Weed Mississauga</Link>
+              <Link href="/info/native-cigarettes-mississauga">Native Cigarettes</Link>
+              <Link href="/info/weed-store-near-malton-airport">Weed Store Near Mississauga</Link>
               <Link href="/weed-dispensary-mississauga/">Green Air Cannabis Weed Dispensary in Mississauga</Link>
               <Link href="/contact">Contact Us</Link>
               <a

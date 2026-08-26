@@ -7,12 +7,15 @@ import Link from "next/link";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { SEO_PAGES, getSeoPageBySlug } from "../../lib/seoPages";
+import { LEGACY_SEO_SLUGS } from "../../lib/seoRouteAliases";
 import { TIER_CONFIG } from "../../lib/products";
 import styles from "./seo.module.css";
 
 /* ── Generate all SEO pages ── */
 export function generateStaticParams() {
-  return SEO_PAGES.map((p) => ({ seoPage: p.slug }));
+  return SEO_PAGES.filter((p) => !LEGACY_SEO_SLUGS.has(p.slug)).map((p) => ({
+    seoPage: p.slug,
+  }));
 }
 
 /* ── Metadata ── */

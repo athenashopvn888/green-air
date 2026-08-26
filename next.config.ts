@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { SEO_ROUTE_REDIRECTS } from "./app/lib/seoRouteAliases";
 
 const nextConfig: NextConfig = {
   images: {
@@ -21,6 +22,10 @@ const nextConfig: NextConfig = {
       { source: "/add-ons", destination: "/items/add-ons", permanent: true },
       { source: "/cigarettes", destination: "/items/cigarettes", permanent: true },
       { source: "/magic", destination: "/items/magic", permanent: true },
+      ...SEO_ROUTE_REDIRECTS.map((redirect) => ({
+        ...redirect,
+        permanent: true,
+      })),
     ];
   },
 };
