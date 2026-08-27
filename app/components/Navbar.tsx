@@ -25,7 +25,7 @@ const ALL_LINKS: { href: string; label: string; featured?: boolean }[] = [
   { href: "/resources", label: "Resources" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ hideThcVape = false }: { hideThcVape?: boolean }) {
   const pathname = usePathname();
   const scrollBarRef = useRef<HTMLDivElement>(null);
   const [canAdvance, setCanAdvance] = useState(false);
@@ -62,7 +62,7 @@ export default function Navbar() {
       <div className={styles.scrollShell}>
         <div ref={scrollBarRef} id="store-menu-scrollbar" className={styles.scrollBar}>
           <div className={styles.scrollInner}>
-          {ALL_LINKS.map((link) => {
+          {ALL_LINKS.filter((link) => !hideThcVape || link.href !== "/items/vape-disposables").map((link) => {
             const isActive = pathname === link.href;
             return (
               <Link

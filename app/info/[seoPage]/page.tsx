@@ -48,6 +48,7 @@ export default async function SeoLandingPage({
   if (!page) notFound();
 
   const tiers = Object.values(TIER_CONFIG);
+  const heroMenuHref = page.heroPreview?.menuHref ?? "/items/cigarettes";
 
   // Check if banner file exists in the public folder
   const bannerExists = page.banner
@@ -56,7 +57,7 @@ export default async function SeoLandingPage({
 
   return (
     <main className={styles.main}>
-      <Navbar />
+      <Navbar hideThcVape={slug === "nicotine-vapes-mississauga"} />
 
       {/* Banner Image */}
       {page.banner && bannerExists && !page.heroPreview && (
@@ -78,19 +79,29 @@ export default async function SeoLandingPage({
               <h1>{page.h1}</h1>
               <p>{page.heroPreview.intro}</p>
               <div className={styles.productHeroActions}>
-                <Link href="/items/cigarettes" className={styles.productHeroPrimary}>Check the cigarette menu</Link>
-                <Link href="/items/cigarettes" className={styles.productHeroSecondary}>See the current selection</Link>
+                <Link href={heroMenuHref} className={styles.productHeroPrimary}>
+                  {page.heroPreview.primaryLabel ?? "Check the cigarette menu"}
+                </Link>
+                <Link href={heroMenuHref} className={styles.productHeroSecondary}>
+                  {page.heroPreview.secondaryLabel ?? "See the current selection"}
+                </Link>
               </div>
             </div>
-            <div className={styles.productPreviewStage} aria-label={`${page.h1} brand preview`}>
+            <div className={styles.productPreviewStage} aria-label={page.heroPreview.stageLabel ?? `${page.h1} brand preview`}>
               {page.heroPreview.products.map((product, index) => (
-                <Link key={product.name} href="/items/cigarettes" className={styles.productPreviewCard}>
+                <Link
+                  key={product.name}
+                  href={heroMenuHref}
+                  className={styles.productPreviewCard}
+                  data-product-slug={product.slug}
+                >
                   <Image
                     src={product.image}
                     alt={`${product.name} brand preview`}
                     width={800}
                     height={800}
                     priority={index === 0}
+                    unoptimized={product.image.startsWith("http")}
                     sizes="(max-width: 720px) 42vw, (max-width: 980px) 46vw, 220px"
                   />
                   <span>{product.name}</span>
@@ -99,6 +110,9 @@ export default async function SeoLandingPage({
               <p className={styles.productHeroDisclosure}>{page.heroPreview.disclosure}</p>
             </div>
           </div>
+          {page.heroPreview.warning && (
+            <p className={styles.productHeroWarning}>{page.heroPreview.warning}</p>
+          )}
         </section>
       ) : (
         <section className={styles.hero}>
@@ -120,8 +134,15 @@ export default async function SeoLandingPage({
             </div>
           ))}
 
+          {page.relatedLink && (
+            <div className={styles.relatedLinkCard}>
+              <p>{page.relatedLink.intro}</p>
+              <Link href={page.relatedLink.href}>{page.relatedLink.label}</Link>
+            </div>
+          )}
+
           {/* Tier Grid */}
-          <div className={styles.section}>
+          {page.showTierGrid !== false && <div className={styles.section}>
             <h2 className={styles.sectionTitle}>Our Cannabis Menu — Five Tiers of Quality</h2>
             <div className={styles.tierGrid}>
               {tiers.map((tier) => (
@@ -140,16 +161,16 @@ export default async function SeoLandingPage({
                 </Link>
               ))}
             </div>
-          </div>
+          </div>}
 
           {/* Map */}
-          <div className={styles.section}>
+          {page.showVisitSection !== false && <div className={styles.section}>
             <h2 className={styles.sectionTitle}>Find Us</h2>
             <div className={styles.mapWrap}>
             </div>
             <div className={styles.visitBtns}>
             </div>
-          </div>
+          </div>}
 
           {/* FAQ */}
           {page.faqs.length > 0 && (
