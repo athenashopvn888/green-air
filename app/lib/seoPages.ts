@@ -9,6 +9,40 @@ const NATIVE_HERO_PRODUCTS = [
   { name: "Canadian Menthol", image: "/products/1013-CANADIAN-MENTHOL.webp" },
 ] as const;
 
+export const NICOTINE_VAPES_MISSISSAUGA_PRODUCTS = [
+  {
+    slug: "geek-universe-25k-puffs",
+    name: "GEEK UNIVERSE 25k PUFFS",
+    image: "https://pub-eb3e1fe18a43477eabc885cfb791d97c.r2.dev/products/geek_universe_pulse_x_25k.webp",
+  },
+  {
+    slug: "level-x-g2-pod",
+    name: "Level X G2 pod",
+    image: "https://pub-eb3e1fe18a43477eabc885cfb791d97c.r2.dev/products/1086-Level-X-G2-pod.webp",
+  },
+  {
+    slug: "nexa-pix-30k-puffs-many-flavors",
+    name: "NEXA PIX | 30K PUFFS | MANY FLAVORS",
+    image: "https://pub-eb3e1fe18a43477eabc885cfb791d97c.r2.dev/products/nexa_showcase_600x600.webp",
+  },
+  {
+    slug: "ovns-disposable-5-8ml-many-flavors",
+    name: "OVNS DISPOSABLE – 5% | 8ML | MANY FLAVORS",
+    image: "https://pub-eb3e1fe18a43477eabc885cfb791d97c.r2.dev/products/OVNS500x500HQ.webp",
+  },
+  {
+    slug: "ovns-pioneer-5-22k-puffs",
+    name: "OVNS PIONEER – 5% | 22K PUFFS",
+    image: "https://pub-eb3e1fe18a43477eabc885cfb791d97c.r2.dev/products/OVNS_PIONEER_5_22K_PUFFS.webp",
+  },
+] as const;
+
+interface HeroPreviewProduct {
+  slug?: string;
+  name: string;
+  image: string;
+}
+
 export interface SeoPageData {
   slug: string;
   title: string;
@@ -20,14 +54,80 @@ export interface SeoPageData {
   heroPreview?: {
     eyebrow: string;
     intro: string;
-    products: typeof NATIVE_HERO_PRODUCTS;
-    disclosure: typeof NATIVE_HERO_DISCLOSURE;
+    products: readonly HeroPreviewProduct[];
+    disclosure: string;
+    menuHref?: string;
+    primaryLabel?: string;
+    secondaryLabel?: string;
+    stageLabel?: string;
+    warning?: string;
   };
+  showTierGrid?: boolean;
+  showVisitSection?: boolean;
+  relatedLink?: { href: string; label: string; intro: string };
   sections: { heading: string; body: string }[];
   faqs: { q: string; a: string }[];
 }
 
 export const SEO_PAGES: SeoPageData[] = [
+  {
+    slug: "nicotine-vapes-mississauga",
+    title: "Nicotine Vapes Mississauga",
+    metaDescription: "Adults 19+: review five live-checked nicotine vape product pages from Green Air Cannabis in Mississauga, then use /items/vapes for category information. Nicotine is addictive.",
+    h1: "Nicotine Vapes in Mississauga",
+    icon: "",
+    heroTagline: "",
+    heroPreview: {
+      eyebrow: "GREEN AIR CANNABIS • MISSISSAUGA • MALTON / AIRPORT ROAD • ADULTS 19+",
+      intro: "This Green Air Cannabis guide highlights five live-checked product pages from the VAPE PENS category. Use /items/vapes for category information; these cards are a limited evidence set, not a complete selection. Nicotine is addictive.",
+      products: NICOTINE_VAPES_MISSISSAUGA_PRODUCTS,
+      disclosure: "Five live-checked product pages only. The cards are not a complete selection or a claim about current stock, price, or availability.",
+      menuHref: "/items/vapes",
+      primaryLabel: "Browse Nicotine Vapes",
+      secondaryLabel: "Review the Five Vape Cards",
+      stageLabel: "Five live-checked Green Air Cannabis nicotine vape product pages",
+      warning: "Adults 19+. Nicotine is addictive.",
+    },
+    sections: [
+      {
+        heading: "Five Live-Checked Nicotine Vape Pages",
+        body: "The verified Green Air Cannabis set includes Geek Universe, Level X, NEXA PIX and two OVNS pages. Use each card for its supported name and image, then use /items/vapes for category information. These cards do not describe a complete selection.",
+      },
+      {
+        heading: "Read Product Formats Carefully",
+        body: "The Level X page identifies a G2 pod, while the OVNS Disposable page explicitly identifies a disposable. Keep those format descriptions attached to the correct product and do not apply them to another card by assumption.",
+      },
+      {
+        heading: "Mississauga, Malton and Airport Road Context",
+        body: "This Green Air Cannabis guide uses the store's verified Mississauga, Malton and Airport Road context. Product details belong to the individual live-checked pages and the nicotine category, not to a broad local claim.",
+      },
+      {
+        heading: "Keep Nicotine and THC Vape Routes Separate",
+        body: "This page uses VAPE PENS products and links to /items/vapes. The separate /items/vape-disposables route contains THC or cannabis vape products and is intentionally omitted from this nicotine guide.",
+      },
+    ],
+    faqs: [
+      {
+        q: "Where should I review Green Air Cannabis nicotine vape information?",
+        a: "Use /items/vapes. The five featured cards are live-checked product pages, but they are not a complete selection or a claim about stock, price, or availability.",
+      },
+      {
+        q: "Do all five featured products use the same format?",
+        a: "No format should be assumed. The verified names identify a Level X G2 pod and an OVNS disposable; read each product page for its own supported details.",
+      },
+      {
+        q: "Does this Green Air Cannabis page include THC vapes?",
+        a: "No. This page covers nicotine products from the VAPE PENS category for adults 19+. THC and cannabis vape products under /items/vape-disposables are excluded.",
+      },
+    ],
+    showTierGrid: false,
+    showVisitSection: false,
+    relatedLink: {
+      href: "/info/native-cigarettes-mississauga",
+      label: "Read the Green Air Cannabis Native Cigarettes guide",
+      intro: "For the separate cigarette category, use the exact Mississauga guide:",
+    },
+  },
   {
     "slug": "mississauga-weed-dispensary",
     "title": "Green Air Cannabis Weed Dispensary in Mississauga",

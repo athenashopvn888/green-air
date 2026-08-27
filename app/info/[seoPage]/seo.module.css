@@ -155,6 +155,15 @@
   white-space: nowrap;
 }
 .productHeroDisclosure { grid-column: 1 / -1; margin: 0; color: #aaa6b2; font-size: .82rem; line-height: 1.55; }
+.productHeroWarning {
+  position: relative;
+  width: min(1180px, calc(100% - 48px));
+  margin: 30px auto 0;
+  color: #f3d492;
+  font-size: .9rem;
+  font-weight: 800;
+  letter-spacing: .02em;
+}
 
 @media (max-width: 980px) {
   .productHeroInner { grid-template-columns: 1fr; gap: 42px; }
@@ -196,6 +205,15 @@
   color: var(--text-secondary);
   margin: 0;
 }
+.relatedLinkCard {
+  margin-bottom: 36px;
+  padding: 22px 26px;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: var(--bg-secondary);
+}
+.relatedLinkCard p { margin: 0 0 8px; color: var(--text-secondary); line-height: 1.7; }
+.relatedLinkCard a { color: var(--green-dark); font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
 
 /* Tier Grid */
 .tierGrid {
