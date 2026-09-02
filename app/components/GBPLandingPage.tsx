@@ -49,7 +49,7 @@ export function GBPLandingPage() {
     "@context": "https://schema.org",
     "@type": "Store",
     "name": gbpLocation.storeName,
-    "url": `https://${gbpLocation.domain}/${gbpLocation.slug}/`,
+    "url": `https://${gbpLocation.domain}/${gbpLocation.slug}`,
     "telephone": gbpLocation.phone,
     "address": {
       "@type": "PostalAddress",
