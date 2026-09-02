@@ -126,28 +126,28 @@ export const RESOURCE_PAGES: ResourcePage[] = [
     "intro": "Green Air presents flower through Exotic, Premium, AAA+, AA, and Budget links. Think of them as five doors into the same department and choose the door that matches the purpose of the Malton visit.",
     "cards": [
       {
-        "title": "Exotic Flower",
-        "href": "/exotic",
+        "title": "Exotic Weed",
+        "href": "/exotic-weed",
         "text": "Start here when you want the higher shelf flower lane."
       },
       {
-        "title": "Premium Flower",
-        "href": "/premium",
+        "title": "Premium Weed",
+        "href": "/premium-weed",
         "text": "A strong lane for shoppers comparing quality and value."
       },
       {
-        "title": "AAA+ Flower",
-        "href": "/aaa",
+        "title": "AAA+ Weed",
+        "href": "/aaa-weed",
         "text": "A clear middle lane for flower comparison."
       },
       {
-        "title": "AA Flower",
-        "href": "/aa",
+        "title": "AA Weed",
+        "href": "/aa-weed",
         "text": "A straight value-minded flower lane."
       },
       {
-        "title": "Budget Flower",
-        "href": "/budget",
+        "title": "Budget Weed",
+        "href": "/budget-weed",
         "text": "Start here when cheap weed or affordable weed is the goal."
       }
     ],
@@ -171,13 +171,13 @@ export const RESOURCE_PAGES: ResourcePage[] = [
     "intro": "A useful value plan for Green Air starts with the product type and a clear spending boundary. For flower, Budget and AA provide the shortest starting route before other shelves enter the picture.",
     "cards": [
       {
-        "title": "Budget Flower",
-        "href": "/budget",
+        "title": "Budget Weed",
+        "href": "/budget-weed",
         "text": "The first stop for cheap weed and affordable weed comparisons."
       },
       {
-        "title": "AA Flower",
-        "href": "/aa",
+        "title": "AA Weed",
+        "href": "/aa-weed",
         "text": "A simple value lane for flower shoppers."
       },
       {

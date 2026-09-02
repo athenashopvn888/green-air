@@ -37,7 +37,7 @@ export async function generateMetadata({
       canonical: `https://www.greenaircannabis.com/${tierSlug}`,
     },
     openGraph: {
-      title: `${tierInfo.config.name} Flower | Green Air Cannabis`,
+      title: `${tierInfo.config.name} & Cannabis Flower Mississauga`,
       description: `Browse the ${tierInfo.config.name.toLowerCase()} flower tier and review current menu details.`,
     },
   };
