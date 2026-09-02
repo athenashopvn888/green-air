@@ -93,8 +93,8 @@ export const TIER_CONFIG: Record<
   }
 > = {
   EXOTIC: {
-    name: "Exotic",
-    slug: "exotic",
+    name: "Exotic Weed",
+    slug: "exotic-weed",
     color: "#f59e0b",
     icon: "\uD83D\uDD25",
     tagline: "Explore Green Air Cannabis's exotic flower tier",
@@ -104,8 +104,8 @@ export const TIER_CONFIG: Record<
     deal6g: { label: "6g bundle", total: "6G", price: 60 },
   },
   PREMIUM: {
-    name: "Premium",
-    slug: "premium",
+    name: "Premium Weed",
+    slug: "premium-weed",
     color: "#a78bfa",
     icon: "\uD83D\uDC8E",
     tagline: "Hand-picked connoisseur grade \u00B7 THC 32-34%",
@@ -115,8 +115,8 @@ export const TIER_CONFIG: Record<
     deal6g: { label: "6g bundle", total: "6G", price: 45 },
   },
   "AAA+": {
-    name: "AAA+",
-    slug: "aaa",
+    name: "AAA+ Weed",
+    slug: "aaa-weed",
     color: "#22d3ee",
     icon: "\u26A1",
     tagline: "Heavy hitters, proven strains \u00B7 THC 30-32%",
@@ -126,8 +126,8 @@ export const TIER_CONFIG: Record<
     deal6g: { label: "6g bundle", total: "6G", price: 30 },
   },
   AA: {
-    name: "AA",
-    slug: "aa",
+    name: "AA Weed",
+    slug: "aa-weed",
     color: "#34d399",
     icon: "\u2726",
     tagline: "Quality daily drivers \u00B7 THC 27-29%",
@@ -137,8 +137,8 @@ export const TIER_CONFIG: Record<
     deal6g: null,
   },
   BUDGET: {
-    name: "Budget",
-    slug: "budget",
+    name: "Budget Weed",
+    slug: "budget-weed",
     color: "#94a3b8",
     icon: "\uD83D\uDCB0",
     tagline: "Shreds & value OZs \u00B7 From $40/oz",
@@ -170,8 +170,8 @@ export const CATEGORY_CONFIG: Record<string, CategoryInfo> = {
   },
   "VAPE PENS": {
     banner: "/banners/01_Vape_Pens.webp",
-    name: "THC Vape", slug: "vapes", color: "#8b5cf6", icon: "VP",
-    seoTitle: "Vapes Mississauga | Green Air Cannabis",
+    name: "Nicotine Vape", slug: "vapes", color: "#8b5cf6", icon: "VP",
+    seoTitle: "Nicotine Vapes Mississauga",
     seoIntro: "Compare vape listings at Green Air Cannabis by product name, format, posted notes, and current menu details.",
     seoDescription: "Vape shoppers should use the current menu first, then ask staff if a cartridge, disposable, battery, or format detail needs a current answer.",
     faqs: [
@@ -181,8 +181,8 @@ export const CATEGORY_CONFIG: Record<string, CategoryInfo> = {
   },
   "VAPE DISPOSABLE": {
     banner: "/banners/02_Vape_Disposable.webp",
-    name: "Nic Vape", slug: "vape-disposables", color: "#a78bfa", icon: "VD",
-    seoTitle: "Disposable Vapes Mississauga | Green Air Cannabis",
+    name: "THC Vape", slug: "vape-disposables", color: "#a78bfa", icon: "VD",
+    seoTitle: "THC Vapes Mississauga",
     seoIntro: "Use the disposable vape category at Green Air Cannabis for current product names, formats, and menu notes.",
     seoDescription: "Disposable vape listings are easiest to compare inside their own category. Check the current menu and ask staff if a detail matters before choosing.",
     faqs: [

@@ -70,22 +70,16 @@ export default async function ItemsCategoryPage({
       {/* Hero Banner */}
       <section style={{ width: "100%", overflow: "hidden", marginTop: "92px", marginBottom: "24px" }}>
         {config.banner && bannerExists ? (
-          <>
-            <img
-              src={config.banner}
-              alt={config.name}
-              style={{ width: "100%", height: "auto", display: "block", objectFit: "contain" }}
-            />
-            <div className={styles.heroContent} style={{ padding: "28px 24px 8px", textAlign: "center" }}>
-              <h1 className={styles.heroTitle}>{config.name} in Mississauga</h1>
-              <p className={styles.heroSub}>{items.length} products available</p>
-            </div>
-          </>
+          <img
+            src={config.banner}
+            alt={config.name}
+            style={{ width: "100%", height: "auto", display: "block", objectFit: "contain" }}
+          />
         ) : (
           <div className={styles.heroContent} style={{ background: config.color, padding: "60px 24px", textAlign: "center" }}>
             <span className={styles.heroIcon}>{config.icon}</span>
             <h1 className={styles.heroTitle}>
-              <span style={{ color: "#fff" }}>{config.name} in Mississauga</span>
+              <span style={{ color: "#fff" }}>{config.name}</span>
             </h1>
             <p className={styles.heroSub} style={{ color: "rgba(255,255,255,0.8)" }}>{items.length} products available</p>
           </div>
@@ -175,4 +169,3 @@ function ItemCard({ item, catColor }: { item: ItemProduct; catColor: string }) {
     </Link>
   );
 }
-
