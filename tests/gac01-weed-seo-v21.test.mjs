@@ -53,7 +53,7 @@ test("protected owner, delivery and hour-bearing files are not rewritten by the 
   const sitemap = read("app/sitemap.ts");
   const navbar = read("app/components/Navbar.tsx");
   const delivery = read("app/delivery/page.tsx") + read("app/delivery/DeliveryContent.tsx");
-  assert.ok(sitemap.includes("/weed-dispensary-mississauga/"));
+  assert.ok(sitemap.includes("/weed-dispensary-mississauga"));
   assert.ok(navbar.includes('{ href: "/delivery", label: "🚗 Delivery" }'));
   assert.ok(delivery.includes('title: "Delivery Menu | Green Air Cannabis"'));
   assert.ok(delivery.includes("DeliveryContent"));

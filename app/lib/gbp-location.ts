@@ -29,7 +29,7 @@ export const gbpLocation = {
   latitude: "43.704554",
   longitude: "-79.6443735",
   hours: ["Open 24 Hours"],
-  seoTitle: "Green Air Cannabis | Weed Dispensary in Mississauga",
+  seoTitle: "Weed Dispensary in Mississauga",
   metaDescription: "Green Air Cannabis is a local weed dispensary in Mississauga offering flower, pre-rolls, edibles, vapes, concentrates, CBD, and service for adults 19+.",
   localLandmarks: ["Airport Road", "Malton", "Mississauga"],
   introVariant: "Green Air Cannabis is a neighborhood weed dispensary in Mississauga, located at 7060 Airport Rd near Malton. Adults 19+ can browse cannabis flower, pre-rolls, edibles, THC vapes, concentrates, and smoking accessories. Visit the store page and menu categories for current details.",
