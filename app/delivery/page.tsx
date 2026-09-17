@@ -3,8 +3,9 @@ import DeliveryContent from "./DeliveryContent";
 import menu from "./delivery-menu.json";
 
 export const metadata: Metadata = {
-  title: "Delivery Menu | Green Air Cannabis",
-  description: "Browse the Green Air Cannabis delivery product catalog and compare flower tiers and prices.",
+  title: "Malton / Mississauga Delivery Menu | Green Air Cannabis",
+  description:
+    "Green Air Cannabis delivery for Malton, Airport Road, and nearby Mississauga addresses confirmed by the dispatcher. Browse the catalog, then confirm radius before an order is accepted.",
   alternates: { canonical: "https://www.greenaircannabis.com/delivery" },
 };
 

@@ -47,10 +47,10 @@ export function GBPLandingPage() {
   // Generate schema.org markup dynamically
   const schemaMarkup: StoreSchemaMarkup = {
     "@context": "https://schema.org",
-    "@type": "Store",
+    "@type": "CannabisStore",
     "name": gbpLocation.storeName,
     "url": `https://${gbpLocation.domain}/${gbpLocation.slug}`,
-    "telephone": gbpLocation.phone,
+    "telephone": gbpLocation.phoneIntl,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": gbpLocation.streetAddress,
@@ -86,7 +86,7 @@ export function GBPLandingPage() {
       {/* Hero Header */}
       <header className={styles.hero}>
         <h1 className={styles.h1}>{gbpLocation.storeName} — Weed Dispensary in {gbpLocation.city}</h1>
-        <p className={styles.heroTagline}>Serving {gbpLocation.city} & Nearby Neighborhoods</p>
+        <p className={styles.heroTagline}>Airport Road / Malton walk-in on the Pearson corridor</p>
       </header>
 
       {/* Call to Actions */}
@@ -126,7 +126,11 @@ export function GBPLandingPage() {
       <section className={styles.section}>
         <h2 className={styles.h2}>Plan a Visit to {gbpLocation.storeName}</h2>
         <p className={styles.infoText}>
-          Use this page to confirm the basics before visiting {gbpLocation.storeName} near {gbpLocation.neighborhood}. The store page brings together the address, phone number, menu links, nearby-area context, and adult 19+ shopping notes for customers comparing cannabis stores around {gbpLocation.city}.
+          Use this city overview only as extra context. The{" "}
+          <Link href="/">homepage</Link> is the visit hub for name, address, phone,
+          hours, and the map — not this URL and not{" "}
+          <Link href="/visit">/visit</Link>. For Malton / Airport Rd queries, prefer{" "}
+          <Link href="/info/weed-store-near-malton-airport">the neighbourhood page</Link>.
         </p>
         <p className={styles.infoBlock}>
           Helpful local reference points include {landmarkList}. Customers also use this page when planning from {nearbyAreaList}.

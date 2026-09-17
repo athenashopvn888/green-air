@@ -65,6 +65,7 @@ export interface SeoPageData {
   showTierGrid?: boolean;
   showVisitSection?: boolean;
   relatedLink?: { href: string; label: string; intro: string };
+  indexable?: boolean;
   sections: { heading: string; body: string }[];
   faqs: { q: string; a: string }[];
 }
@@ -135,6 +136,7 @@ export const SEO_PAGES: SeoPageData[] = [
     "h1": "Green Air Cannabis Weed Dispensary in Mississauga",
     "icon": "*",
     "heroTagline": "Menu shopping around Malton / Airport",
+    "indexable": false,
     "sections": [
       {
         "heading": "Shop Green Air Cannabis With A Plan",
@@ -352,39 +354,44 @@ export const SEO_PAGES: SeoPageData[] = [
   },
   {
     "slug": "weed-store-near-malton-airport",
-    "title": "Weed Store Near Malton / Airport | Green Air Cannabis",
-    "metaDescription": "Looking for a weed store near Malton / Airport? Use Green Air Cannabis for store-page checks, menu categories, and local visit planning in Mississauga.",
-    "h1": "Weed Store Near Malton / Airport",
+    "title": "Weed Store Near Malton / Airport Rd | Green Air Cannabis",
+    "metaDescription": "Green Air Cannabis is the 24-hour walk-in at 7060 Airport Rd in Malton, on the Pearson / Derry corridor. Parking, phone, and how-to-reach notes for Airport Road shoppers.",
+    "h1": "Weed Store Near Malton / Airport Rd",
     "icon": ">",
-    "heroTagline": "Local visit notes for Malton / Airport, Airport Road, Malton, Mississauga",
+    "heroTagline": "7060 Airport Rd plaza · Malton · Pearson / Derry corridor",
     "sections": [
       {
-        "heading": "Confirm The Right Store Page",
-        "body": "When you search for a weed store near Malton / Airport, open the Green Air Cannabis store page first. Confirm directions, contact options, listed hours, and the menu category before visiting."
+        "heading": "The Airport Road pin, not a city-wide Mississauga hunt",
+        "body": "Green Air Cannabis is the walk-in at 7060 Airport Rd in Malton. That is the north-east Mississauga arterial that carries Pearson traffic, airport-hotel guests, and Derry Road industrial shifts — not Square One and not a downtown Toronto listing. Open the homepage for the live name, address, phone, and hours, then use this page when you specifically searched for a weed store near Malton or Airport Road."
       },
       {
-        "heading": "Choose The Product Category",
-        "body": "Flower, pre-rolls, edibles, THC vapes, concentrates, and accessories all shop differently. Pick the category first, then compare current product details."
+        "heading": "Landmarks along the corridor",
+        "body": "Stay on Airport Road. Derry Road is the east-west cross street most drivers use; Goreway Drive shoppers usually cut across to the same plaza strip. If a map pin drops you onto a residential crescent off Morning Star or Victory, you left the commercial row — get back onto Airport Road and look for 7060 in the plaza lot."
       },
       {
-        "heading": "Use Staff For The Close Call",
-        "body": "If one detail decides the visit, ask staff. That is the cleanest way to handle current product questions."
+        "heading": "What to do when you arrive",
+        "body": "Park in the plaza, bring government photo ID (adults 19+), and ask at the 24-hour counter for the current listing. Flower, pre-rolls, edibles, vapes, concentrates, accessories, and cigarettes where listed each have their own category on the site. For parking bays, MiWay, and Pearson-side approach notes, use the supporting /visit guide. Delivery, when the dispatcher accepts an order, is limited to the Malton / Mississauga side of this corridor."
       }
     ],
     "faqs": [
       {
-        "q": "What is the best first step for a Malton / Airport visit?",
-        "a": "Open the Green Air Cannabis store page, then use the current menu category that matches the visit."
+        "q": "Where is the Malton / Airport Rd weed store?",
+        "a": "Green Air Cannabis is at 7060 Airport Rd, Mississauga, ON L4T 2G8, on Airport Road through Malton. Call +1 (289) 514-9467 for a landmark check."
       },
       {
-        "q": "Should shoppers rely on old blog prices?",
-        "a": "No. Use the current menu or staff for details that change."
+        "q": "Is this the same as a Square One or city-centre Mississauga store?",
+        "a": "No. This counter is on the Airport Road / Malton / Pearson corridor. Use the homepage map if you need the exact plaza."
       },
       {
-        "q": "What categories can shoppers compare?",
-        "a": "Use the menu categories for flower, pre-rolls, edibles, THC vapes, concentrates, accessories, and cigarettes where listed."
+        "q": "Can I walk in overnight?",
+        "a": "Yes. The Malton counter is open 24 hours daily. Adults 19+ with valid photo ID, no appointment."
       }
-    ]
+    ],
+    "relatedLink": {
+      "href": "/visit",
+      "label": "How to reach 7060 Airport Rd (parking & MiWay)",
+      "intro": "Need plaza parking, Pearson-side approach, or bus notes? Use the supporting visit guide. The homepage remains the NAP hub."
+    }
   },
   {
     "slug": "weed-store-near-brampton",
@@ -429,6 +436,7 @@ export const SEO_PAGES: SeoPageData[] = [
     "h1": "Cannabis Dispensary Near Me in Mississauga",
     "icon": "o",
     "heroTagline": "Store page first, menu category second",
+    "indexable": false,
     "sections": [
       {
         "heading": "Make The Search Useful",
