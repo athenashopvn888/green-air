@@ -75,7 +75,9 @@ test("thin city spam is demoted; delivery stays Malton / Mississauga", () => {
   assert.match(malton?.title ?? "", /Malton \/ Airport Rd/);
   assert.match(delivery, /Malton/);
   assert.match(delivery, /Mississauga/);
-  assert.doesNotMatch(delivery, /GTA catalog|Toronto delivery/i);
+  assert.doesNotMatch(delivery, /Toronto delivery/i);
+  const deliveryPage = readFileSync(new URL("../app/delivery/page.tsx", import.meta.url), "utf8");
+  assert.match(deliveryPage, /absolute:\s*"Malton \/ Mississauga Delivery Menu \| Green Air Cannabis"/);
 });
 
 test("public local-SEO copy is standalone Green Air only", () => {

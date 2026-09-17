@@ -6,7 +6,7 @@ import { STORE_NAP } from "../lib/localSeo";
 import styles from "./contact.module.css";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Green Air Cannabis | 7060 Airport Rd, Malton",
+  title: "Contact Us — 7060 Airport Rd, Malton",
   description:
     "Call or walk into Green Air Cannabis at 7060 Airport Rd, Malton, Mississauga, ON L4T 2G8. Open 24 hours daily. Phone +1 (289) 514-9467.",
   alternates: {
