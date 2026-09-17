@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { STORE_NAP } from "../lib/localSeo";
 import styles from "./contact.module.css";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Green Air Cannabis | 7060 Airport Rd, Mississauga",
+  title: "Contact Us — 7060 Airport Rd, Malton",
   description:
-    "Visit Green Air Cannabis at 7060 Airport Rd, Mississauga, ON L4T 2G8. We are open 24 hours daily. Walk-ins welcome.",
+    "Call or walk into Green Air Cannabis at 7060 Airport Rd, Malton, Mississauga, ON L4T 2G8. Open 24 hours daily. Phone +1 (289) 514-9467.",
   alternates: {
     canonical: "https://www.greenaircannabis.com/contact",
   },
   openGraph: {
-    title: "Contact Green Air Cannabis — Mississauga Dispensary",
+    title: "Contact Green Air Cannabis — Malton / Airport Rd",
     description:
-      "7060 Airport Rd, Mississauga. We are open 24 hours daily. Premium cannabis, always fire.",
+      "7060 Airport Rd, Malton. Open 24 hours daily. Call +1 (289) 514-9467.",
   },
 };
 
@@ -25,7 +27,7 @@ export default function ContactPage() {
       {/* ── Hero ── */}
       <section className={styles.hero} style={{ paddingTop: "92px" }}>
         <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 20px" }}>
-          <h1 className={styles.heroTitle}>Contact Green Air Cannabis in Mississauga</h1>
+          <h1 className={styles.heroTitle}>Contact Green Air Cannabis on Airport Rd</h1>
           <img src="/banners/08_Contact_Us.webp" alt="Contact Us" style={{ width: "100%", height: "auto", display: "block", borderRadius: "var(--radius-lg)" }} />
         </div>
       </section>
@@ -39,11 +41,14 @@ export default function ContactPage() {
               <div className={styles.infoIcon}>📍</div>
               <h2 className={styles.infoTitle}>Location</h2>
               <p className={styles.infoText}>
-                7060 Airport Rd
+                {STORE_NAP.streetAddress}
                 <br />
-                Mississauga, ON L4T 2G8
+                Malton · {STORE_NAP.addressLocality}, {STORE_NAP.addressRegion} {STORE_NAP.postalCode}
                 <br />
-                <span className={styles.infoMuted}>7060 Airport Rd & Nearby Expressway</span>
+                <span className={styles.infoMuted}>Airport Road / Pearson / Derry corridor</span>
+              </p>
+              <p className={styles.infoText}>
+                <a href={`tel:${STORE_NAP.phoneIntl}`}>{STORE_NAP.phoneDisplay}</a>
               </p>
             </div>
 
@@ -100,6 +105,16 @@ export default function ContactPage() {
 
           {/* Map */}
           <div className={styles.mapSection}>
+            <iframe
+              title="Map of Green Air Cannabis at 7060 Airport Rd, Malton"
+              src={STORE_NAP.mapEmbedUrl}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              style={{ width: "100%", height: "360px", border: 0, display: "block" }}
+            />
+            <p className={styles.infoMuted} style={{ padding: "12px 8px 0" }}>
+              Homepage remains the NAP hub. <Link href="/visit">How to reach the plaza</Link>.
+            </p>
           </div>
         </div>
       </section>

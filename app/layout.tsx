@@ -2,53 +2,49 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 import AgeGate from "./components/AgeGate";
+import { cannabisStoreJsonLd, STORE_NAP } from "./lib/localSeo";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.greenaircannabis.com"),
+  metadataBase: new URL(STORE_NAP.canonicalHost),
   title: {
-    default: "Green Air Cannabis | Mississauga Dispensary",
+    default: "Green Air Cannabis | Malton Airport Rd Dispensary",
     template: "%s | Green Air Cannabis",
   },
   description:
-    "Green Air Cannabis is a Mississauga cannabis dispensary on Airport Rd with adult 19+ store info and category browsing for flower, pre-rolls, vapes, edibles, concentrates, and accessories. Open 24 hours daily.",
+    "24-hour walk-in cannabis dispensary at 7060 Airport Rd in Malton, Mississauga. Adults 19+ shop flower, pre-rolls, vapes, edibles, and concentrates on the Pearson / Derry corridor. Call +1 (289) 514-9467.",
   keywords: [
+    "Malton dispensary",
+    "Airport Road cannabis",
+    "weed store Malton",
     "cannabis dispensary Mississauga",
-    "weed store Mississauga",
-    "exotic flower Mississauga",
-    "premium cannabis",
+    "weed near Pearson",
+    "Derry and Airport Road",
     "Green Air Cannabis",
-    "cheap weed Mississauga",
-    "dispensary near me",
-    "THC flower",
-    "indica sativa hybrid",
-    "edibles Mississauga",
-    "vapes",
-    "pre-rolls",
-    "native cigarettes Mississauga",
-    "weed store Mississauga",
+    "24 hour dispensary Malton",
+    "7060 Airport Rd",
   ],
   openGraph: {
     type: "website",
     locale: "en_CA",
-    url: "https://www.greenaircannabis.com",
-    siteName: "Green Air Cannabis",
-    title: "Green Air Cannabis — Premium Mississauga Cannabis Dispensary",
+    url: STORE_NAP.website,
+    siteName: STORE_NAP.brand,
+    title: "Green Air Cannabis — Malton / Airport Rd Walk-In",
     description:
-      "Browse flower tiers and cannabis categories at Green Air Cannabis on Airport Rd in Mississauga. Open 24 hours daily.",
+      "24-hour cannabis counter at 7060 Airport Rd, Malton. Pearson-corridor walk-in for adults 19+.",
     images: [
       {
-        url: "https://www.greenaircannabis.com/wp-content/uploads/2026/04/46Oi5.jpg",
+        url: STORE_NAP.schemaImage,
         width: 1200,
         height: 630,
-        alt: "Green Air Cannabis — Premium Cannabis Dispensary Mississauga",
+        alt: "Green Air Cannabis on Airport Road in Malton, Mississauga",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Green Air Cannabis — Mississauga's Uplifting Dispensary",
-    description: "Browse Green Air Cannabis categories. Open 24 hours daily at 7060 Airport Rd, Mississauga.",
-    images: ["https://www.greenaircannabis.com/wp-content/uploads/2026/04/46Oi5.jpg"],
+    title: "Green Air Cannabis — Malton Airport Rd Dispensary",
+    description: "24-hour walk-in at 7060 Airport Rd, Malton / Mississauga. Call +1 (289) 514-9467.",
+    images: [STORE_NAP.schemaImage],
   },
   robots: {
     index: true,
@@ -62,64 +58,14 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: "https://www.greenaircannabis.com",
+    canonical: STORE_NAP.website,
   },
   verification: {
     // google: "your-google-verification-code",
   },
 };
 
-/* ── JSON-LD Structured Data ── */
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Store",
-  additionalType: "https://schema.org/Store",
-  "@id": "https://www.greenaircannabis.com",
-  name: "Green Air Cannabis",
-  description: "Cannabis dispensary at 7060 Airport Rd in Mississauga, ON. Shop exotic, premium, AAA+, AA, and budget flower tiers plus edibles, prerolls, and vapes. Open 24 hours daily.",
-  url: "https://www.greenaircannabis.com",
-  telephone: "+12895149467",
-  image: "https://www.greenaircannabis.com/wp-content/uploads/2026/04/7Clmh.jpg",
-  priceRange: "$3 - $12/g",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "7060 Airport Rd",
-    addressLocality: "Mississauga",
-    addressRegion: "ON",
-    postalCode: "L4T 2G8",
-    addressCountry: "CA",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: 43.704554,
-    longitude: -79.6443735,
-  },
-  openingHoursSpecification: [
-  {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday"
-    ],
-    "opens": "00:00",
-    "closes": "23:59"
-  }
-],
-  sameAs: [
-    "https://www.greenaircannabis.com/",
-    "https://www.greenaircannabis.com/",
-  ],
-  hasMap: "https://www.greenaircannabis.com/",
-  areaServed: {
-    "@type": "City",
-    name: "Mississauga",
-  },
-};
+const jsonLd = cannabisStoreJsonLd();
 
 export default function RootLayout({
   children,
@@ -130,7 +76,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="geo.region" content="CA-ON" />
-        <meta name="geo.placename" content="Mississauga" />
+        <meta name="geo.placename" content="Malton, Mississauga" />
         <meta name="geo.position" content="43.704554;-79.6443735" />
         <meta name="ICBM" content="43.704554, -79.6443735" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

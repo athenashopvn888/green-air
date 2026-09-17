@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import FlowerCard from "./components/FlowerCard";
 import { allFlowers } from "./lib/products";
+import { HOMEPAGE_FAQS, STORE_NAP, faqPageJsonLd } from "./lib/localSeo";
 import Papa from "papaparse";
 
 /* ── Bento Mosaic Config ── */
@@ -67,25 +68,7 @@ const EXPLORE_CATEGORIES = [
   { name: "Magic Stuff", slug: "items/magic", banner: "/banners/09_Magic_Stuff.webp", icon: "🍄" },
 ];
 
-/* ── Local FAQs for Jane St ── */
-const LOCAL_FAQS = [
-  {
-    q: "What are the hours for Green Air Cannabis?",
-    a: "Green Air Cannabis at 7060 Airport Rd, Mississauga is open 24 hours daily. Walk in anytime — no appointment needed.",
-  },
-  {
-    q: "What cannabis products do you carry?",
-    a: "We carry five tiers of premium flower: Exotic ($10-$12/g), Premium ($7-$10/g), AAA+ ($5-$6/g), AA ($4/g), and Budget ($3/g), plus a wide variety of edibles, prerolls, vapes, and concentrates.",
-  },
-  {
-    q: "Where is Green Air Cannabis located?",
-    a: "We are located at 7060 Airport Rd, Mississauga, ON L4T 2G8. Visit us in person or call us at +1 (289) 514-9467. Free evening street parking is listed.",
-  },
-  {
-    q: "What is the cheapest weed at Green Air Cannabis?",
-    a: "Our budget flower starts at just $3/g. We also offer AA daily drivers from $4/g and AAA+ heavy hitters from $5-$6/g. View our budget menu for our latest deals.",
-  },
-];
+const LOCAL_FAQS = HOMEPAGE_FAQS;
 
 interface Review {
   name: string;
@@ -186,8 +169,14 @@ export default function HomePage() {
     setFeaturedStrains(picked);
   }, []);
 
+  const faqJsonLd = faqPageJsonLd(HOMEPAGE_FAQS, STORE_NAP.website);
+
   return (
     <main className={styles.main}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <FleetAnnouncementBanner />
       {/* ── NAVBAR ── */}
       <Navbar />
@@ -198,7 +187,7 @@ export default function HomePage() {
           <div className={styles.welcomeBannerContainer}>
             <img
               src={welcomeBannerSrc}
-              alt="Welcome to Green Air Cannabis — Premium Mississauga Cannabis Dispensary"
+              alt="Welcome to Green Air Cannabis — Malton / Airport Rd walk-in dispensary"
               className={styles.welcomeBannerImg}
               onError={() => setWelcomeBannerError(true)}
             />
@@ -228,8 +217,9 @@ export default function HomePage() {
           <div className={styles.brandBlock}>
             <img src="/storeFavicon.webp" alt="Green Air Cannabis Icon" style={{ height: "60px", width: "60px", objectFit: "contain", borderRadius: "8px", marginBottom: "8px" }} />
             <h1 className={styles.brandTitle}>GREEN AIR CANNABIS</h1>
-            <p className={styles.brandSub}>Premium Cannabis Dispensary</p>
-            <div className={styles.brandBadge}>Open 24 Hours</div>
+            <p className={styles.brandSub}>Malton / Airport Rd · 24-hour walk-in</p>
+            <p className={styles.brandCorridor}>7060 Airport Rd, Mississauga ON L4T 2G8</p>
+            <div className={styles.brandBadge}>Open 24 Hours on Airport Rd</div>
           </div>
 
           {/* Bento Grid */}
@@ -312,15 +302,18 @@ export default function HomePage() {
       <section className={styles.seoSection}>
         <div className={styles.container}>
           <div className={styles.seoPanel}>
-            <h2 className={styles.seoPanelTitle}>Shop The Menu With A Plan</h2>
+            <h2 className={styles.seoPanelTitle}>Airport Road walk-in in Malton</h2>
             <p className={styles.seoPanelText}>
-              Start with the store page, then choose the product category that fits the visit. Flower, pre-rolls, edibles, THC vapes, concentrates, accessories, and cigarettes each shop differently.
+              Green Air Cannabis is the 24-hour counter at 7060 Airport Rd — the Malton stretch that sits between Pearson traffic and Derry Road, not a Square One mall kiosk. Use this homepage for the live NAP: address, phone, hours, and map. The{" "}
+              <Link href="/visit">visit guide</Link> covers plaza parking and MiWay if you need a how-to-reach page.
             </p>
             <p className={styles.seoPanelText}>
-              If cheap weed or affordable weed is the goal, start with Budget and AA flower before moving up. If premium flower or exotic flower is the mood, open those lanes first and compare the current details there.
+              Shift workers off the airport, Goreway drivers, and Malton neighbours all use the same door. Pick a menu category here, then confirm names and prices at the counter. Adults 19+ only, valid photo ID at every visit.
             </p>
             <p className={styles.seoPanelText}>
-              Menus change, so use the current menu and staff for product names, prices, and listings before you make the trip.
+              Call{" "}
+              <a href={`tel:${STORE_NAP.phoneIntl}`}>{STORE_NAP.phoneDisplay}</a>{" "}
+              if you want a landmark check before you turn onto the plaza. Delivery, when accepted, stays on the Malton / Mississauga side of the corridor — this page is still the walk-in hub.
             </p>
           </div>
         </div>
@@ -402,39 +395,62 @@ export default function HomePage() {
       {/* ── STORE LOCATION GRID ── */}
       <section className={styles.storeSection} id="contact">
         <div className={styles.container}>
+          <div className={styles.sectionHeader}>
+            <h2 className={styles.sectionTitle}>Visit hub — Malton NAP</h2>
+            <p className={styles.sectionSubtitle}>
+              Name, address, phone, and hours for 7060 Airport Rd. This homepage is the visit hub.
+            </p>
+          </div>
           <div className={styles.storeGrid}>
             <div className={styles.storeCard}>
               <span className={styles.storeIcon}>📍</span>
-              <h3 className={styles.storeCardTitle}>Location</h3>
+              <h3 className={styles.storeCardTitle}>Address</h3>
               <p className={styles.storeCardText}>
-                7060 Airport Rd
+                {STORE_NAP.streetAddress}
                 <br />
-                Mississauga, ON L4T 2G8
+                Malton · {STORE_NAP.addressLocality}, {STORE_NAP.addressRegion} {STORE_NAP.postalCode}
+              </p>
+            </div>
+            <div className={styles.storeCard}>
+              <span className={styles.storeIcon}>📞</span>
+              <h3 className={styles.storeCardTitle}>Phone</h3>
+              <p className={styles.storeCardText}>
+                <a className={styles.storeLink} href={`tel:${STORE_NAP.phoneIntl}`}>
+                  {STORE_NAP.phoneDisplay}
+                </a>
                 <br />
+                Master line for this store
               </p>
             </div>
             <div className={styles.storeCard}>
               <span className={styles.storeIcon}>🕒</span>
               <h3 className={styles.storeCardTitle}>Hours</h3>
               <p className={styles.storeCardText}>
-                Open 7 Days a Week
+                Seven days
                 <br />
-                <span className={styles.storeHighlight}>Open 24 Hours</span>
+                <span className={styles.storeHighlight}>{STORE_NAP.hoursLabel}</span>
               </p>
             </div>
             <div className={styles.storeCard}>
               <span className={styles.storeIcon}>🔥</span>
               <h3 className={styles.storeCardTitle}>Walk In</h3>
               <p className={styles.storeCardText}>
-                No appointment needed
+                Adults 19+ · photo ID
                 <br />
-                <span className={styles.storeHighlight}>7060 Airport Rd & Nearby Expressway, Mississauga</span>
+                <Link className={styles.storeLink} href="/visit">
+                  Parking &amp; MiWay notes
+                </Link>
               </p>
             </div>
           </div>
 
-          {/* Map wrapper */}
           <div className={styles.mapWrap}>
+            <iframe
+              title="Map of Green Air Cannabis at 7060 Airport Rd, Malton"
+              src={STORE_NAP.mapEmbedUrl}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </div>
       </section>

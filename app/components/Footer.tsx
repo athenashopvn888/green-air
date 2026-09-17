@@ -12,9 +12,9 @@ export default function Footer() {
               GREEN AIR CANNABIS
             </div>
             <p className={styles.desc}>
-              Your Local Cannabis Dispensary At 7060 Airport Rd, Mississauga. Visit
-              Green Air Cannabis For Premium Flower, Edibles, Vapes &amp; More.
-              Open 24 hours daily.
+              24-hour walk-in on Airport Road in Malton — 7060 Airport Rd,
+              Mississauga, ON L4T 2G8. Flower, edibles, vapes, and more at the
+              Pearson / Derry corridor counter.
             </p>
             <div className={styles.buttons}>
             </div>
@@ -26,7 +26,7 @@ export default function Footer() {
             <div className={styles.infoBlock}>
               <span className={styles.infoLabel}>Address:</span>
               <span>7060 Airport Rd</span>
-              <span>Mississauga, ON L4T 2G8</span>
+              <span>Malton · Mississauga, ON L4T 2G8</span>
               <span>Canada</span>
             </div>
             <div className={styles.infoBlock}>
@@ -44,6 +44,7 @@ export default function Footer() {
             <h3 className={styles.colTitle}>Quick Links</h3>
             <nav className={styles.links}>
               <Link href="/">Home</Link>
+              <Link href="/visit">Visit · Malton / Airport Rd</Link>
               <Link href="/exotic-weed">Exotic Weed</Link>
               <Link href="/premium-weed">Premium Weed</Link>
               <Link href="/aaa-weed">AAA+ Weed</Link>
@@ -59,11 +60,10 @@ export default function Footer() {
               <Link href="/info/cheap-weed-mississauga">Cheap Weed Mississauga</Link>
               <Link href="/info/native-cigarettes-mississauga">Native Cigarettes</Link>
               <Link href="/info/nicotine-vapes-mississauga">Nicotine Vapes Mississauga</Link>
-              <Link href="/info/weed-store-near-malton-airport">Weed Store Near Mississauga</Link>
-              <Link href="/weed-dispensary-mississauga">Green Air Cannabis Weed Dispensary in Mississauga</Link>
+              <Link href="/info/weed-store-near-malton-airport">Weed Store Near Malton / Airport</Link>
               <Link href="/contact">Contact Us</Link>
               <a
-                href="https://www.greenaircannabis.com/"
+                href="https://www.google.com/maps/search/?api=1&query=7060+Airport+Rd%2C+Mississauga%2C+ON+L4T+2G8"
                 target="_blank"
                 rel="noopener noreferrer"
               >

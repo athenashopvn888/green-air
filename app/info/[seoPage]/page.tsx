@@ -34,6 +34,9 @@ export async function generateMetadata({
     alternates: {
       canonical: `https://www.greenaircannabis.com/info/${slug}`,
     },
+    robots: page.indexable === false
+      ? { index: false, follow: true }
+      : { index: true, follow: true },
   };
 }
 

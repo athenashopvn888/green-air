@@ -3,18 +3,19 @@ import { TIER_CONFIG, CATEGORY_CONFIG, allFlowers, allItems } from "./lib/produc
 import { SEO_PAGES } from "./lib/seoPages";
 import { LEGACY_SEO_SLUGS } from "./lib/seoRouteAliases";
 import { RESOURCE_PAGES } from "./resources/resourceData";
+import { STORE_NAP } from "./lib/localSeo";
 
-const BASE = "https://www.greenaircannabis.com";
+const BASE = STORE_NAP.canonicalHost;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE, lastModified: now, changeFrequency: "daily", priority: 1 },
-    { url: `${BASE}/weed-dispensary-mississauga`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${BASE}/visit`, lastModified: now, changeFrequency: "weekly", priority: 0.85 },
     { url: `${BASE}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${BASE}/delivery`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
+    { url: `${BASE}/delivery`, lastModified: now, changeFrequency: "monthly", priority: 0.45 },
     { url: `${BASE}/careers/budtender`, lastModified: now, changeFrequency: "monthly", priority: 0.65 },
   ];
 
@@ -52,12 +53,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   /* SEO landing pages */
   const seoPages: MetadataRoute.Sitemap = SEO_PAGES.filter(
-    (p) => !LEGACY_SEO_SLUGS.has(p.slug),
+    (p) => !LEGACY_SEO_SLUGS.has(p.slug) && p.indexable !== false,
   ).map((p) => ({
     url: `${BASE}/info/${p.slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
-    priority: 0.8,
+    priority: p.slug === "weed-store-near-malton-airport" ? 0.8 : 0.55,
   }));
 
   /* Resource pages */
