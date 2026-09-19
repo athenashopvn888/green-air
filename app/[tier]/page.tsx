@@ -11,6 +11,7 @@ import {
   TIER_CONFIG,
 } from "../lib/products";
 import { TIER_SEO } from "../lib/tierSeoContent";
+import LocalSeoMesh from "../components/LocalSeoMesh";
 import styles from "./tier.module.css";
 
 /* -- Generate all tier pages at build -- */
@@ -205,6 +206,7 @@ export default async function TierPage({
                 ))}
               </div>
             )}
+            <LocalSeoMesh currentPath={`/${tierSlug}`} />
           </div>
         </section>
       )}

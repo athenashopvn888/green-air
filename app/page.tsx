@@ -9,6 +9,8 @@ import Footer from "./components/Footer";
 import FlowerCard from "./components/FlowerCard";
 import { allFlowers } from "./lib/products";
 import { HOMEPAGE_FAQS, STORE_NAP, faqPageJsonLd } from "./lib/localSeo";
+import { ORGANIC_HUB_CARDS, PATHS, TWENTY_FOUR_HOUR_HREF } from "./lib/organicPaths";
+import LocalSeoMesh from "./components/LocalSeoMesh";
 import Papa from "papaparse";
 
 /* ── Bento Mosaic Config ── */
@@ -313,9 +315,39 @@ export default function HomePage() {
             <p className={styles.seoPanelText}>
               Call{" "}
               <a href={`tel:${STORE_NAP.phoneIntl}`}>{STORE_NAP.phoneDisplay}</a>{" "}
-              if you want a landmark check before you turn onto the plaza. Delivery, when accepted, stays on the Malton / Mississauga side of the corridor — this page is still the walk-in hub.
+              if you want a landmark check before you turn onto the plaza. Four equal corridor pages sit beside this hub: the{" "}
+              <Link href={TWENTY_FOUR_HOUR_HREF}>24-hour / open-now Airport Rd</Link>{" "}
+              page,{" "}
+              <Link href={PATHS.deliveryLp}>cannabis delivery in Malton</Link>
+              ,{" "}
+              <Link href={PATHS.nativeCigarettesLp}>Native cigarettes on Airport Rd</Link>
+              , and{" "}
+              <Link href={PATHS.nicotineVapeLp}>nicotine vapes on Airport Rd</Link>
+              . Delivery, when accepted, stays on the Malton / Mississauga side of the corridor — this page is still the walk-in hub.
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* ── FOUR-PILLAR HUB CARDS ── */}
+      <section className={styles.hubSection} id="corridor" aria-labelledby="hub-heading">
+        <div className={styles.container}>
+          <div className={styles.sectionHeader}>
+            <h2 id="hub-heading" className={styles.sectionTitle}>Airport Rd corridor pages</h2>
+            <p className={styles.sectionSubtitle}>
+              Four equal neighbourhood owners for Malton / Airport Rd. Hours and the map stay on this homepage.
+            </p>
+          </div>
+          <div className={styles.hubGrid}>
+            {ORGANIC_HUB_CARDS.map((card) => (
+              <Link key={card.href} href={card.href} className={styles.hubCard}>
+                <h3 className={styles.hubCardTitle}>{card.title}</h3>
+                <p className={styles.hubCardBody}>{card.body}</p>
+                <span className={styles.hubCardCta}>{card.cta} →</span>
+              </Link>
+            ))}
+          </div>
+          <LocalSeoMesh currentPath={PATHS.home} tone="dark" />
         </div>
       </section>
 

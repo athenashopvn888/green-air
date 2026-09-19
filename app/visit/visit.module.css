@@ -89,6 +89,42 @@
   padding: 14px 0;
 }
 
+.mapNote {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 28px 0 0;
+}
+
+.primary,
+.secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 18px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.primary {
+  background: var(--green-dark);
+  color: #fff;
+}
+
+.secondary {
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
 @media (min-width: 800px) {
   .nap {
     grid-template-columns: 1fr 1.1fr;

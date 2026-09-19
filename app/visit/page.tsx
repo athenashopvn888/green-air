@@ -6,6 +6,8 @@ import {
   STORE_NAP,
   faqPageJsonLd,
 } from "../lib/localSeo";
+import LocalSeoMesh from "../components/LocalSeoMesh";
+import { PATHS, TWENTY_FOUR_HOUR_HREF } from "../lib/organicPaths";
 import styles from "./visit.module.css";
 
 const VISIT_FAQS = [
@@ -150,8 +152,19 @@ export default function VisitPage() {
               substitute for this walk-in address.
             </p>
             <p>
+              Equal corridor pages:{" "}
+              <Link href={TWENTY_FOUR_HOUR_HREF}>
+                24-hour dispensary on Airport Rd
+              </Link>
+              {", "}
+              <Link href={PATHS.deliveryLp}>cannabis delivery in Malton</Link>
+              {", "}
+              <Link href={PATHS.nativeCigarettesLp}>Native cigarettes</Link>
+              {", and "}
+              <Link href={PATHS.nicotineVapeLp}>nicotine vapes</Link>
+              . Supporting neighbourhood notes also live on{" "}
               <Link href="/info/weed-store-near-malton-airport">
-                Neighbourhood notes for a weed store near Malton / Airport
+                weed store near Malton / Airport
               </Link>
               {" · "}
               <a href={STORE_NAP.mapUrl} rel="noopener noreferrer" target="_blank">
@@ -159,6 +172,8 @@ export default function VisitPage() {
               </a>
             </p>
           </section>
+
+          <LocalSeoMesh currentPath={PATHS.visit} />
 
           <section className={styles.faq}>
             <h2>Visit questions</h2>

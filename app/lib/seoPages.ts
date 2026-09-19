@@ -100,7 +100,7 @@ export const SEO_PAGES: SeoPageData[] = [
       },
       {
         heading: "Mississauga, Malton and Airport Road Context",
-        body: "This Green Air Cannabis guide uses the store's verified Mississauga, Malton and Airport Road context. Product details belong to the individual live-checked pages and the nicotine category, not to a broad local claim.",
+        body: "This Green Air Cannabis guide uses the store's verified Mississauga, Malton and Airport Road context. Neighbourhood owner notes live on /nicotine-vape-malton. Product details belong to the individual live-checked pages and the nicotine category, not to a broad local claim.",
       },
       {
         heading: "Keep Nicotine and THC Vape Routes Separate",
@@ -126,7 +126,7 @@ export const SEO_PAGES: SeoPageData[] = [
     relatedLink: {
       href: "/info/native-cigarettes-mississauga",
       label: "Read the Green Air Cannabis Native Cigarettes guide",
-      intro: "For the separate cigarette category, use the exact Mississauga guide:",
+      intro: "For the separate cigarette category, use the exact Mississauga guide. Malton / Airport Rd nicotine notes also live on /nicotine-vape-malton:",
     },
   },
   {
@@ -290,7 +290,7 @@ export const SEO_PAGES: SeoPageData[] = [
     "sections": [
       {
         "heading": "Start With The Cigarette Category",
-        "body": "The cigarette menu may show carton-style Native smoke options around $25, with brand names such as Canadian Lights, Canadian Full, Putters, Canadian Goose Full, Canadian Goose Lights, Canadian Menthol, Canadian Classics Original, and Canadian Classics Silver. Check the current menu or ask staff before making the trip."
+        "body": "The cigarette menu may show carton-style Native smoke options around $25, with brand names such as Canadian Lights, Canadian Full, Putters, Canadian Goose Full, Canadian Goose Lights, Canadian Menthol, Canadian Classics Original, and Canadian Classics Silver. Check the current menu or ask staff before making the trip. Neighbourhood owner notes live on /native-cigarettes-malton."
       },
       {
         "heading": "Keep Cannabis And Smokes Separate",
@@ -314,7 +314,12 @@ export const SEO_PAGES: SeoPageData[] = [
         "q": "Where should shoppers start?",
         "a": "Open the cigarette category, then use the store page for directions, contact options, and listed hours."
       }
-    ]
+    ],
+    "relatedLink": {
+      "href": "/native-cigarettes-malton",
+      "label": "Native cigarettes on Airport Rd (neighbourhood owner)",
+      "intro": "For Malton / Airport Rd cigarette notes, use the corridor page:"
+    }
   },
   {
     "slug": "native-cigarettes-york",
@@ -326,7 +331,7 @@ export const SEO_PAGES: SeoPageData[] = [
     "sections": [
       {
         "heading": "Start With The Cigarette Category",
-        "body": "The cigarette menu may show carton-style Native smoke options around $25, with brand names such as Canadian Lights, Canadian Full, Putters, Canadian Goose Full, Canadian Goose Lights, Canadian Menthol, Canadian Classics Original, and Canadian Classics Silver. Check the current menu or ask staff before making the trip."
+        "body": "The cigarette menu may show carton-style Native smoke options around $25, with brand names such as Canadian Lights, Canadian Full, Putters, Canadian Goose Full, Canadian Goose Lights, Canadian Menthol, Canadian Classics Original, and Canadian Classics Silver. Check the current menu or ask staff before making the trip. Neighbourhood owner notes live on /native-cigarettes-malton."
       },
       {
         "heading": "Keep Cannabis And Smokes Separate",
@@ -388,9 +393,9 @@ export const SEO_PAGES: SeoPageData[] = [
       }
     ],
     "relatedLink": {
-      "href": "/visit",
-      "label": "How to reach 7060 Airport Rd (parking & MiWay)",
-      "intro": "Need plaza parking, Pearson-side approach, or bus notes? Use the supporting visit guide. The homepage remains the NAP hub."
+      "href": "/24-hour-malton-dispensary",
+      "label": "24-Hour Dispensary Open Now on Airport Rd",
+      "intro": "Open-now / 24h-near-me intent lives on the first-class 24-hour Malton page. Parking and MiWay stay on /visit. The homepage remains the NAP hub."
     }
   },
   {

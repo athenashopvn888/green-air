@@ -45,6 +45,10 @@ export default function Footer() {
             <nav className={styles.links}>
               <Link href="/">Home</Link>
               <Link href="/visit">Visit · Malton / Airport Rd</Link>
+              <Link href="/24-hour-malton-dispensary">24-Hour Malton / Airport Rd</Link>
+              <Link href="/cannabis-delivery-malton">Cannabis Delivery Malton</Link>
+              <Link href="/native-cigarettes-malton">Native Cigarettes Airport Rd</Link>
+              <Link href="/nicotine-vape-malton">Nicotine Vapes Airport Rd</Link>
               <Link href="/exotic-weed">Exotic Weed</Link>
               <Link href="/premium-weed">Premium Weed</Link>
               <Link href="/aaa-weed">AAA+ Weed</Link>

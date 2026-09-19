@@ -16,6 +16,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${BASE}/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/delivery`, lastModified: now, changeFrequency: "monthly", priority: 0.45 },
+    { url: `${BASE}/24-hour-malton-dispensary`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/cannabis-delivery-malton`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/native-cigarettes-malton`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${BASE}/nicotine-vape-malton`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/careers/budtender`, lastModified: now, changeFrequency: "monthly", priority: 0.65 },
   ];
 

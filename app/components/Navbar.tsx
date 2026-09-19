@@ -20,6 +20,7 @@ const ALL_LINKS: { href: string; label: string; featured?: boolean }[] = [
   { href: "/items/cigarettes", label: "Cigarettes" },
   { href: "/items/add-ons", label: "Accessories" },
   { href: "/delivery", label: "🚗 Delivery" },
+  { href: "/24-hour-malton-dispensary", label: "Open Now / 24h" },
   { href: "/careers/budtender", label: "Join Team", featured: true },
   { href: "/visit", label: "Visit" },
   { href: "/faq", label: "FAQ" },

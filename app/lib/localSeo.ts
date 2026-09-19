@@ -35,7 +35,7 @@ export const HOMEPAGE_FAQS = [
   },
   {
     q: "Is Green Air Cannabis open 24 hours?",
-    a: "Yes. The Airport Rd counter is open 24 hours daily. Adults 19+ can walk in any time — no appointment.",
+    a: "Yes. The Airport Rd counter at 7060 Airport Rd is open 24 hours daily. Adults 19+ can walk in any time — no appointment. Open-now / 24h-near-me notes live on the 24-hour Malton dispensary page.",
   },
   {
     q: "Is there parking at 7060 Airport Rd?",
@@ -52,6 +52,14 @@ export const HOMEPAGE_FAQS = [
   {
     q: "What is the phone number for Green Air Cannabis?",
     a: "Call +1 (289) 514-9467. That is the store line for 7060 Airport Rd in Malton / Mississauga.",
+  },
+  {
+    q: "Does Green Air Cannabis deliver in Malton / Airport Rd?",
+    a: "Delivery is dispatcher-confirmed for Malton, Airport Road, and nearby Mississauga addresses. Browse the delivery catalog, then confirm eligibility before an order is accepted. Neighbourhood delivery notes live on the cannabis delivery Malton page.",
+  },
+  {
+    q: "Where do Native cigarettes and nicotine vapes sit on this site?",
+    a: "Equal corridor pages own those queries: Native cigarettes in Malton and nicotine vapes in Malton. Current shelves stay on /items/cigarettes and /items/vapes. Adults 19+. Nicotine is addictive. This is not a medical shop.",
   },
 ] as const;
 
@@ -134,4 +142,8 @@ export function faqPageJsonLd(
       },
     })),
   };
+}
+
+export function stringifyJsonLd(value: unknown) {
+  return JSON.stringify(value).replace(/</g, "\\u003c");
 }
