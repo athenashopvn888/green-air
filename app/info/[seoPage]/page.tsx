@@ -9,6 +9,7 @@ import Footer from "../../components/Footer";
 import { SEO_PAGES, getSeoPageBySlug } from "../../lib/seoPages";
 import { LEGACY_SEO_SLUGS } from "../../lib/seoRouteAliases";
 import { TIER_CONFIG } from "../../lib/products";
+import LocalSeoMesh from "../../components/LocalSeoMesh";
 import styles from "./seo.module.css";
 
 /* ── Generate all SEO pages ── */
@@ -187,6 +188,8 @@ export default async function SeoLandingPage({
               ))}
             </div>
           )}
+
+          <LocalSeoMesh currentPath={`/info/${slug}`} />
         </div>
       </section>
 

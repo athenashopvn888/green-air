@@ -711,6 +711,73 @@
   transform: translateY(-2px);
 }
 
+/* ── FOUR-PILLAR HUB CARDS ── */
+.hubSection {
+  padding: 72px 0 40px;
+  background-color: #030712;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.hubGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.hubCard {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 220px;
+  padding: 24px 20px;
+  border-radius: 20px;
+  border: 1px solid rgba(168, 85, 247, 0.22);
+  background: linear-gradient(160deg, rgba(15, 23, 42, 0.95), rgba(2, 6, 23, 0.9));
+  text-decoration: none;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.28);
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.hubCard:hover {
+  transform: translateY(-4px);
+  border-color: rgba(168, 85, 247, 0.45);
+}
+
+.hubCardTitle {
+  margin: 0;
+  color: #fff;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+}
+
+.hubCardBody {
+  margin: 0;
+  color: #94a3b8;
+  font-size: 14px;
+  line-height: 1.55;
+  flex: 1;
+}
+
+.hubCardCta {
+  color: #c084fc;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+@media (max-width: 1024px) {
+  .hubGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .hubGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── FAQS SECTION ── */
 .faqSection {
   padding: 80px 0;

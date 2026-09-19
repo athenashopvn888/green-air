@@ -103,7 +103,7 @@ export default function DeliveryContent() {
   return <main className={styles.main}>
     <Navbar />
     <section className={`${styles.hero} ${styles.heroPlain}`}>
-      <div><p>Green Air Cannabis · Malton / Airport Rd</p><h1>Delivery Menu</h1><span>Dispatcher-confirmed delivery for Malton, Airport Road, and nearby Mississauga addresses. Walk-in NAP stays on the homepage at 7060 Airport Rd.</span></div>
+      <div><p>Green Air Cannabis · Malton / Airport Rd</p><h1>Delivery Menu</h1><span>Dispatcher-confirmed delivery for Malton, Airport Road, and nearby Mississauga addresses. Neighbourhood delivery notes live on <a href="/cannabis-delivery-malton" style={{color:"inherit",fontWeight:800}}>cannabis delivery in Malton</a>. Walk-in NAP stays on the homepage at 7060 Airport Rd.</span></div>
     </section>
     <section className={styles.deliveryDetails} aria-label="Green Air Cannabis delivery details"><strong>$60 PRODUCT MINIMUM</strong></section>
     <section className={styles.loyalty} aria-labelledby="loyalty-title">

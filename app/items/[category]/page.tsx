@@ -13,6 +13,8 @@ import {
   CATEGORY_CONFIG,
   type ItemProduct,
 } from "../../lib/products";
+import LocalSeoMesh from "../../components/LocalSeoMesh";
+import { PATHS } from "../../lib/organicPaths";
 import styles from "./items.module.css";
 
 /* ── Generate all category pages ── */
@@ -131,6 +133,22 @@ export default async function ItemsCategoryPage({
             </div>
           )}
 
+          {catSlug === "cigarettes" && (
+            <p className={styles.seoBody}>
+              Neighbourhood Native cigarette notes for the Airport Rd counter live on{" "}
+              <Link href={PATHS.nativeCigarettesLp}>/native-cigarettes-malton</Link>
+              . This category is the current shelf, not a stock promise.
+            </p>
+          )}
+          {catSlug === "vapes" && (
+            <p className={styles.seoBody}>
+              Neighbourhood nicotine vape notes for the Airport Rd counter live on{" "}
+              <Link href={PATHS.nicotineVapeLp}>/nicotine-vape-malton</Link>
+              . Adults 19+. Nicotine is addictive. THC vapes stay on{" "}
+              <Link href="/items/vape-disposables">/items/vape-disposables</Link>.
+            </p>
+          )}
+
           {/* Visit CTA */}
           <div className={styles.visitCta}>
             <h3 className={styles.visitTitle}>Visit Green Air Cannabis</h3>
@@ -138,6 +156,7 @@ export default async function ItemsCategoryPage({
               7060 Airport Rd, Mississauga, ON L4T 2G8 · Open 24 Hours
             </p>
           </div>
+          <LocalSeoMesh currentPath={`/items/${catSlug}`} />
         </div>
       </section>
 
