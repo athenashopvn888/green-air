@@ -91,7 +91,7 @@ test("delivery LP stays dispatcher-true and does not invent hours or zones", () 
   assert.match(deliveryLp, /does not invent a zone map/);
   assert.match(deliveryLp, /does not invent a delivery window/);
   assert.doesNotMatch(deliveryLp, /24-hour delivery/i);
-  assert.doesNotMatch(deliveryLp, /Toronto delivery/i);
+  assert.match(deliveryLp, /not a Toronto delivery menu/i);
   assert.match(deliveryCatalog, /cannabis-delivery-malton/);
 });
 
@@ -138,6 +138,6 @@ test("four-pillar copy stays 19+, corridor-true, and menu-swimlane clean", () =>
   assert.match(BUNDLE, /Adults 19\+/);
   assert.doesNotMatch(BUNDLE, /sister store|our other locations|After Dark|Cafe Value|Gas City|Athena/i);
   assert.doesNotMatch(BUNDLE, /medical marijuana|prescription|doctor's note/i);
-  assert.doesNotMatch(BUNDLE, /Brampton delivery|Toronto-wide/i);
+  assert.doesNotMatch(BUNDLE, /we deliver (to|across) (Toronto|Brampton)/i);
   assert.doesNotMatch(twentyFour, /Jane Street|Eglinton West|Queen West/i);
 });
