@@ -166,7 +166,11 @@ export default function NativeCigarettesMaltonPage() {
         <section>
           <h2>Same counter as flower, delivery, and nicotine vapes</h2>
           <p>
-            Cigarettes are one lane at the same 7060 counter. Flower
+            Cigarettes are one lane at the same 7060 counter. The generic{" "}
+            <Link href={PATHS.weedDispensaryLp}>
+              weed dispensary on Airport Rd
+            </Link>{" "}
+            owner stays on its own URL. Flower
             comparison stays on{" "}
             <Link href="/exotic-weed">Exotic</Link>,{" "}
             <Link href="/premium-weed">Premium</Link>,{" "}

@@ -58,6 +58,10 @@ export const HOMEPAGE_FAQS = [
     a: "Delivery is dispatcher-confirmed for Malton, Airport Road, and nearby Mississauga addresses. Browse the delivery catalog, then confirm eligibility before an order is accepted. Neighbourhood delivery notes live on the cannabis delivery Malton page.",
   },
   {
+    q: "Where is the Malton / Airport Rd weed dispensary?",
+    a: "Green Air Cannabis is the walk-in weed dispensary at 7060 Airport Rd on Airport Road through Malton. Neighbourhood notes live on the weed dispensary Malton page. Hours and the map stay on this homepage. Adults 19+.",
+  },
+  {
     q: "Where do Native cigarettes and nicotine vapes sit on this site?",
     a: "Equal corridor pages own those queries: Native cigarettes in Malton and nicotine vapes in Malton. Current shelves stay on /items/cigarettes and /items/vapes. Adults 19+. Nicotine is addictive. This is not a medical shop.",
   },

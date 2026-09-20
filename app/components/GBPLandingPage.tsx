@@ -130,7 +130,7 @@ export function GBPLandingPage() {
           <Link href="/">homepage</Link> is the visit hub for name, address, phone,
           hours, and the map — not this URL and not{" "}
           <Link href="/visit">/visit</Link>. For Malton / Airport Rd queries, prefer{" "}
-          <Link href="/info/weed-store-near-malton-airport">the neighbourhood page</Link>
+          <Link href="/weed-dispensary-malton">the neighbourhood weed-dispensary owner</Link>
           . Equal corridor owners:{" "}
           <Link href="/24-hour-malton-dispensary">24-hour Airport Rd</Link>
           {", "}
