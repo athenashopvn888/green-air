@@ -47,6 +47,7 @@ const FAQ_CATEGORIES = [
   {
     title: "Airport Rd corridor pages",
     faqs: [
+      { q: "Where is the neighbourhood weed-dispensary owner?", a: "Use /weed-dispensary-malton for Malton / Airport Rd walk-in notes. It is not a city-wide Mississauga dispensary list. Hours and the map stay on the homepage." },
       { q: "Where is the open-now / 24-hour page?", a: "Use /24-hour-malton-dispensary for open-now and 24h-near-me notes on Airport Road through Malton. The homepage remains the NAP hub." },
       { q: "Where is the Malton delivery owner?", a: "Use /cannabis-delivery-malton for neighbourhood delivery notes. The live catalog stays on /delivery. The dispatcher confirms address eligibility. Delivery hours are not the same claim as the 24-hour walk-in." },
       { q: "Where are nicotine vape neighbourhood notes?", a: "Use /nicotine-vape-malton, then /items/vapes for current cards. Adults 19+. Nicotine is addictive. THC vapes stay on /items/vape-disposables." },

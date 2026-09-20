@@ -164,7 +164,12 @@ export const SEO_PAGES: SeoPageData[] = [
         "q": "Does Green Air Cannabis carry flower and pre-rolls?",
         "a": "The site has menu categories for flower tiers and pre-rolls. Check the current menu or ask staff for current details."
       }
-    ]
+    ],
+    "relatedLink": {
+      "href": "/weed-dispensary-malton",
+      "label": "Weed Dispensary on Airport Rd (neighbourhood owner)",
+      "intro": "City-wide Mississauga copy on this URL is extra context only. The neighbourhood weed-dispensary owner for Malton / Airport Rd is:"
+    }
   },
   {
     "slug": "york-weed-dispensary",
@@ -367,7 +372,7 @@ export const SEO_PAGES: SeoPageData[] = [
     "sections": [
       {
         "heading": "The Airport Road pin, not a city-wide Mississauga hunt",
-        "body": "Green Air Cannabis is the walk-in at 7060 Airport Rd in Malton. That is the north-east Mississauga arterial that carries Pearson traffic, airport-hotel guests, and Derry Road industrial shifts — not Square One and not a downtown Toronto listing. Open the homepage for the live name, address, phone, and hours, then use this page when you specifically searched for a weed store near Malton or Airport Road."
+        "body": "Green Air Cannabis is the walk-in at 7060 Airport Rd in Malton. That is the north-east Mississauga arterial that carries Pearson traffic, airport-hotel guests, and Derry Road industrial shifts — not Square One and not a downtown Toronto listing. The first-class neighbourhood owner is /weed-dispensary-malton. Open the homepage for the live name, address, phone, and hours, then use this /info page as supporting Malton / Airport Road notes."
       },
       {
         "heading": "Landmarks along the corridor",
@@ -393,9 +398,9 @@ export const SEO_PAGES: SeoPageData[] = [
       }
     ],
     "relatedLink": {
-      "href": "/24-hour-malton-dispensary",
-      "label": "24-Hour Dispensary Open Now on Airport Rd",
-      "intro": "Open-now / 24h-near-me intent lives on the first-class 24-hour Malton page. Parking and MiWay stay on /visit. The homepage remains the NAP hub."
+      "href": "/weed-dispensary-malton",
+      "label": "Weed Dispensary on Airport Rd (neighbourhood owner)",
+      "intro": "The first-class neighbourhood weed-dispensary owner is /weed-dispensary-malton. Open-now / 24h-near-me stays on /24-hour-malton-dispensary. Parking and MiWay stay on /visit. The homepage remains the NAP hub."
     }
   },
   {

@@ -10,6 +10,7 @@ export { TWENTY_FOUR_HOUR_HREF };
 const HUB_LINKS = [
   { href: PATHS.home, label: "Homepage hours & map" },
   { href: PATHS.visit, label: "How to reach 7060 Airport Rd" },
+  { href: PATHS.weedDispensaryLp, label: "Weed dispensary on Airport Rd" },
   { href: PATHS.twentyFour, label: "Open now / 24-hour Malton" },
   { href: PATHS.deliveryLp, label: "Cannabis delivery in Malton" },
   { href: PATHS.nativeCigarettesLp, label: "Native cigarettes on Airport Rd" },

@@ -315,7 +315,9 @@ export default function HomePage() {
             <p className={styles.seoPanelText}>
               Call{" "}
               <a href={`tel:${STORE_NAP.phoneIntl}`}>{STORE_NAP.phoneDisplay}</a>{" "}
-              if you want a landmark check before you turn onto the plaza. Four equal corridor pages sit beside this hub: the{" "}
+              if you want a landmark check before you turn onto the plaza. Five equal corridor pages sit beside this hub: the{" "}
+              <Link href={PATHS.weedDispensaryLp}>weed dispensary on Airport Rd</Link>
+              , the{" "}
               <Link href={TWENTY_FOUR_HOUR_HREF}>24-hour / open-now Airport Rd</Link>{" "}
               page,{" "}
               <Link href={PATHS.deliveryLp}>cannabis delivery in Malton</Link>
@@ -329,13 +331,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── FOUR-PILLAR HUB CARDS ── */}
+      {/* ── FIVE-PILLAR HUB CARDS ── */}
       <section className={styles.hubSection} id="corridor" aria-labelledby="hub-heading">
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 id="hub-heading" className={styles.sectionTitle}>Airport Rd corridor pages</h2>
             <p className={styles.sectionSubtitle}>
-              Four equal neighbourhood owners for Malton / Airport Rd. Hours and the map stay on this homepage.
+              Five equal neighbourhood owners for Malton / Airport Rd. Hours and the map stay on this homepage.
             </p>
           </div>
           <div className={styles.hubGrid}>

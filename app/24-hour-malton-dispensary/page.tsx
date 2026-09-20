@@ -36,7 +36,7 @@ const TWENTY_FOUR_FAQS = [
   },
   {
     q: "If I searched “24 hour dispensary near me,” is this the Malton door?",
-    a: "Only if you mean Airport Road through Malton on the Pearson / Derry corridor. Match 7060 Airport Rd, then use the homepage map if neighbouring retail hides the plaza. Delivery, Native cigarettes, and nicotine vapes have equal neighbourhood pages — they do not replace this open-now URL.",
+    a: "Only if you mean Airport Road through Malton on the Pearson / Derry corridor. Match 7060 Airport Rd, then use the homepage map if neighbouring retail hides the plaza. The generic weed-dispensary owner, delivery, Native cigarettes, and nicotine vapes have equal neighbourhood pages — they do not replace this open-now URL.",
   },
 ] as const;
 
@@ -97,10 +97,10 @@ export default function TwentyFourHourMaltonPage() {
         <p className={styles.lede}>
           Green Air Cannabis lists <strong>{STORE_NAP.hoursDaily}</strong> at{" "}
           <strong>{STORE_NAP.addressLine}</strong>. This is a first-class
-          corridor page — equal to neighbourhood delivery, Native cigarettes,
-          and nicotine vapes — and it owns “open now” / 24-hour-near-me
-          intent for Malton / Airport Road. It is not a city-wide
-          Mississauga 24-hour list. Hours, phone {STORE_NAP.phoneDisplay}, and
+          corridor page — equal to the neighbourhood weed dispensary,
+          delivery, Native cigarettes, and nicotine vapes — and it owns
+          “open now” / 24-hour-near-me intent for Malton / Airport Road. It
+          is not a city-wide Mississauga 24-hour list. Hours, phone {STORE_NAP.phoneDisplay}, and
           the map pin stay on the{" "}
           <Link href="/#contact">homepage visit hub</Link>. Use{" "}
           <Link href="/visit">how to reach 7060</Link> for plaza parking,
@@ -211,7 +211,11 @@ export default function TwentyFourHourMaltonPage() {
             <Link href="/aaa-weed">AAA+</Link>,{" "}
             <Link href="/aa-weed">AA</Link>, or{" "}
             <Link href="/budget-weed">Budget</Link> — then the live card in
-            store. Neighbourhood notes for{" "}
+            store. Neighbourhood notes for the{" "}
+            <Link href={PATHS.weedDispensaryLp}>
+              weed dispensary on Airport Rd
+            </Link>
+            ,{" "}
             <Link href={PATHS.deliveryLp}>
               cannabis delivery in Malton / Airport Rd
             </Link>

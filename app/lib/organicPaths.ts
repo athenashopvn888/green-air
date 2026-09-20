@@ -1,7 +1,8 @@
-/** Four-pillar neighbourhood paths for Green Air Cannabis (GAC01). */
+/** Five-pillar neighbourhood paths for Green Air Cannabis (GAC01). */
 export const PATHS = {
   home: "/",
   visit: "/visit",
+  weedDispensaryLp: "/weed-dispensary-malton",
   twentyFour: "/24-hour-malton-dispensary",
   deliveryLp: "/cannabis-delivery-malton",
   nativeCigarettesLp: "/native-cigarettes-malton",
@@ -15,6 +16,12 @@ export const PATHS = {
 export const TWENTY_FOUR_HOUR_HREF = PATHS.twentyFour;
 
 export const ORGANIC_HUB_CARDS = [
+  {
+    href: PATHS.weedDispensaryLp,
+    title: "Weed Dispensary",
+    body: "Walk-in weed dispensary at 7060 Airport Rd in Malton. Adults 19+. Not a city-wide Mississauga list.",
+    cta: "Malton / Airport Rd dispensary",
+  },
   {
     href: PATHS.twentyFour,
     title: "24-Hour Dispensary",

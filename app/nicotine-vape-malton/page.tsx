@@ -165,7 +165,11 @@ export default function NicotineVapeMaltonPage() {
         <section>
           <h2>Other neighbourhood lanes at the same counter</h2>
           <p>
-            Flower tiers stay on{" "}
+            The generic{" "}
+            <Link href={PATHS.weedDispensaryLp}>
+              weed dispensary on Airport Rd
+            </Link>{" "}
+            owner stays on its own URL. Flower tiers stay on{" "}
             <Link href="/exotic-weed">Exotic</Link>,{" "}
             <Link href="/premium-weed">Premium</Link>,{" "}
             <Link href="/aaa-weed">AAA+</Link>,{" "}

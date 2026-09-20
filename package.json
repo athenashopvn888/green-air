@@ -10,8 +10,9 @@
     "start": "next start",
     "lint": "eslint",
     "test:staff-photo": "node --experimental-strip-types --experimental-specifier-resolution=node --test tests/staff-photo.test.ts",
-    "test:seo-routes": "node --experimental-strip-types --experimental-specifier-resolution=node --test tests/seo-route-cleanup.test.ts tests/pod6-malton-seo.test.ts tests/gac01-four-pillar.test.ts",
-    "test:four-pillar": "node --experimental-strip-types --experimental-specifier-resolution=node --test tests/gac01-four-pillar.test.ts",
+    "test:seo-routes": "node --experimental-strip-types --experimental-specifier-resolution=node --test tests/seo-route-cleanup.test.ts tests/pod6-malton-seo.test.ts tests/gac01-five-pillar.test.ts",
+    "test:four-pillar": "node --experimental-strip-types --experimental-specifier-resolution=node --test tests/gac01-five-pillar.test.ts",
+    "test:five-pillar": "node --experimental-strip-types --experimental-specifier-resolution=node --test tests/gac01-five-pillar.test.ts",
     "test:nicotine-vapes": "node --experimental-strip-types --experimental-specifier-resolution=node --test tests/nicotine-vapes-mississauga.test.ts",
     "verify:delivery-images": "node scripts/verify-athena-delivery-images.mjs"
   },

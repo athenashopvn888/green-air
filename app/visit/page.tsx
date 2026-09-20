@@ -153,6 +153,10 @@ export default function VisitPage() {
             </p>
             <p>
               Equal corridor pages:{" "}
+              <Link href={PATHS.weedDispensaryLp}>
+                weed dispensary on Airport Rd
+              </Link>
+              {", "}
               <Link href={TWENTY_FOUR_HOUR_HREF}>
                 24-hour dispensary on Airport Rd
               </Link>
