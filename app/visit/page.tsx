@@ -189,7 +189,9 @@ export default function VisitPage() {
             ))}
           </section>
         </article>
-        <Footer />
+        
+      <p style={{ textAlign: "center", margin: "12px 0" }}><Link href="/hours">Store hours</Link></p>
+      <Footer />
       </main>
     </>
   );

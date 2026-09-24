@@ -46,6 +46,7 @@ export default function Footer() {
             <nav className={styles.links}>
               <Link href="/">Home</Link>
               <Link href="/visit">Visit · Malton / Airport Rd</Link>
+              <Link href="/hours">Store Hours</Link>
               <Link href="/weed-dispensary-malton">Weed Dispensary Airport Rd</Link>
               {storeClaimsOpen24Hours() ? (
                 <Link href="/24-hour-malton-dispensary">24-Hour Malton / Airport Rd</Link>

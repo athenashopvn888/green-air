@@ -25,6 +25,7 @@ const ALL_LINKS: { href: string; label: string; featured?: boolean }[] = [
   { href: "/24-hour-malton-dispensary", label: "Open Now / 24h" },
   { href: "/careers/budtender", label: "Join Team", featured: true },
   { href: "/visit", label: "Visit" },
+  { href: "/hours", label: "Hours" },
   { href: "/faq", label: "FAQ" },
   { href: "/resources", label: "Resources" },
 ];
