@@ -59,7 +59,7 @@ test("five equal pillar paths are first-class neighbourhood owners", () => {
   assert.equal(PATHS.deliveryLp, "/cannabis-delivery-malton");
   assert.equal(PATHS.nativeCigarettesLp, "/native-cigarettes-malton");
   assert.equal(PATHS.nicotineVapeLp, "/nicotine-vape-malton");
-  assert.equal(ORGANIC_HUB_CARDS.length, 5);
+  assert.equal(ORGANIC_HUB_CARDS.length, 6);
   assert.deepEqual(
     ORGANIC_HUB_CARDS.map((card) => card.href),
     [
@@ -68,8 +68,10 @@ test("five equal pillar paths are first-class neighbourhood owners", () => {
       PATHS.deliveryLp,
       PATHS.nativeCigarettesLp,
       PATHS.nicotineVapeLp,
+      PATHS.visit,
     ],
   );
+  assert.equal(ORGANIC_HUB_CARDS.find((card) => card.href === PATHS.twentyFour)?.onlyWhen24h, true);
 });
 
 test("homepage hub cards and FAQ mesh the five pillars", () => {

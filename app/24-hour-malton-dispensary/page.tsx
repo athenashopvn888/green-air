@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import LocalSeoMesh from "../components/LocalSeoMesh";
@@ -7,6 +8,7 @@ import { PATHS, TWENTY_FOUR_HOUR_HREF } from "../lib/organicPaths";
 import {
   STORE_NAP,
   faqPageJsonLd,
+  storeClaimsOpen24Hours,
   stringifyJsonLd,
 } from "../lib/localSeo";
 import styles from "../visit/visit.module.css";
@@ -59,6 +61,8 @@ export const metadata: Metadata = {
 };
 
 export default function TwentyFourHourMaltonPage() {
+  if (!storeClaimsOpen24Hours()) notFound();
+
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",

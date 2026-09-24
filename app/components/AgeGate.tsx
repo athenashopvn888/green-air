@@ -23,6 +23,18 @@ export default function AgeGate() {
     }
   }, []);
 
+  useEffect(() => {
+    if (!show) return;
+    const previousBody = document.body.style.overflow;
+    const previousHtml = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousBody;
+      document.documentElement.style.overflow = previousHtml;
+    };
+  }, [show]);
+
   const handleVerify = () => {
     localStorage.setItem("GAC01_age_verified", "true");
     setShow(false);

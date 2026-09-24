@@ -2,9 +2,10 @@ import type { Metadata } from "next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "./faq.module.css";
+import { resolveDocumentTitle } from "../lib/localSeo";
 
 export const metadata: Metadata = {
-  title: "FAQ | Green Air Cannabis",
+  title: resolveDocumentTitle("FAQ | Green Air Cannabis"),
   description: "Frequently asked questions about Green Air Cannabis in Mississauga, including store-page checks, menu categories, value shopping, and Native smokes where listed.",
   alternates: {
     canonical: "https://www.greenaircannabis.com/faq",

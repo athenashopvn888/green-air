@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import FlowerCard from "./components/FlowerCard";
 import { allFlowers } from "./lib/products";
-import { HOMEPAGE_FAQS, STORE_NAP, faqPageJsonLd } from "./lib/localSeo";
+import { HOMEPAGE_FAQS, STORE_NAP, faqPageJsonLd, storeClaimsOpen24Hours } from "./lib/localSeo";
 import { ORGANIC_HUB_CARDS, PATHS, TWENTY_FOUR_HOUR_HREF } from "./lib/organicPaths";
 import LocalSeoMesh from "./components/LocalSeoMesh";
 import Papa from "papaparse";
@@ -315,7 +315,7 @@ export default function HomePage() {
             <p className={styles.seoPanelText}>
               Call{" "}
               <a href={`tel:${STORE_NAP.phoneIntl}`}>{STORE_NAP.phoneDisplay}</a>{" "}
-              if you want a landmark check before you turn onto the plaza. Five equal corridor pages sit beside this hub: the{" "}
+              if you want a landmark check before you turn onto the plaza. Corridor pages sit beside this hub: the{" "}
               <Link href={PATHS.weedDispensaryLp}>weed dispensary on Airport Rd</Link>
               , the{" "}
               <Link href={TWENTY_FOUR_HOUR_HREF}>24-hour / open-now Airport Rd</Link>{" "}
@@ -325,7 +325,9 @@ export default function HomePage() {
               <Link href={PATHS.nativeCigarettesLp}>Native cigarettes on Airport Rd</Link>
               , and{" "}
               <Link href={PATHS.nicotineVapeLp}>nicotine vapes on Airport Rd</Link>
-              . Delivery, when accepted, stays on the Malton / Mississauga side of the corridor — this page is still the walk-in hub.
+              , and the{" "}
+              <Link href={PATHS.visit}>visit guide</Link> for plaza parking and MiWay.
+              Delivery, when accepted, stays on the Malton / Mississauga side of the corridor — this page is still the walk-in hub.
             </p>
           </div>
         </div>
@@ -337,11 +339,11 @@ export default function HomePage() {
           <div className={styles.sectionHeader}>
             <h2 id="hub-heading" className={styles.sectionTitle}>Airport Rd corridor pages</h2>
             <p className={styles.sectionSubtitle}>
-              Five equal neighbourhood owners for Malton / Airport Rd. Hours and the map stay on this homepage.
+              Neighbourhood owners for Malton / Airport Rd, plus how to reach the door. Hours and the map stay on this homepage.
             </p>
           </div>
           <div className={styles.hubGrid}>
-            {ORGANIC_HUB_CARDS.map((card) => (
+            {ORGANIC_HUB_CARDS.filter((card) => !card.onlyWhen24h || storeClaimsOpen24Hours()).map((card) => (
               <Link key={card.href} href={card.href} className={styles.hubCard}>
                 <h3 className={styles.hubCardTitle}>{card.title}</h3>
                 <p className={styles.hubCardBody}>{card.body}</p>

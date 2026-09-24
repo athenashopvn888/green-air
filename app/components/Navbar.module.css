@@ -165,4 +165,51 @@
 
 @media (prefers-reduced-motion: reduce) { .scrollAdvance, .pill { transition: none; } }
 
+.menuToggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-left: 8px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: transparent;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.menuToggleIcon {
+  display: block;
+}
+
+.mobilePanel {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 12px 12px;
+  background: #05070b;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobilePanelOpen {
+  display: flex;
+}
+
+.mobileLink {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  color: #f8fafc;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .menuToggle { display: inline-flex; }
+}
+
 @media (max-width: 390px) { .brandName { display: none; } }

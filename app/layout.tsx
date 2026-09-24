@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 import AgeGate from "./components/AgeGate";
-import { cannabisStoreJsonLd, STORE_NAP } from "./lib/localSeo";
+import { cannabisStoreJsonLd, renderedDocumentTitle, STORE_NAP } from "./lib/localSeo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(STORE_NAP.canonicalHost),
   title: {
-    default: "Green Air Cannabis | Malton Airport Rd Dispensary",
+    default: renderedDocumentTitle("Malton Airport Rd Dispensary"),
+    // Child titles that already include the brand must use resolveDocumentTitle()
+    // so this template does not append "Green Air Cannabis" a second time.
     template: "%s | Green Air Cannabis",
   },
   description:
@@ -58,7 +60,7 @@ export const metadata: Metadata = {
     },
   },
   alternates: {
-    canonical: STORE_NAP.website,
+    canonical: STORE_NAP.canonicalHost,
   },
   verification: {
     // google: "your-google-verification-code",

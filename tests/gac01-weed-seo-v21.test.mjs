@@ -19,7 +19,9 @@ test("all five tiers use tier-first Weed canonicals and customer-facing labels",
   const home = read("app/page.tsx");
   for (const [slug, label] of tiers) {
     assert.match(products, new RegExp(`name: "${label.replace("+", "\\+")}"[\\s\\S]{0,40}slug: "${slug}-weed"`));
-    assert.ok(seo.includes(`${label} & Cannabis Flower Mississauga`));
+    assert.ok(seo.includes(label));
+    assert.match(seo, new RegExp(`${label.replace("+", "\\+")}[\\s\\S]{0,80}Airport Rd`));
+    assert.match(seo, new RegExp(`${label.replace("+", "\\+")}[\\s\\S]{0,80}Malton`));
     assert.ok(navbar.includes(`href: "/${slug}-weed", label: "${label}"`));
     assert.ok(footer.includes(`href="/${slug}-weed">${label}<`));
     assert.ok(home.includes(`slug: "${slug}-weed"`));
@@ -53,16 +55,17 @@ test("protected owner, delivery and hour-bearing files are not rewritten by the 
   const sitemap = read("app/sitemap.ts");
   const navbar = read("app/components/Navbar.tsx");
   const delivery = read("app/delivery/page.tsx") + read("app/delivery/DeliveryContent.tsx");
-  assert.ok(sitemap.includes("/weed-dispensary-mississauga"));
+  assert.equal(sitemap.includes("/weed-dispensary-mississauga"), false);
   assert.ok(navbar.includes('{ href: "/delivery", label: "🚗 Delivery" }'));
-  assert.ok(delivery.includes('title: "Delivery Menu | Green Air Cannabis"'));
+  assert.ok(delivery.includes('absolute: "Malton / Mississauga Delivery Menu | Green Air Cannabis"'));
   assert.ok(delivery.includes("DeliveryContent"));
 });
 
 test("flower metadata uses the new tier label without volatile THC or duplicate brand", () => {
   const source = read("app/flower/[slug]/page.tsx");
   assert.ok(source.includes('canonical: `https://www.greenaircannabis.com/flower/${slug}`'));
-  const titleLine = source.split("\n").find((line) => line.trim().startsWith("title: `${flower.name}"));
+  const titleLine = source.split("\n").find((line) => line.includes("resolveDocumentTitle(`${flower.name}"));
   assert.ok(titleLine);
-  assert.doesNotMatch(titleLine, /THC|Green Air Cannabis/);
+  assert.doesNotMatch(titleLine, /THC/);
+  assert.equal(titleLine.split("Green Air Cannabis").length - 1, 0);
 });

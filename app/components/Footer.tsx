@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./Footer.module.css";
+import { storeClaimsOpen24Hours } from "../lib/localSeo";
 
 export default function Footer() {
   return (
@@ -46,7 +47,9 @@ export default function Footer() {
               <Link href="/">Home</Link>
               <Link href="/visit">Visit · Malton / Airport Rd</Link>
               <Link href="/weed-dispensary-malton">Weed Dispensary Airport Rd</Link>
-              <Link href="/24-hour-malton-dispensary">24-Hour Malton / Airport Rd</Link>
+              {storeClaimsOpen24Hours() ? (
+                <Link href="/24-hour-malton-dispensary">24-Hour Malton / Airport Rd</Link>
+              ) : null}
               <Link href="/cannabis-delivery-malton">Cannabis Delivery Malton</Link>
               <Link href="/native-cigarettes-malton">Native Cigarettes Airport Rd</Link>
               <Link href="/nicotine-vape-malton">Nicotine Vapes Airport Rd</Link>

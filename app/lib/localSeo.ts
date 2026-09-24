@@ -28,6 +28,60 @@ export const STORE_NAP = {
     "MiWay buses run along Airport Road through Malton, with connections toward Derry Road, Goreway Drive, and Pearson Airport. Confirm the current route board before you leave.",
 } as const;
 
+export const DOCUMENT_TITLE_BRAND = STORE_NAP.brand;
+const DOCUMENT_TITLE_SUFFIX = ` | ${DOCUMENT_TITLE_BRAND}`;
+
+/** Schema clock that matches the public "Open 24 Hours" label. */
+export const STORE_SCHEMA_HOURS = {
+  opens: "00:00",
+  closes: "23:59",
+} as const;
+
+/**
+ * 24-hour pages and hub cards are allowed only when the site label and
+ * the schema clock both already say 24 hours. Do not invent a different clock.
+ */
+export function storeClaimsOpen24Hours() {
+  return (
+    /24\s*hours/i.test(STORE_NAP.hoursLabel) &&
+    /24\s*hours/i.test(STORE_NAP.hoursDaily) &&
+    STORE_SCHEMA_HOURS.opens === "00:00" &&
+    STORE_SCHEMA_HOURS.closes === "23:59"
+  );
+}
+
+/**
+ * Root layout title template is `%s | Green Air Cannabis`.
+ * A child title that already names the brand must be absolute, or the
+ * template appends the brand a second time (`Brand | Brand`).
+ */
+export function resolveDocumentTitle(
+  title: string,
+  options?: { absolute?: boolean },
+): string | { absolute: string } {
+  let normalized = title.replace(/\s+/g, " ").trim();
+  while (
+    normalized.endsWith(DOCUMENT_TITLE_SUFFIX) &&
+    normalized.slice(0, -DOCUMENT_TITLE_SUFFIX.length).includes(DOCUMENT_TITLE_BRAND)
+  ) {
+    normalized = normalized.slice(0, -DOCUMENT_TITLE_SUFFIX.length).trim();
+  }
+  if (options?.absolute || normalized.includes(DOCUMENT_TITLE_BRAND)) {
+    return { absolute: normalized };
+  }
+  return normalized;
+}
+
+/** Title text after the root template is applied. Brand appears at most once. */
+export function renderedDocumentTitle(
+  title: string,
+  options?: { absolute?: boolean },
+): string {
+  const resolved = resolveDocumentTitle(title, options);
+  if (typeof resolved === "string") return `${resolved}${DOCUMENT_TITLE_SUFFIX}`;
+  return resolved.absolute;
+}
+
 export const HOMEPAGE_FAQS = [
   {
     q: "Where is Green Air Cannabis in Malton?",
@@ -106,8 +160,8 @@ export function cannabisStoreJsonLd() {
               "Saturday",
               "Sunday",
             ],
-            opens: "00:00",
-            closes: "23:59",
+            opens: STORE_SCHEMA_HOURS.opens,
+            closes: STORE_SCHEMA_HOURS.closes,
           },
         ],
         hasMap: STORE_NAP.mapUrl,

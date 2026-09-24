@@ -3,7 +3,7 @@ import { TIER_CONFIG, CATEGORY_CONFIG, allFlowers, allItems } from "./lib/produc
 import { SEO_PAGES } from "./lib/seoPages";
 import { LEGACY_SEO_SLUGS } from "./lib/seoRouteAliases";
 import { RESOURCE_PAGES } from "./resources/resourceData";
-import { STORE_NAP } from "./lib/localSeo";
+import { STORE_NAP, storeClaimsOpen24Hours } from "./lib/localSeo";
 
 const BASE = STORE_NAP.canonicalHost;
 
@@ -17,7 +17,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/faq`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${BASE}/delivery`, lastModified: now, changeFrequency: "monthly", priority: 0.45 },
     { url: `${BASE}/weed-dispensary-malton`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${BASE}/24-hour-malton-dispensary`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
+    ...(storeClaimsOpen24Hours()
+      ? [{ url: `${BASE}/24-hour-malton-dispensary`, lastModified: now, changeFrequency: "weekly" as const, priority: 0.8 }]
+      : []),
     { url: `${BASE}/cannabis-delivery-malton`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/native-cigarettes-malton`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
     { url: `${BASE}/nicotine-vape-malton`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
