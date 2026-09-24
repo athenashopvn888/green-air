@@ -11,6 +11,7 @@ import { LEGACY_SEO_SLUGS } from "../../lib/seoRouteAliases";
 import { TIER_CONFIG } from "../../lib/products";
 import LocalSeoMesh from "../../components/LocalSeoMesh";
 import styles from "./seo.module.css";
+import { resolveDocumentTitle } from "../../lib/localSeo";
 
 /* ── Generate all SEO pages ── */
 export function generateStaticParams() {
@@ -30,7 +31,7 @@ export async function generateMetadata({
   if (!page) return {};
 
   return {
-    title: page.title,
+    title: resolveDocumentTitle(page.title),
     description: page.metaDescription,
     alternates: {
       canonical: `https://www.greenaircannabis.com/info/${slug}`,

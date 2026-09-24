@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import ResourceView from "./ResourceView";
 import { RESOURCE_HOME } from "./resourceData";
+import { resolveDocumentTitle } from "../lib/localSeo";
 
 export const metadata: Metadata = {
-  title: RESOURCE_HOME.seoTitle,
+  title: resolveDocumentTitle(RESOURCE_HOME.seoTitle),
   description: RESOURCE_HOME.description,
   alternates: { canonical: "https://www.greenaircannabis.com/resources" },
 };

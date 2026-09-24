@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ResourceView from "../ResourceView";
 import { getResourcePage, RESOURCE_PAGES } from "../resourceData";
+import { resolveDocumentTitle } from "../../lib/localSeo";
 
 type ResourceRouteProps = {
   params: Promise<{ slug?: string[] }>;
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: ResourceRouteProps): Promise<
   const page = getResourcePage(routeSlug(slug));
   if (!page) return {};
   return {
-    title: page.seoTitle,
+    title: resolveDocumentTitle(page.seoTitle),
     description: page.description,
     alternates: { canonical: "https://www.greenaircannabis.com/resources/" + page.slug },
   };

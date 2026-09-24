@@ -15,6 +15,7 @@ import {
 } from "../../lib/products";
 import LocalSeoMesh from "../../components/LocalSeoMesh";
 import { PATHS } from "../../lib/organicPaths";
+import { resolveDocumentTitle } from "../../lib/localSeo";
 import styles from "./items.module.css";
 
 /* ── Generate all category pages ── */
@@ -34,7 +35,9 @@ export async function generateMetadata({
   const items = getItemsByCategory(catInfo.key);
 
   return {
-    title: catInfo.config.seoTitle || `${catInfo.config.name} — ${items.length} Products`,
+    title: resolveDocumentTitle(
+      catInfo.config.seoTitle || `${catInfo.config.name} — ${items.length} Products`,
+    ),
     description: catInfo.config.seoIntro || `Shop ${items.length} ${catInfo.config.name.toLowerCase()} at Green Air Cannabis.`,
     alternates: {
       canonical: `https://www.greenaircannabis.com/items/${catSlug}`,

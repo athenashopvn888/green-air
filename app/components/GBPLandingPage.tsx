@@ -49,7 +49,7 @@ export function GBPLandingPage() {
     "@context": "https://schema.org",
     "@type": "CannabisStore",
     "name": gbpLocation.storeName,
-    "url": `https://${gbpLocation.domain}/${gbpLocation.slug}`,
+    "url": `https://${gbpLocation.domain}`,
     "telephone": gbpLocation.phoneIntl,
     "address": {
       "@type": "PostalAddress",

@@ -6,7 +6,7 @@ const contactPage = await readFile(new URL("../app/contact/page.tsx", import.met
 const categoryPage = await readFile(new URL("../app/items/[category]/page.tsx", import.meta.url), "utf8");
 
 test("contact page renders one store-specific Mississauga H1", () => {
-  assert.match(contactPage, /<h1 className=\{styles\.heroTitle\}>Contact Green Air Cannabis in Mississauga<\/h1>/);
+  assert.match(contactPage, /<h1 className=\{styles\.heroTitle\}>Contact Green Air Cannabis on Airport Rd<\/h1>/);
   assert.equal((contactPage.match(/<h1\b/g) ?? []).length, 1);
 });
 

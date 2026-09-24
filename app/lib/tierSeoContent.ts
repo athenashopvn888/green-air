@@ -1,169 +1,191 @@
 export interface TierSeoData {
   seoTitle: string;
+  h1: string;
+  metaDescription: string;
   seoIntro: string;
   sections: { heading: string; body: string }[];
   faqs: { q: string; a: string }[];
 }
 
 export const TIER_SEO: Record<string, TierSeoData> = {
-  "EXOTIC": {
-    "seoTitle": "Exotic Weed & Cannabis Flower Mississauga",
-    "seoIntro": "Exotic flower at Green Air Cannabis is easiest to compare as its own lane. Open the current Exotic menu, read the posted details, and ask staff when one product detail matters.",
-    "sections": [
+  EXOTIC: {
+    seoTitle: "Exotic Weed on Airport Rd in Malton | Green Air Cannabis",
+    h1: "Exotic Weed on Airport Rd in Malton",
+    metaDescription:
+      "Exotic flower at Green Air Cannabis, 7060 Airport Rd in Malton on the Pearson / Derry stretch of Airport Road. Adults 19+. Compare the live Exotic menu before you travel.",
+    seoIntro:
+      "The Exotic lane at 7060 Airport Rd is the upper flower shelf for shoppers who already know they are stopping on the Malton stretch of Airport Road, not a downtown Mississauga mall. Open the live Exotic list, then match the jar at the plaza counter.",
+    sections: [
       {
-        "heading": "How To Shop Exotic",
-        "body": "Exotic is the lane for shoppers who want to compare the higher shelf flower category first. Start with the tier page, then compare product name, format, weight, posted price, and item notes. The current menu is the right place for details that move."
+        heading: "Who the Airport Rd Exotic shelf is for",
+        body: "Use Exotic when the Malton stop is about the top flower lane. Pearson shift changes and Derry Road cut-throughs both land on the same 7060 plaza door. Adults 19+ need photo ID. This page does not promise a named jar will still be on the shelf when you arrive.",
       },
       {
-        "heading": "When Exotic Makes Sense",
-        "body": "Use Exotic when the visit is about the upper flower lane, not when the main goal is cheap weed. If the listing is close but not clear, ask staff before choosing. That is faster than guessing from an old blog line."
+        heading: "How to compare posted sizes",
+        body: "Read the Exotic cards for the sizes the menu actually posts. Flower copy on this site stays with 3g, 5g, 14g, and 28g when those sizes are listed. If a card is unclear, ask at the counter or call +1 (289) 514-9467 before you leave Goreway or the airport hotels.",
       },
       {
-        "heading": "Local Malton / Airport Menu Tip",
-        "body": "If you searched for a weed dispensary in Malton / Airport or a cannabis dispensary in Mississauga, keep the Exotic page open while you compare. Use the store page for directions, contact options, and listed hours."
-      }
+        heading: "After you pick a lane",
+        body: "Parking and MiWay stay on the visit page. Overnight walk-in notes stay on the 24-hour Malton page. Delivery, when the dispatcher accepts it, is a separate Malton / Airport Rd page and is not an Exotic stock promise.",
+      },
     ],
-    "faqs": [
+    faqs: [
       {
-        "q": "How should shoppers compare Exotic flower?",
-        "a": "Open the Exotic tier, compare the current product details, and ask staff when a note needs a current answer."
+        q: "Where is the Exotic flower counter in Malton?",
+        a: "Green Air Cannabis at 7060 Airport Rd, Mississauga, ON L4T 2G8, on Airport Road through Malton. Adults 19+ with photo ID.",
       },
       {
-        "q": "Does Exotic listings change?",
-        "a": "Yes. Product names, prices, and listings can change, so confirm through the current menu or staff."
+        q: "Does this Exotic page lock tonight's jars?",
+        a: "No. Names and posted prices move. Use the live Exotic list, then confirm at the Airport Rd counter.",
       },
       {
-        "q": "Where should shoppers go after this Exotic guide?",
-        "a": "Use the Exotic tier page first, then the store page when you are ready for directions or contact options."
-      }
-    ]
+        q: "Is Exotic the same job as the open-now page?",
+        a: "No. This URL owns the Exotic lane for the Malton / Airport Rd corridor. Open-now hours stay on the 24-hour Malton page. The homepage keeps the map.",
+      },
+    ],
   },
-  "PREMIUM": {
-    "seoTitle": "Premium Weed & Cannabis Flower Mississauga",
-    "seoIntro": "Premium flower at Green Air Cannabis is easiest to compare as its own lane. Open the current Premium menu, read the posted details, and ask staff when one product detail matters.",
-    "sections": [
+  PREMIUM: {
+    seoTitle: "Premium Weed on Airport Rd through Malton | Green Air Cannabis",
+    h1: "Premium Weed on Airport Rd through Malton",
+    metaDescription:
+      "Premium flower at the Green Air Cannabis walk-in, 7060 Airport Rd, Malton. Adults 19+. Compare the current Premium list on the Pearson corridor before the trip.",
+    seoIntro:
+      "Premium at this Airport Road counter is the lane between the top shelf and the value jars. It is for a Malton plaza stop at 7060, south of the Derry crossing and on the same road that feeds Pearson — not a city-wide Mississauga flower index.",
+    sections: [
       {
-        "heading": "How To Shop Premium",
-        "body": "Premium is a strong lane for shoppers balancing flower quality and value. Start with the tier page, then compare product name, format, weight, posted price, and item notes. The current menu is the right place for details that move."
+        heading: "When Premium fits an Airport Rd stop",
+        body: "Choose Premium when you want a higher flower lane without starting every Malton visit in Exotic. The civic pin stays 7060 Airport Rd. Bring government photo ID. Adults 19+ only.",
       },
       {
-        "heading": "When Premium Makes Sense",
-        "body": "Use Premium when you want to compare above the value lanes without starting every search in Exotic. If the listing is close but not clear, ask staff before choosing. That is faster than guessing from an old blog line."
+        heading: "Posted cards, not a written menu from memory",
+        body: "Compare the Premium names on the live page. Sizes that this store's flower pages discuss are 3g, 5g, 14g, and 28g when the card shows them. Staff at the plaza can answer a single-jar question faster than an old screenshot.",
       },
       {
-        "heading": "Local Malton / Airport Menu Tip",
-        "body": "If you searched for a weed dispensary in Malton / Airport or a cannabis dispensary in Mississauga, keep the Premium page open while you compare. Use the store page for directions, contact options, and listed hours."
-      }
+        heading: "Keep the other Malton jobs on their own URLs",
+        body: "The weed-dispensary owner, the 24-hour page, delivery, Native cigarettes, and nicotine vapes each have a corridor URL. Premium does not replace them. Plaza parking and MiWay are on /visit.",
+      },
     ],
-    "faqs": [
+    faqs: [
       {
-        "q": "How should shoppers compare Premium flower?",
-        "a": "Open the Premium tier, compare the current product details, and ask staff when a note needs a current answer."
+        q: "Which door carries the Premium flower lane?",
+        a: "The Green Air Cannabis counter at 7060 Airport Rd in Malton. Call +1 (289) 514-9467 if you need the plaza bay confirmed.",
       },
       {
-        "q": "Does Premium listings change?",
-        "a": "Yes. Product names, prices, and listings can change, so confirm through the current menu or staff."
+        q: "Can Premium listings change between shifts?",
+        a: "Yes. Pearson and Derry traffic does not freeze the menu. Check the live Premium page before you commit the drive.",
       },
       {
-        "q": "Where should shoppers go after this Premium guide?",
-        "a": "Use the Premium tier page first, then the store page when you are ready for directions or contact options."
-      }
-    ]
+        q: "Does Premium mean a medical product?",
+        a: "No. This is an adults 19+ retail flower lane. It is not a medical shop and it does not take a prescription.",
+      },
+    ],
   },
   "AAA+": {
-    "seoTitle": "AAA+ Weed & Cannabis Flower Mississauga",
-    "seoIntro": "AAA+ flower at Green Air Cannabis is easiest to compare as its own lane. Open the current AAA+ menu, read the posted details, and ask staff when one product detail matters.",
-    "sections": [
+    seoTitle: "AAA+ Weed at the Malton Airport Rd counter | Green Air Cannabis",
+    h1: "AAA+ Weed at the Malton Airport Rd counter",
+    metaDescription:
+      "AAA+ flower at Green Air Cannabis, 7060 Airport Rd, Malton, Mississauga. Adults 19+. Use the live AAA+ list for the Airport Road walk-in.",
+    seoIntro:
+      "AAA+ is the middle flower lane at the Malton plaza on Airport Road. Shoppers coming off Goreway or down from Derry Road use it when they want a focused list without opening every tier at 7060.",
+    sections: [
       {
-        "heading": "How To Shop AAA+",
-        "body": "AAA+ is a middle lane for shoppers comparing flower tiers. Start with the tier page, then compare product name, format, weight, posted price, and item notes. The current menu is the right place for details that move."
+        heading: "A middle lane for the plaza stop",
+        body: "AAA+ suits a short Airport Rd walk-in: one tier, the posted cards, then the counter. It is not a Mississauga-wide ranking and it does not speak for any other door.",
       },
       {
-        "heading": "When AAA+ Makes Sense",
-        "body": "Use AAA+ when you want a focused flower comparison with less menu noise. If the listing is close but not clear, ask staff before choosing. That is faster than guessing from an old blog line."
+        heading: "Sizes to read on the card",
+        body: "Look for the gram sizes the menu posts. On these flower pages that means 3g, 5g, 14g, and 28g when listed. Skip guessing from a chat screenshot. Adults 19+ with photo ID.",
       },
       {
-        "heading": "Local Malton / Airport Menu Tip",
-        "body": "If you searched for a weed dispensary in Malton / Airport or a cannabis dispensary in Mississauga, keep the AAA+ page open while you compare. Use the store page for directions, contact options, and listed hours."
-      }
+        heading: "Hours stay on the homepage",
+        body: "This tier page does not reset the clock. The homepage and the 24-hour Malton page carry open-now. Delivery eligibility stays with the dispatcher on the Malton delivery page.",
+      },
     ],
-    "faqs": [
+    faqs: [
       {
-        "q": "How should shoppers compare AAA+ flower?",
-        "a": "Open the AAA+ tier, compare the current product details, and ask staff when a note needs a current answer."
+        q: "Where do I open AAA+ flower in Malton?",
+        a: "On this page for the lane, then at 7060 Airport Rd for the jar. The neighbourhood is Malton on Airport Road.",
       },
       {
-        "q": "Does AAA+ listings change?",
-        "a": "Yes. Product names, prices, and listings can change, so confirm through the current menu or staff."
+        q: "Is AAA+ a complete stock list?",
+        a: "No. It shows the current AAA+ tier. A name can leave the list. Confirm at the counter if one flower is the whole trip.",
       },
       {
-        "q": "Where should shoppers go after this AAA+ guide?",
-        "a": "Use the AAA+ tier page first, then the store page when you are ready for directions or contact options."
-      }
-    ]
+        q: "How do I reach the AAA+ counter without a car?",
+        a: "MiWay runs along Airport Road through Malton. The visit page has the plaza and transit notes. The pin is 7060 Airport Rd.",
+      },
+    ],
   },
-  "AA": {
-    "seoTitle": "AA Weed & Cannabis Flower Mississauga",
-    "seoIntro": "AA flower at Green Air Cannabis is easiest to compare as its own lane. Open the current AA menu, read the posted details, and ask staff when one product detail matters.",
-    "sections": [
+  AA: {
+    seoTitle: "AA Weed on Airport Rd in Malton | Green Air Cannabis",
+    h1: "AA Weed on Airport Rd in Malton",
+    metaDescription:
+      "AA flower at Green Air Cannabis on Airport Road in Malton, 7060 Airport Rd. Adults 19+. Compare the live AA list before the plaza stop.",
+    seoIntro:
+      "AA is the practical flower lane at the Airport Road counter in Malton. It is for shoppers who want a straightforward list at 7060, between the Pearson employment belt and the Derry Road cross street.",
+    sections: [
       {
-        "heading": "How To Shop AA",
-        "body": "AA is a practical value lane for shoppers who want straightforward flower browsing. Start with the tier page, then compare product name, format, weight, posted price, and item notes. The current menu is the right place for details that move."
+        heading: "A straightforward Malton flower lane",
+        body: "Open AA when the visit is about everyday flower at this plaza, not a city directory. The address is 7060 Airport Rd, Mississauga, ON L4T 2G8. Adults 19+ only.",
       },
       {
-        "heading": "When AA Makes Sense",
-        "body": "Use AA when affordable weed is part of the plan but you still want a dedicated flower tier. If the listing is close but not clear, ask staff before choosing. That is faster than guessing from an old blog line."
+        heading: "Read the posted gram card",
+        body: "Compare AA names against the sizes on the card. Flower pages here talk about 3g, 5g, 14g, and 28g only when those sizes are listed. Call +1 (289) 514-9467 if a single name is why you are leaving the terminal area.",
       },
       {
-        "heading": "Local Malton / Airport Menu Tip",
-        "body": "If you searched for a weed dispensary in Malton / Airport or a cannabis dispensary in Mississauga, keep the AA page open while you compare. Use the store page for directions, contact options, and listed hours."
-      }
+        heading: "Do not mix this lane with nicotine",
+        body: "AA is cannabis flower. Native cigarettes and nicotine vapes have their own Airport Rd pages and their own shelves. Nicotine is addictive. This flower page does not describe those products.",
+      },
     ],
-    "faqs": [
+    faqs: [
       {
-        "q": "How should shoppers compare AA flower?",
-        "a": "Open the AA tier, compare the current product details, and ask staff when a note needs a current answer."
+        q: "Is AA flower sold at the Malton Airport Rd walk-in?",
+        a: "Yes, as its own tier at Green Air Cannabis, 7060 Airport Rd. Check the live AA list for current names.",
       },
       {
-        "q": "Does AA listings change?",
-        "a": "Yes. Product names, prices, and listings can change, so confirm through the current menu or staff."
+        q: "Does AA guarantee a price?",
+        a: "No. Posted prices can change. The live card and the counter are the check, not this paragraph.",
       },
       {
-        "q": "Where should shoppers go after this AA guide?",
-        "a": "Use the AA tier page first, then the store page when you are ready for directions or contact options."
-      }
-    ]
+        q: "Where are parking notes for the AA stop?",
+        a: "On /visit: the retail plaza lot at 7060 Airport Rd, plus MiWay along Airport Road through Malton.",
+      },
+    ],
   },
-  "BUDGET": {
-    "seoTitle": "Budget Weed & Cannabis Flower Mississauga",
-    "seoIntro": "Budget flower at Green Air Cannabis is easiest to compare as its own lane. Open the current Budget menu, read the posted details, and ask staff when one product detail matters.",
-    "sections": [
+  BUDGET: {
+    seoTitle: "Budget Weed on Airport Rd in Malton | Green Air Cannabis",
+    h1: "Budget Weed on Airport Rd in Malton",
+    metaDescription:
+      "Budget flower at Green Air Cannabis, 7060 Airport Rd in Malton. Adults 19+. Compare the live Budget list on the Airport Road corridor.",
+    seoIntro:
+      "Budget is the value flower lane at the Malton plaza on Airport Road. Use it when price is the filter for a 7060 stop, then read the live cards before you turn into the lot.",
+    sections: [
       {
-        "heading": "How To Shop Budget",
-        "body": "Budget is the first stop when cheap weed, budget weed, or affordable weed is the goal. Start with the tier page, then compare product name, format, weight, posted price, and item notes. The current menu is the right place for details that move."
+        heading: "Value shopping on this corridor only",
+        body: "Budget here means the value tier at Green Air Cannabis on Airport Road through Malton. It is not a Mississauga-wide cheap-weed directory and it is not a Toronto listing. Adults 19+ with photo ID.",
       },
       {
-        "heading": "When Budget Makes Sense",
-        "body": "Use Budget when price is the main filter, then compare the current listings before choosing. If the listing is close but not clear, ask staff before choosing. That is faster than guessing from an old blog line."
+        heading: "Compare listed sizes, then the counter",
+        body: "The flower sizes these pages will name are 3g, 5g, 14g, and 28g when the Budget card shows them. A deal banner on the tier is the menu's own label. This guide does not invent a second price.",
       },
       {
-        "heading": "Local Malton / Airport Menu Tip",
-        "body": "If you searched for a weed dispensary in Malton / Airport or a cannabis dispensary in Mississauga, keep the Budget page open while you compare. Use the store page for directions, contact options, and listed hours."
-      }
+        heading: "Same door as the rest of the plaza",
+        body: "Budget uses the same 7060 walk-in as Exotic. Hours stay on the homepage. The 24-hour Malton page owns open-now. The visit page owns plaza parking and MiWay.",
+      },
     ],
-    "faqs": [
+    faqs: [
       {
-        "q": "How should shoppers compare Budget flower?",
-        "a": "Open the Budget tier, compare the current product details, and ask staff when a note needs a current answer."
+        q: "Where is Budget flower on Airport Road?",
+        a: "At Green Air Cannabis, 7060 Airport Rd, Malton, Mississauga. Open the live Budget tier, then the counter.",
       },
       {
-        "q": "Does Budget listings change?",
-        "a": "Yes. Product names, prices, and listings can change, so confirm through the current menu or staff."
+        q: "Is Budget a promise that every value jar is in stock?",
+        a: "No. The list changes. If one name is the only reason to come, call +1 (289) 514-9467 first.",
       },
       {
-        "q": "Where should shoppers go after this Budget guide?",
-        "a": "Use the Budget tier page first, then the store page when you are ready for directions or contact options."
-      }
-    ]
-  }
+        q: "Does the Budget page cover delivery zones?",
+        a: "No. Delivery for Malton and nearby Mississauga addresses is dispatcher-confirmed on the cannabis delivery page. This URL is the walk-in value lane.",
+      },
+    ],
+  },
 };

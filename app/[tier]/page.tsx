@@ -12,6 +12,12 @@ import {
 } from "../lib/products";
 import { TIER_SEO } from "../lib/tierSeoContent";
 import LocalSeoMesh from "../components/LocalSeoMesh";
+import {
+  STORE_NAP,
+  faqPageJsonLd,
+  resolveDocumentTitle,
+  stringifyJsonLd,
+} from "../lib/localSeo";
 import styles from "./tier.module.css";
 
 /* -- Generate all tier pages at build -- */
@@ -31,15 +37,24 @@ export async function generateMetadata({
   const flowers = getFlowersByTier(tierInfo.key);
   const seo = TIER_SEO[tierInfo.key];
 
+  const title =
+    seo?.seoTitle ||
+    `${tierInfo.config.name} on Airport Rd in Malton — ${flowers.length} Strains`;
+
   return {
-    title: seo?.seoTitle || `${tierInfo.config.name} Cannabis Flower — ${flowers.length} Strains`,
-    description: seo?.seoIntro || `Shop ${flowers.length} ${tierInfo.config.name.toLowerCase()} cannabis strains at Green Air Cannabis.`,
+    title: resolveDocumentTitle(title),
+    description:
+      seo?.metaDescription ||
+      seo?.seoIntro ||
+      `Shop ${flowers.length} ${tierInfo.config.name.toLowerCase()} cannabis strains at Green Air Cannabis on Airport Rd in Malton.`,
     alternates: {
-      canonical: `https://www.greenaircannabis.com/${tierSlug}`,
+      canonical: `${STORE_NAP.canonicalHost}/${tierSlug}`,
     },
     openGraph: {
-      title: `${tierInfo.config.name} & Cannabis Flower Mississauga`,
-      description: `Browse the ${tierInfo.config.name.toLowerCase()} flower tier and review current menu details.`,
+      title: seo?.h1 || title,
+      description:
+        seo?.metaDescription ||
+        `Browse the ${tierInfo.config.name.toLowerCase()} flower tier at 7060 Airport Rd in Malton.`,
     },
   };
 }
@@ -67,8 +82,44 @@ export default async function TierPage({
     ? fs.existsSync(path.join(process.cwd(), "public", config.banner))
     : false;
 
+  const pageUrl = `${STORE_NAP.canonicalHost}/${tierSlug}`;
+  const collectionJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "@id": `${pageUrl}#webpage`,
+    url: pageUrl,
+    name: seo?.h1 || config.name,
+    description:
+      seo?.metaDescription ||
+      `${config.name} flower at Green Air Cannabis on Airport Rd in Malton.`,
+    isPartOf: { "@type": "WebSite", "@id": `${STORE_NAP.canonicalHost}/#website` },
+    about: { "@id": `${STORE_NAP.canonicalHost}/#store` },
+    mainEntity: {
+      "@type": "ItemList",
+      numberOfItems: flowers.length,
+      itemListElement: flowers.map((flower, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: flower.name,
+        url: `${STORE_NAP.canonicalHost}/flower/${flower.slug}`,
+      })),
+    },
+  };
+
   return (
     <main className={styles.main}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: stringifyJsonLd(collectionJsonLd) }}
+      />
+      {seo?.faqs?.length ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: stringifyJsonLd(faqPageJsonLd(seo.faqs, pageUrl)),
+          }}
+        />
+      ) : null}
       <Navbar />
 
       {/* ── Banner Image (standalone, no overlay text) ── */}
@@ -92,7 +143,7 @@ export default async function TierPage({
             <div className={styles.heroTitleRow}>
               <span className={styles.heroIcon}>{config.icon}</span>
               <h1 className={styles.heroTitle}>
-                <span style={{ color: config.color }}>{config.name}</span>
+                <span style={{ color: config.color }}>{seo?.h1 || config.name}</span>
               </h1>
             </div>
             <p className={styles.heroTagline}>{config.tagline}</p>
@@ -184,7 +235,7 @@ export default async function TierPage({
       {seo && (
         <section className={styles.seoSection}>
           <div className={styles.container}>
-            <h2 className={styles.seoMainTitle}>{seo.seoTitle}</h2>
+            <h2 className={styles.seoMainTitle}>{seo.h1}</h2>
             <p className={styles.seoIntro}>{seo.seoIntro}</p>
 
             {seo.sections.map((s, i) => (
