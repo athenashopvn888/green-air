@@ -7,5 +7,10 @@ export const metadata: Metadata = {
 };
 
 export default function TvTwoLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return children;
+  return (
+    <>
+      <style>{`a.deliveryAnnouncement{display:none !important}`}</style>
+      {children}
+    </>
+  );
 }
