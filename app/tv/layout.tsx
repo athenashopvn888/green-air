@@ -1,0 +1,16 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Green Air Cannabis In-Store Flower Display",
+  description: "Operational in-store flower menu display for Green Air Cannabis.",
+  robots: { index: false, follow: false },
+};
+
+export default function TvLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return (
+    <>
+      <style>{`a.deliveryAnnouncement{display:none !important}`}</style>
+      {children}
+    </>
+  );
+}
