@@ -204,6 +204,7 @@ export default function TV2Page() {
   const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setDaytime(isTv2Daytime());
     const iv = setInterval(() => setDaytime(isTv2Daytime()), 60_000);
     return () => clearInterval(iv);
   }, []);
