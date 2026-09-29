@@ -1,4 +1,5 @@
 "use client";
+import CohortDeliveryActions from "./CohortDeliveryActions";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
@@ -109,6 +110,7 @@ export default function Navbar({ hideThcVape = false }: { hideThcVape?: boolean 
           </Link>
         ))}
       </div>
+      <CohortDeliveryActions />
     </nav>
   );
 }
