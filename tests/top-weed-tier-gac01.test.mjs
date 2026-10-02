@@ -6,9 +6,10 @@ const read=(path)=>readFileSync(new URL(`../${path}`,import.meta.url),"utf8");
 test("GAC01 uses Tri's custom banner and the approved homepage stack",()=>{
   const banner=read("app/components/FleetAnnouncementBanner.tsx"); const deals=read("app/lib/flowerDeals.ts");
   assert.match(deals,/TOP WEED TIER SPECIAL · \$\{BOGO_BUY_2_GET_1\}  \$\{BOGO_BUY_3_GET_3\} \*/);
-  const order=["<FlowerBogoStrip hero />",'data-exotic-tier-banner=""','top-weed-tier-gac01.webp','data-cigarette-deal=""','data-bb-light-deal=""','data-cig-mix-banner=""','data-bb-premium-banner=""']; let offset=-1;
+  const order=["<FlowerBogoStrip hero />",'data-exotic-tier-banner=""','top-weed-tier-gac01.webp','data-cigarette-deal=""','data-bb-light-deal=""','data-cig-mix-banner=""','data-belmont-premium-banner=""']; let offset=-1;
   for(const marker of order){const next=banner.indexOf(marker);assert.ok(next>offset,`${marker} should follow the previous stack item`);offset=next;}
-  for(const file of ["top-weed-tier-gac01.webp","bb-premium-grade-full-lights.webp","2pack5cig.webp"]){assert.ok(existsSync(new URL(`../public/banners/${file}`,import.meta.url)));}
+  for(const file of ["top-weed-tier-gac01.webp","BB_Belmont_Premium_Grade.webp","2pack5cig.webp"]){assert.ok(existsSync(new URL(`../public/banners/${file}`,import.meta.url)));}
+  assert.ok(!existsSync(new URL("../public/banners/bb-premium-grade-full-lights.webp",import.meta.url)));
 });
 
 test("Dual-Frame math is exact on Exotic, Premium and AAA+ only",()=>{
