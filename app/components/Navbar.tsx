@@ -7,6 +7,7 @@ import Link from "next/link";
 import { storeClaimsOpen24Hours } from "../lib/localSeo";
 import { PATHS } from "../lib/organicPaths";
 import styles from "./Navbar.module.css";
+import FlowerBogoStrip from "./FlowerBogoStrip";
 
 const ALL_LINKS: { href: string; label: string; featured?: boolean }[] = [
   { href: "/exotic-weed", label: "Exotic Weed" },
@@ -111,6 +112,7 @@ export default function Navbar({ hideThcVape = false }: { hideThcVape?: boolean 
         ))}
       </div>
       <CohortDeliveryActions />
+      {pathname !== "/" ? <FlowerBogoStrip /> : null}
     </nav>
   );
 }
