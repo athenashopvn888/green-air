@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import TvReviewQr from "../TvReviewQr";
 
 export const metadata: Metadata = {
   title: "Green Air Cannabis In-Store Accessories Display",
@@ -11,6 +12,7 @@ export default function TvTwoLayout({ children }: Readonly<{ children: React.Rea
     <>
       <style>{`a.deliveryAnnouncement{display:none !important}`}</style>
       {children}
+      <TvReviewQr />
     </>
   );
 }

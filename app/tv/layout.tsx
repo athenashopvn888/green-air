@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import TvReviewQr from "../TvReviewQr";
 
 export const metadata: Metadata = {
   title: "Green Air Cannabis In-Store Flower Display",
@@ -11,6 +12,7 @@ export default function TvLayout({ children }: Readonly<{ children: React.ReactN
     <>
       <style>{`a.deliveryAnnouncement{display:none !important}`}</style>
       {children}
+      <TvReviewQr />
     </>
   );
 }
