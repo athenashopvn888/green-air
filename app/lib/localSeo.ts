@@ -128,7 +128,7 @@ export function cannabisStoreJsonLd() {
       {
         "@type": "CannabisStore",
         "@id": `${STORE_NAP.canonicalHost}/#store`,
-        name: STORE_NAP.brand,
+        name: "Green Air Cannabis Dispensary Weed Delivery",
         description:
           "24-hour cannabis dispensary on Airport Road in Malton, Mississauga. Walk-in flower, pre-rolls, vapes, edibles, concentrates, and accessories at 7060 Airport Rd, near Pearson and Derry Road.",
         url: STORE_NAP.website,
@@ -175,7 +175,7 @@ export function cannabisStoreJsonLd() {
         "@type": "WebSite",
         "@id": `${STORE_NAP.canonicalHost}/#website`,
         url: STORE_NAP.website,
-        name: STORE_NAP.brand,
+        name: "Green Air Cannabis Dispensary Weed Delivery",
         publisher: { "@id": `${STORE_NAP.canonicalHost}/#store` },
       },
     ],
