@@ -195,7 +195,7 @@ export default function HomePage() {
           <div className={styles.welcomeBannerContainer}>
             <img
               src={welcomeBannerSrc}
-              alt="Welcome to Green Air Cannabis — Malton / Airport Rd walk-in dispensary"
+              alt="Green Air Cannabis Dispensary Weed Delivery"
               className={styles.welcomeBannerImg}
               onError={() => setWelcomeBannerError(true)}
             />
