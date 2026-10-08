@@ -1,4 +1,4 @@
-import { HOME_TITLE } from "./lib/homeDelivery";
+import { HOME_DOC_TITLE } from "./lib/homeDelivery";
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
@@ -7,7 +7,7 @@ import { cannabisStoreJsonLd, renderedDocumentTitle, STORE_NAP } from "./lib/loc
 export const metadata: Metadata = {
   metadataBase: new URL(STORE_NAP.canonicalHost),
   title: {
-    default: HOME_TITLE,
+    default: HOME_DOC_TITLE,
     // Child titles that already include the brand must use resolveDocumentTitle()
     // so this template does not append "Green Air Cannabis" a second time.
     template: "%s | Green Air Cannabis",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     locale: "en_CA",
     url: STORE_NAP.website,
     siteName: STORE_NAP.brand,
-    title: HOME_TITLE,
+    title: HOME_DOC_TITLE,
     description:
       "24-hour cannabis counter at 7060 Airport Rd, Malton. Pearson-corridor walk-in for adults 19+.",
     images: [
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: HOME_TITLE,
+    title: HOME_DOC_TITLE,
     description: "24-hour walk-in at 7060 Airport Rd, Malton / Mississauga. Call +1 (289) 514-9467.",
     images: [STORE_NAP.schemaImage],
   },
