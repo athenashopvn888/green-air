@@ -53,7 +53,7 @@ function CigarettePriceFlash() {
 function ItemCard({ title, accent, items, hiIdx, preset, offerPromo, reviewQr }: {
   title:string; accent:string; items:Item[]; hiIdx:number; preset:string; offerPromo?:Tv2DaytimePromo; reviewQr?:boolean;
 }) {
-  const MAX = 10;
+  const MAX = reviewQr ? 6 : 10;
   const hiW = Math.min(hiIdx % Math.max(1, items.length), items.length - 1);
   const hi = items[hiW] || items[0];
 
