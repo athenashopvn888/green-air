@@ -10,6 +10,7 @@ import {
   stringifyJsonLd,
 } from "../lib/localSeo";
 import styles from "../visit/visit.module.css";
+import VapeActionPanel from "../components/VapeActionPanel";
 
 const PAGE_URL = `${STORE_NAP.canonicalHost}${PATHS.nicotineVapeLp}`;
 
@@ -99,6 +100,8 @@ export default function NicotineVapeMaltonPage() {
           {STORE_NAP.phoneDisplay}, and the map pin stay on the{" "}
           <Link href="/#contact">homepage visit hub</Link>.
         </p>
+
+        <VapeActionPanel compact />
 
         <section className={styles.nap} aria-label="Store name, address, hours, and phone">
           <div>

@@ -19,6 +19,7 @@ import { resolveDocumentTitle } from "../../lib/localSeo";
 import styles from "./items.module.css";
 import { getCategoryGuideGroups } from "../../lib/guideRegistry";
 import guideStyles from "../../guides/[slug]/guide.module.css";
+import VapeActionPanel from "../../components/VapeActionPanel";
 
 export const dynamic = "force-dynamic";
 
@@ -104,6 +105,8 @@ export default async function ItemsCategoryPage({
           </div>
         )}
       </section>
+
+      {(catSlug === "vapes" || catSlug === "vape-disposables") && <VapeActionPanel compact />}
 
       {/* Product Grid */}
       <section className={styles.products}>
