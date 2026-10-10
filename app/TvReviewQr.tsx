@@ -3,9 +3,9 @@ import Image from "next/image";
 import reviewQr from "../public/tv-review-gac01.png";
 import styles from "./TvReviewQr.module.css";
 
-export default function TvReviewQr() {
+export default function TvReviewQr({ placement }: { placement: "tvAddons" | "tv2Addons" }) {
   return (
-    <aside className={styles.card} aria-label="Review Green Air Cannabis on Google">
+    <aside className={`${styles.card} ${styles[placement]}`} aria-label="Review Green Air Cannabis on Google">
       <Image
         className={styles.image}
         src={reviewQr}

@@ -1,19 +1,27 @@
 .card {
-  position: fixed;
-  right: max(14px, env(safe-area-inset-right));
-  bottom: max(14px, env(safe-area-inset-bottom));
-  z-index: 2147483647;
-  width: 116px;
-  padding: 6px 6px 8px;
+  flex: 0 0 auto;
+  width: 232px;
+  padding: 8px 8px 10px;
   overflow: hidden;
   border: 2px solid #d4a73a;
   border-radius: 10px;
   background: #fff;
-  box-shadow: 0 5px 18px rgb(0 0 0 / 34%), 0 0 18px rgb(212 167 58 / 48%);
+  box-shadow: 0 5px 18px rgb(0 0 0 / 22%), 0 0 18px rgb(212 167 58 / 35%);
   color: #0b3d2e;
   text-align: center;
-  pointer-events: none;
   isolation: isolate;
+}
+
+.tvAddons {
+  align-self: center;
+  margin-top: 4px;
+}
+
+.tv2Addons {
+  align-self: center;
+  width: 232px;
+  margin-top: 10px;
+  padding: 7px 7px 8px;
 }
 
 .image {
@@ -25,22 +33,9 @@
 .label {
   display: block;
   margin-top: 4px;
-  font-size: 11px;
+  font-size: 18px;
   font-weight: 950;
   line-height: 1;
   letter-spacing: 0.5px;
   white-space: nowrap;
-}
-
-@media (max-width: 800px), (max-height: 600px) {
-  .card {
-    right: max(8px, env(safe-area-inset-right));
-    bottom: max(8px, env(safe-area-inset-bottom));
-    width: 92px;
-    padding: 4px 4px 6px;
-  }
-
-  .label {
-    font-size: 9px;
-  }
 }
