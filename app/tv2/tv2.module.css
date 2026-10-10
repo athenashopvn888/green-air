@@ -295,15 +295,20 @@
 /* ── ROWS ── */
 .listBody {
   flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   overflow: hidden;
 }
 .row {
+  flex: 1 1 0;
   display: grid;
   grid-template-columns: 2.40fr 1.00fr;
   align-items: center;
   min-height: 66px;
   border-radius: 12px;
-  margin-top: 8px;
+  margin-top: 0;
   background: rgba(0,0,0,.02);
   border: 2px solid rgba(0,0,0,.06);
   overflow: hidden;
@@ -515,8 +520,6 @@
 }
 .row {
   min-height: 44px;
-  margin-top: 4px;
-  flex-shrink: 0;
 }
 .mcItem,
 .mcPrice {
