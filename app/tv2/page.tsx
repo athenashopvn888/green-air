@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import styles from "./tv2.module.css";
 import HiringRibbon from "../components/HiringRibbon";
 import TvStoreHeader from "../components/TvStoreHeader";
+import TvReviewQr from "../TvReviewQr";
 import { tvHiring } from "../lib/tvHiring";
 import { formatBoardTime, readStockUpdatedAt } from "../lib/tvStockTime";
 import TvThemeArtwork from "../tv-theme/TvThemeArtwork";
@@ -49,8 +50,8 @@ function CigarettePriceFlash() {
 }
 
 /* -- ITEM CARD -- */
-function ItemCard({ title, accent, items, hiIdx, preset, offerPromo }: {
-  title:string; accent:string; items:Item[]; hiIdx:number; preset:string; offerPromo?:Tv2DaytimePromo;
+function ItemCard({ title, accent, items, hiIdx, preset, offerPromo, reviewQr }: {
+  title:string; accent:string; items:Item[]; hiIdx:number; preset:string; offerPromo?:Tv2DaytimePromo; reviewQr?:boolean;
 }) {
   const MAX = 10;
   const hiW = Math.min(hiIdx % Math.max(1, items.length), items.length - 1);
@@ -151,6 +152,7 @@ function ItemCard({ title, accent, items, hiIdx, preset, offerPromo }: {
               );
             })}
           </div>
+          {reviewQr && <TvReviewQr placement="tv2Addons" />}
         </div>
       </div>
       {offerPromo && (
@@ -335,6 +337,7 @@ export default function TV2Page() {
               return (
                 <ItemCard key={card.id} title={card.title} accent={card.accent}
                   items={filtered} hiIdx={highlights[card.id]||0} preset={card.preset}
+                  reviewQr={card.id === "PREROLLS_ADDONS"}
                   offerPromo={card.id === "CIGARETTES" ? getCigaretteOfferPromo(daytime, promoElapsedMs) : undefined} />
               );
             })}

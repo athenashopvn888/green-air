@@ -6,6 +6,7 @@ import { getFlowerEffects } from "./flowerEffects";
 import { TOP_TIER_BUNDLE_LABELS } from "./bundleLabels";
 import HiringRibbon from "../components/HiringRibbon";
 import TvStoreHeader from "../components/TvStoreHeader";
+import TvReviewQr from "../TvReviewQr";
 import { tvHiring } from "../lib/tvHiring";
 import { formatBoardTime, readStockUpdatedAt } from "../lib/tvStockTime";
 import TvThemeArtwork from "../tv-theme/TvThemeArtwork";
@@ -672,6 +673,7 @@ function AddOnsCard({ items, hiIdx }: { items: Item[]; hiIdx: number }) {
             </div>
           ))}
         </div>
+        <TvReviewQr placement="tvAddons" />
       </div>
     </div>
   );
