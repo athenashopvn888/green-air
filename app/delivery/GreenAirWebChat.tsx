@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import "./GreenAirWebChat.css";
@@ -181,7 +182,7 @@ export default function GreenAirWebChat() {
   return <aside className={`sod-web-chat ${open ? "open" : ""}`} aria-label="Green Air Cannabis Web Chat">
     <button className="sod-chat-launcher" type="button" onClick={() => { if (!open) void refreshAvailability(); setOpen((value) => !value); }} aria-expanded={open}>{open ? "Close chat" : "LIVE ORDER"}</button>
     {open && <section className="sod-chat-panel" role="dialog" aria-modal="true" aria-label="Green Air Cannabis Web Chat">
-      <header><div><strong>Green Air Cannabis Web Chat</strong><small>Start your delivery order with a dispatcher</small></div><button type="button" onClick={() => setOpen(false)} aria-label="Minimize chat">&times;</button></header>
+      <header><div><strong>Green Air Cannabis Web Chat</strong><small>DELIVERY PRICES ONLY. Delivery orders are charged these prices, not in-store prices. <Link href="/faq#delivery-price-rule">See the FAQ</Link></small></div><button type="button" onClick={() => setOpen(false)} aria-label="Minimize chat">&times;</button></header>
       <div className={`sod-availability-banner ${paused ? "paused" : "unavailable"}`} role="status" hidden={!statusMessage}><strong>{paused ? "New delivery chats are paused" : "Delivery status unavailable"}</strong><span>{statusMessage}{token ? " Your existing chat remains open." : ""}</span>{paused && availability?.mapUrl && <a href={availability.mapUrl} target="_blank" rel="noopener noreferrer">Map to store</a>}</div>
       {!token ? (!availability || availability.state !== "AVAILABLE" ? <div className="sod-chat-start sod-chat-paused"><p>{statusMessage || "Checking delivery availability..."}</p><button type="button" onClick={() => void refreshAvailability()}>Check again</button></div> : <form className="sod-chat-start" onSubmit={start}>
         <fieldset className="sod-intent-options"><legend>Tell us about your account</legend>
