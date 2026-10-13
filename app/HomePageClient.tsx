@@ -194,6 +194,7 @@ export default function HomePageClient({ initialFlowers }: { initialFlowers: Par
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <Navbar />
+      <h1 data-home-store-title="" style={{ margin: 0, padding: "14px 16px", background: "#111827", color: "#ffffff", textAlign: "center", fontSize: "clamp(1.1rem, 3vw, 2rem)", fontWeight: 900, lineHeight: 1.2, position: "relative", zIndex: 60 }}>{HOME_TITLE}</h1>
       <HomepageTopNotices />
       <FleetAnnouncementBanner />
       {/* ── NAVBAR ── */}
@@ -234,7 +235,6 @@ export default function HomePageClient({ initialFlowers }: { initialFlowers: Par
           {/* Brand branding */}
           <div className={styles.brandBlock}>
             <img src="/storeFavicon.webp" alt="Green Air Cannabis Icon" style={{ height: "60px", width: "60px", objectFit: "contain", borderRadius: "8px", marginBottom: "8px" }} />
-            <h1 className={styles.brandTitle}>{HOME_TITLE}</h1>
             <CohortDeliveryActions variant="hero" />
             <p className={styles.brandSub}>Malton / Airport Rd · 24-hour walk-in</p>
             <p className={styles.brandCorridor}>7060 Airport Rd, Mississauga ON L4T 2G8</p>
