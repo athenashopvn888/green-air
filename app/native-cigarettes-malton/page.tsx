@@ -1,3 +1,4 @@
+import CigaretteSeasonalNotice from "../components/CigaretteSeasonalNotice";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
@@ -82,6 +83,7 @@ export default function NativeCigarettesMaltonPage() {
         }}
       />
       <Navbar />
+      <CigaretteSeasonalNotice sticky />
 
       <article className={styles.article}>
         <p className={styles.kicker}>
