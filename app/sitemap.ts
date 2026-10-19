@@ -93,6 +93,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: page.slug ? 0.6 : 0.7,
   }));
 
+  resourcePages.push({
+    url: `${BASE}/resources/flying-from-pearson-with-cannabis`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  });
+
   const guidePages: MetadataRoute.Sitemap = [...GUIDE_REGISTRY, ...DELIVERY_GUIDE_REGISTRY].map((guide) => ({
     url: `${BASE}/guides/${guide.slug}`,
     lastModified: now,
