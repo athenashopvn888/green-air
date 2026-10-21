@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import LocalSeoMesh from "../components/LocalSeoMesh";
 import { PATHS } from "../lib/organicPaths";
+import { SHOW_CIGARETTES } from "../lib/showCigarettes";
 import {
   STORE_NAP,
   faqPageJsonLd,
@@ -181,12 +182,18 @@ export default function NicotineVapeMaltonPage() {
             <Link href={PATHS.deliveryLp}>
               cannabis delivery in Malton
             </Link>{" "}
-            and{" "}
-            <Link href={PATHS.nativeCigarettesLp}>
-              Native cigarettes on Airport Rd
-            </Link>{" "}
-            have their own pages. The cigarette shelf is{" "}
-            <Link href={PATHS.itemsCigarettes}>/items/cigarettes</Link>. A
+            {SHOW_CIGARETTES ? (
+              <>
+                and{" "}
+                <Link href={PATHS.nativeCigarettesLp}>
+                  Native cigarettes on Airport Rd
+                </Link>{" "}
+                have their own pages. The cigarette shelf is{" "}
+                <Link href={PATHS.itemsCigarettes}>/items/cigarettes</Link>. A
+              </>
+            ) : (
+              <>has its own page. A</>
+            )}{" "}
             five-card evidence set also lives on{" "}
             <Link href="/info/nicotine-vapes-mississauga">
               the Mississauga nicotine guide

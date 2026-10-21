@@ -13,6 +13,7 @@ import Footer from "./components/Footer";
 import FlowerCard from "./components/FlowerCard";
 import { HOMEPAGE_FAQS, STORE_NAP, faqPageJsonLd, storeClaimsOpen24Hours } from "./lib/localSeo";
 import { ORGANIC_HUB_CARDS, PATHS, TWENTY_FOUR_HOUR_HREF } from "./lib/organicPaths";
+import { SHOW_CIGARETTES, visibleFaqs } from "./lib/showCigarettes";
 import LocalSeoMesh from "./components/LocalSeoMesh";
 import Papa from "papaparse";
 import { useLiveFlowers } from "./lib/useLiveMenu";
@@ -85,7 +86,7 @@ const EXPLORE_CATEGORIES = [
   { name: "Magic Stuff", slug: "items/magic", banner: "/banners/09_Magic_Stuff.webp", icon: "🍄" },
 ];
 
-const LOCAL_FAQS = HOMEPAGE_FAQS;
+const LOCAL_FAQS = visibleFaqs(HOMEPAGE_FAQS);
 
 interface Review {
   name: string;
@@ -187,7 +188,7 @@ export default function HomePageClient({ initialFlowers }: { initialFlowers: Par
     setFeaturedStrains(picked);
   }, [__liveFlowers]);
 
-  const faqJsonLd = faqPageJsonLd(HOMEPAGE_FAQS, STORE_NAP.website);
+  const faqJsonLd = faqPageJsonLd(LOCAL_FAQS, STORE_NAP.website);
 
   return (
     <main className={styles.main}>
@@ -280,7 +281,7 @@ export default function HomePageClient({ initialFlowers }: { initialFlowers: Par
           </div>
 
           <div className={styles.categoriesGrid}>
-            {EXPLORE_CATEGORIES.map((cat) => (
+            {EXPLORE_CATEGORIES.filter((cat) => SHOW_CIGARETTES || cat.slug !== "items/cigarettes").map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/${cat.slug}`}
@@ -343,8 +344,12 @@ export default function HomePageClient({ initialFlowers }: { initialFlowers: Par
               <Link href={TWENTY_FOUR_HOUR_HREF}>24-hour / open-now Airport Rd</Link>{" "}
               page,{" "}
               <Link href={PATHS.deliveryLp}>cannabis delivery in Malton</Link>
-              ,{" "}
-              <Link href={PATHS.nativeCigarettesLp}>Native cigarettes on Airport Rd</Link>
+              {SHOW_CIGARETTES ? (
+                <>
+                  ,{" "}
+                  <Link href={PATHS.nativeCigarettesLp}>Native cigarettes on Airport Rd</Link>
+                </>
+              ) : null}
               , and{" "}
               <Link href={PATHS.nicotineVapeLp}>nicotine vapes on Airport Rd</Link>
               , and the{" "}
@@ -365,7 +370,7 @@ export default function HomePageClient({ initialFlowers }: { initialFlowers: Par
             </p>
           </div>
           <div className={styles.hubGrid}>
-            {ORGANIC_HUB_CARDS.filter((card) => !card.onlyWhen24h || storeClaimsOpen24Hours()).map((card) => (
+            {ORGANIC_HUB_CARDS.filter((card) => (!card.onlyWhen24h || storeClaimsOpen24Hours()) && (SHOW_CIGARETTES || card.href !== PATHS.nativeCigarettesLp)).map((card) => (
               <Link key={card.href} href={card.href} className={styles.hubCard}>
                 <h3 className={styles.hubCardTitle}>{card.title}</h3>
                 <p className={styles.hubCardBody}>{card.body}</p>

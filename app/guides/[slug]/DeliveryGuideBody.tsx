@@ -2,16 +2,23 @@ import Link from "next/link";
 import type { ReactNode } from "react";
 import type { DeliveryGuideFaq } from "../../lib/deliveryGuideRegistry";
 import styles from "./guide.module.css";
+import { isHiddenCigarettePath, SHOW_CIGARETTES, visibleGuideMarkdown } from "../../lib/showCigarettes";
 
 function renderInline(markdown: string): ReactNode[] {
   const tokens = markdown.split(/(\*\*\[[^\]]+\]\([^)]+\)\*\*|\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
   return tokens.filter(Boolean).map((token, index) => {
     const strongLink = token.match(/^\*\*\[([^\]]+)\]\(([^)]+)\)\*\*$/);
-    if (strongLink) return <strong key={index}><Link href={strongLink[2]}>{strongLink[1]}</Link></strong>;
+    if (strongLink) {
+      if (isHiddenCigarettePath(strongLink[2])) return null;
+      return <strong key={index}><Link href={strongLink[2]}>{strongLink[1]}</Link></strong>;
+    }
     const strong = token.match(/^\*\*(.+)\*\*$/);
     if (strong) return <strong key={index}>{strong[1]}</strong>;
     const link = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
-    if (link) return <Link key={index} href={link[2]}>{link[1]}</Link>;
+    if (link) {
+      if (isHiddenCigarettePath(link[2])) return null;
+      return <Link key={index} href={link[2]}>{link[1]}</Link>;
+    }
     return token;
   });
 }
@@ -21,7 +28,8 @@ export function stripDeliveryMarkdown(markdown: string) {
 }
 
 export default function DeliveryGuideBody({ markdown, faqs }: { markdown: string; faqs: DeliveryGuideFaq[] }) {
-  const lines = markdown.replace(/\r\n/g, "\n").split("\n");
+  const visibleFaqs = faqs.filter((faq) => SHOW_CIGARETTES || !/\bgrabba\b/i.test(`${faq.question} ${faq.answer}`));
+  const lines = visibleGuideMarkdown(markdown).replace(/\r\n/g, "\n").split("\n");
   const blocks: ReactNode[] = [];
   let paragraph: string[] = [];
   let bullets: string[] = [];
@@ -35,5 +43,5 @@ export default function DeliveryGuideBody({ markdown, faqs }: { markdown: string
     flushBullets(); paragraph.push(line);
   });
   flushParagraph(); flushBullets();
-  return <><div className={styles.body}>{blocks}</div><div className={styles.faqs}><h2>FAQ</h2>{faqs.map((faq) => <details key={faq.question}><summary>{renderInline(faq.question)}</summary><p>{renderInline(faq.answer)}</p></details>)}</div></>;
+  return <><div className={styles.body}>{blocks}</div>{visibleFaqs.length > 0 && <div className={styles.faqs}><h2>FAQ</h2>{visibleFaqs.map((faq) => <details key={faq.question}><summary>{renderInline(faq.question)}</summary><p>{renderInline(faq.answer)}</p></details>)}</div>}</>;
 }

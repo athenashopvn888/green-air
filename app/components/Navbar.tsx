@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { storeClaimsOpen24Hours } from "../lib/localSeo";
 import { PATHS } from "../lib/organicPaths";
+import { SHOW_CIGARETTES } from "../lib/showCigarettes";
 import styles from "./Navbar.module.css";
 import FlowerBogoStrip from "./FlowerBogoStrip";
 
@@ -38,6 +39,7 @@ export default function Navbar({ hideThcVape = false }: { hideThcVape?: boolean 
   const [menuOpen, setMenuOpen] = useState(false);
   const navLinks = ALL_LINKS.filter((link) => {
     if (hideThcVape && link.href === "/items/vape-disposables") return false;
+    if (!SHOW_CIGARETTES && link.href === "/items/cigarettes") return false;
     if (link.href === PATHS.twentyFour && !storeClaimsOpen24Hours()) return false;
     return true;
   });

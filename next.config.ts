@@ -1,5 +1,6 @@
 import type { NextConfig } from "next";
 import { SEO_ROUTE_REDIRECTS } from "./app/lib/seoRouteAliases";
+import { cigaretteHideRedirects, SHOW_CIGARETTES } from "./app/lib/showCigarettes";
 
 const nextConfig: NextConfig = {
   images: {
@@ -32,12 +33,17 @@ const nextConfig: NextConfig = {
       { source: "/concentrates", destination: "/items/concentrates", permanent: true },
       { source: "/prerolls", destination: "/items/prerolls", permanent: true },
       { source: "/add-ons", destination: "/items/add-ons", permanent: true },
-      { source: "/cigarettes", destination: "/items/cigarettes", permanent: true },
+      ...(SHOW_CIGARETTES
+        ? [{ source: "/cigarettes", destination: "/items/cigarettes", permanent: true as const }]
+        : []),
       { source: "/magic", destination: "/items/magic", permanent: true },
-      ...SEO_ROUTE_REDIRECTS.map((redirect) => ({
+      ...SEO_ROUTE_REDIRECTS.filter(
+        (redirect) => SHOW_CIGARETTES || redirect.source !== "/info/native-cigarettes-york",
+      ).map((redirect) => ({
         ...redirect,
-        permanent: true,
+        permanent: true as const,
       })),
+      ...cigaretteHideRedirects(),
     ];
   },
 };

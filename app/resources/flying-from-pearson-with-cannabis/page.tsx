@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 import { STORE_NAP } from "../../lib/localSeo";
 import ArticleBody from "./ArticleBody";
 import { ARTICLE_CANONICAL, ARTICLE_DESCRIPTION, ARTICLE_H1, ARTICLE_MARKDOWN, ARTICLE_TITLE } from "./content";
+import { publicCopy } from "../../lib/showCigarettes";
 import styles from "./article.module.css";
 
 const PUBLISHED = "2026-10-19";
@@ -90,7 +91,7 @@ export default function FlyingFromPearsonArticlePage() {
           </div>
         </header>
         <div className={styles.body}>
-          <ArticleBody markdown={ARTICLE_MARKDOWN} />
+          <ArticleBody markdown={publicCopy(ARTICLE_MARKDOWN)} />
         </div>
       </article>
       <Footer />

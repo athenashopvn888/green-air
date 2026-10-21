@@ -3,10 +3,11 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import styles from "./faq.module.css";
 import { resolveDocumentTitle } from "../lib/localSeo";
+import { publicCopy, SHOW_CIGARETTES, visibleFaqs } from "../lib/showCigarettes";
 
 export const metadata: Metadata = {
   title: resolveDocumentTitle("FAQ | Green Air Cannabis"),
-  description: "Frequently asked questions about Green Air Cannabis in Mississauga, including store-page checks, menu categories, value shopping, and Native smokes where listed.",
+  description: publicCopy("Frequently asked questions about Green Air Cannabis in Mississauga, including store-page checks, menu categories, value shopping, and Native smokes where listed."),
   alternates: {
     canonical: "https://www.greenaircannabis.com/faq",
   },
@@ -63,10 +64,14 @@ const FAQ_CATEGORIES = [
 ];
 
 export default function FAQPage() {
+  const categories = FAQ_CATEGORIES
+    .filter((cat) => SHOW_CIGARETTES || !/native smoke|cigarette|grabba/i.test(cat.title))
+    .map((cat) => ({ ...cat, faqs: visibleFaqs(cat.faqs) }))
+    .filter((cat) => cat.faqs.length > 0);
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: FAQ_CATEGORIES.flatMap((cat) =>
+    mainEntity: categories.flatMap((cat) =>
       cat.faqs.map((faq) => ({
         "@type": "Question",
         name: faq.q,
@@ -92,7 +97,7 @@ export default function FAQPage() {
             Straight answers for shopping Green Air Cannabis: store page first, menu category second, staff when the current detail matters.
           </p>
 
-          {FAQ_CATEGORIES.map((cat) => (
+          {categories.map((cat) => (
             <div key={cat.title} className={styles.category}>
               <h2 className={styles.categoryTitle}>{cat.title}</h2>
               {cat.faqs.map((faq) => (

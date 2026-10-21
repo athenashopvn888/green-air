@@ -8,6 +8,7 @@ import {
 } from "../lib/localSeo";
 import LocalSeoMesh from "../components/LocalSeoMesh";
 import { PATHS, TWENTY_FOUR_HOUR_HREF } from "../lib/organicPaths";
+import { SHOW_CIGARETTES } from "../lib/showCigarettes";
 import styles from "./visit.module.css";
 
 const VISIT_FAQS = [
@@ -162,8 +163,12 @@ export default function VisitPage() {
               </Link>
               {", "}
               <Link href={PATHS.deliveryLp}>cannabis delivery in Malton</Link>
-              {", "}
-              <Link href={PATHS.nativeCigarettesLp}>Native cigarettes</Link>
+              {SHOW_CIGARETTES ? (
+                <>
+                  {", "}
+                  <Link href={PATHS.nativeCigarettesLp}>Native cigarettes</Link>
+                </>
+              ) : null}
               {", and "}
               <Link href={PATHS.nicotineVapeLp}>nicotine vapes</Link>
               . Supporting neighbourhood notes also live on{" "}

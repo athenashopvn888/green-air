@@ -12,6 +12,8 @@ import { TIER_CONFIG } from "../../lib/products";
 import LocalSeoMesh from "../../components/LocalSeoMesh";
 import styles from "./seo.module.css";
 import { resolveDocumentTitle } from "../../lib/localSeo";
+import { redirectToVape } from "../../lib/cigaretteRedirect";
+import { isHiddenCigarettePath, publicCopy, SHOW_CIGARETTES } from "../../lib/showCigarettes";
 
 /* ── Generate all SEO pages ── */
 export function generateStaticParams() {
@@ -27,12 +29,13 @@ export async function generateMetadata({
   params: Promise<{ seoPage: string }>;
 }): Promise<Metadata> {
   const { seoPage: slug } = await params;
+  if (isHiddenCigarettePath(`/info/${slug}`)) redirectToVape();
   const page = getSeoPageBySlug(slug);
   if (!page) return {};
 
   return {
-    title: resolveDocumentTitle(page.title),
-    description: page.metaDescription,
+    title: resolveDocumentTitle(publicCopy(page.title)),
+    description: publicCopy(page.metaDescription),
     alternates: {
       canonical: `https://www.greenaircannabis.com/info/${slug}`,
     },
@@ -49,11 +52,14 @@ export default async function SeoLandingPage({
   params: Promise<{ seoPage: string }>;
 }) {
   const { seoPage: slug } = await params;
+  if (isHiddenCigarettePath(`/info/${slug}`)) redirectToVape();
   const page = getSeoPageBySlug(slug);
   if (!page) notFound();
 
   const tiers = Object.values(TIER_CONFIG);
-  const heroMenuHref = page.heroPreview?.menuHref ?? "/items/cigarettes";
+  const heroMenuHref = page.heroPreview?.menuHref && !isHiddenCigarettePath(page.heroPreview.menuHref)
+    ? page.heroPreview.menuHref
+    : (SHOW_CIGARETTES ? "/items/cigarettes" : "/vape-shop-malton");
 
   // Check if banner file exists in the public folder
   const bannerExists = page.banner
@@ -85,7 +91,7 @@ export default async function SeoLandingPage({
               <p>{page.heroPreview.intro}</p>
               <div className={styles.productHeroActions}>
                 <Link href={heroMenuHref} className={styles.productHeroPrimary}>
-                  {page.heroPreview.primaryLabel ?? "Check the cigarette menu"}
+                  {page.heroPreview.primaryLabel ?? (SHOW_CIGARETTES ? "Check the cigarette menu" : "Check the menu")}
                 </Link>
                 <Link href={heroMenuHref} className={styles.productHeroSecondary}>
                   {page.heroPreview.secondaryLabel ?? "See the current selection"}
@@ -132,16 +138,21 @@ export default async function SeoLandingPage({
       {/* Content Sections */}
       <section className={styles.content}>
         <div className={styles.container}>
-          {page.sections.map((s, i) => (
+          {page.sections.map((s, i) => {
+            const heading = publicCopy(s.heading);
+            const body = publicCopy(s.body);
+            if (!heading || !body) return null;
+            return (
             <div key={i} className={styles.section}>
-              <h2 className={styles.sectionTitle}>{s.heading}</h2>
-              <p className={styles.sectionBody}>{s.body}</p>
+              <h2 className={styles.sectionTitle}>{heading}</h2>
+              <p className={styles.sectionBody}>{body}</p>
             </div>
-          ))}
+            );
+          })}
 
-          {page.relatedLink && (
+          {page.relatedLink && !isHiddenCigarettePath(page.relatedLink.href) && (
             <div className={styles.relatedLinkCard}>
-              <p>{page.relatedLink.intro}</p>
+              <p>{publicCopy(page.relatedLink.intro)}</p>
               <Link href={page.relatedLink.href}>{page.relatedLink.label}</Link>
             </div>
           )}
@@ -181,12 +192,17 @@ export default async function SeoLandingPage({
           {page.faqs.length > 0 && (
             <div className={styles.section}>
               <h2 className={styles.sectionTitle}>Frequently Asked Questions</h2>
-              {page.faqs.map((faq, i) => (
+              {page.faqs.flatMap((faq, i) => {
+                const q = publicCopy(faq.q);
+                const a = publicCopy(faq.a);
+                if (!q || !a) return [];
+                return [(
                 <details key={i} className={styles.faqItem}>
-                  <summary className={styles.faqQ}>{faq.q}</summary>
-                  <p className={styles.faqA}>{faq.a}</p>
+                  <summary className={styles.faqQ}>{q}</summary>
+                  <p className={styles.faqA}>{a}</p>
                 </details>
-              ))}
+                )];
+              })}
             </div>
           )}
 

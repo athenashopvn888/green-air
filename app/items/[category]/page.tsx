@@ -20,6 +20,8 @@ import { PATHS } from "../../lib/organicPaths";
 import { resolveDocumentTitle } from "../../lib/localSeo";
 import styles from "./items.module.css";
 import { getCategoryGuideGroups } from "../../lib/guideRegistry";
+import { redirectCigarettesIfHidden, redirectToVape } from "../../lib/cigaretteRedirect";
+import { isHiddenCigaretteItem, isHiddenGuideSlug, SHOW_CIGARETTES, visibleCategoryLabel } from "../../lib/showCigarettes";
 import guideStyles from "../../guides/[slug]/guide.module.css";
 import VapeActionPanel from "../../components/VapeActionPanel";
 
@@ -37,6 +39,7 @@ export async function generateMetadata({
   params: Promise<{ category: string }>;
 }): Promise<Metadata> {
   const { category: catSlug } = await params;
+  if (!SHOW_CIGARETTES && catSlug === "cigarettes") redirectToVape();
   const catInfo = getCategoryFromSlug(catSlug);
   if (!catInfo) return {};
   const { items: menuItems } = await getWebMenuData();
@@ -59,21 +62,30 @@ export default async function ItemsCategoryPage({
   params: Promise<{ category: string }>;
 }) {
   const { category: catSlug } = await params;
+  if (!SHOW_CIGARETTES && catSlug === "cigarettes") redirectCigarettesIfHidden();
   const catInfo = getCategoryFromSlug(catSlug);
   if (!catInfo) notFound();
 
   /* Pre-Rolls also shows accessories (ADD ONS) */
   const { items: menuItems } = await getWebMenuData();
-  let items = menuItems.filter((item) => item.category.toUpperCase() === catInfo.key.toUpperCase());
+  let items = menuItems.filter((item) => item.category.toUpperCase() === catInfo.key.toUpperCase() && !isHiddenCigaretteItem(item));
+  if (!SHOW_CIGARETTES && catInfo.key === "ADD ONS") {
+    const keptWraps = menuItems.filter((item) => item.category.toUpperCase() === "CIGARETTES" && !isHiddenCigaretteItem(item));
+    const existingIds = new Set(items.map((item) => item.sku));
+    items = [...items, ...keptWraps.filter((item) => !existingIds.has(item.sku))];
+  }
   if (catInfo.key === "PREROLLS") {
-    const accessories = menuItems.filter((item) => item.category.toUpperCase() === "ADD ONS");
+    const accessories = menuItems.filter((item) => item.category.toUpperCase() === "ADD ONS" && !isHiddenCigaretteItem(item));
     const existingIds = new Set(items.map(i => i.sku));
     const uniqueAccessories = accessories.filter(a => !existingIds.has(a.sku));
     items = [...items, ...uniqueAccessories];
   }
   const { config } = catInfo;
   const categoryBanner = resolveItemBanner(catSlug, config.banner);
-  const guideGroups = getCategoryGuideGroups(`/items/${config.slug}`);
+  const guideGroups = getCategoryGuideGroups(`/items/${config.slug}`).map((group) => ({
+    ...group,
+    guides: group.guides.filter((guide) => !isHiddenGuideSlug(guide.slug)),
+  }));
 
   // Check if banner file exists in the public folder
   const bannerExists = categoryBanner
@@ -210,7 +222,7 @@ function ItemCard({ item, catColor }: { item: ItemProduct; catColor: string }) {
         </div>
       </div>
       <div className={styles.cardBody}>
-        <span className={styles.cardCategory}>{item.category}</span>
+        <span className={styles.cardCategory}>{visibleCategoryLabel(item.category, item)}</span>
         <h3 className={styles.cardName}>{item.name}</h3>
         {item.price && (
           <div className={styles.cardPrice}>
