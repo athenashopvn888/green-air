@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { TIER_CONFIG } from "../lib/products";
 import { PATHS, TWENTY_FOUR_HOUR_HREF } from "../lib/organicPaths";
+import { SHOW_CIGARETTES } from "../lib/showCigarettes";
 import styles from "./LocalSeoMesh.module.css";
 
 export { TWENTY_FOUR_HOUR_HREF };
@@ -31,7 +32,7 @@ export default function LocalSeoMesh({
     label: tier.name,
   }));
   const links = [...HUB_LINKS, ...tierLinks].filter(
-    (link) => link.href !== currentPath,
+    (link) => link.href !== currentPath && (SHOW_CIGARETTES || link.href !== PATHS.nativeCigarettesLp),
   );
 
   return (

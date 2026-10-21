@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import LocalSeoMesh from "../components/LocalSeoMesh";
 import { PATHS } from "../lib/organicPaths";
+import { SHOW_CIGARETTES } from "../lib/showCigarettes";
 import {
   STORE_NAP,
   faqPageJsonLd,
@@ -163,16 +164,21 @@ export default function CannabisDeliveryMaltonPage() {
         </section>
 
         <section>
-          <h2>Same store as cigarettes, nicotine vapes, and flower</h2>
+          <h2>{SHOW_CIGARETTES ? "Same store as cigarettes, nicotine vapes, and flower" : "Same store as nicotine vapes and flower"}</h2>
           <p>
             Delivery is one lane, not a second shop. The generic{" "}
             <Link href={PATHS.weedDispensaryLp}>
               weed dispensary on Airport Rd
             </Link>{" "}
-            owner, neighbourhood{" "}
-            <Link href={PATHS.nativeCigarettesLp}>
-              Native cigarettes on Airport Rd
-            </Link>{" "}
+            owner
+            {SHOW_CIGARETTES ? (
+              <>
+                , neighbourhood{" "}
+                <Link href={PATHS.nativeCigarettesLp}>
+                  Native cigarettes on Airport Rd
+                </Link>
+              </>
+            ) : null}{" "}
             and{" "}
             <Link href={PATHS.nicotineVapeLp}>
               nicotine vapes on Airport Rd

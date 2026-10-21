@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import LocalSeoMesh from "../components/LocalSeoMesh";
 import { PATHS, TWENTY_FOUR_HOUR_HREF } from "../lib/organicPaths";
+import { publicCopy, SHOW_CIGARETTES, visibleFaqs } from "../lib/showCigarettes";
 import {
   STORE_NAP,
   faqPageJsonLd,
@@ -47,7 +48,7 @@ export const metadata: Metadata = {
     absolute: "24-Hour Dispensary Open Now on Airport Rd | Green Air Cannabis",
   },
   description:
-    "Open now: Green Air Cannabis at 7060 Airport Rd is open 24 hours on the Malton / Pearson / Derry corridor. Adults 19+. Equal corridor page with delivery, Native cigarettes, and nicotine vapes. Homepage keeps the map hub.",
+    publicCopy("Open now: Green Air Cannabis at 7060 Airport Rd is open 24 hours on the Malton / Pearson / Derry corridor. Adults 19+. Equal corridor page with delivery, Native cigarettes, and nicotine vapes. Homepage keeps the map hub."),
   alternates: {
     canonical: PAGE_URL,
   },
@@ -86,7 +87,7 @@ export default function TwentyFourHourMaltonPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: stringifyJsonLd(faqPageJsonLd(TWENTY_FOUR_FAQS, PAGE_URL)),
+          __html: stringifyJsonLd(faqPageJsonLd(TWENTY_FOUR_FAQS.flatMap((faq) => visibleFaqs([faq])), PAGE_URL)),
         }}
       />
       <Navbar />
@@ -101,8 +102,11 @@ export default function TwentyFourHourMaltonPage() {
         <p className={styles.lede}>
           Green Air Cannabis lists <strong>{STORE_NAP.hoursDaily}</strong> at{" "}
           <strong>{STORE_NAP.addressLine}</strong>. This is a first-class
-          corridor page — equal to the neighbourhood weed dispensary,
-          delivery, Native cigarettes, and nicotine vapes — and it owns
+          corridor page — equal to the neighbourhood weed dispensary,{" "}
+          {SHOW_CIGARETTES
+            ? "delivery, Native cigarettes, and nicotine vapes"
+            : "delivery and nicotine vapes"}{" "}
+          — and it owns
           “open now” / 24-hour-near-me intent for Malton / Airport Road. It
           is not a city-wide Mississauga 24-hour list. Hours, phone {STORE_NAP.phoneDisplay}, and
           the map pin stay on the{" "}
@@ -202,8 +206,8 @@ export default function TwentyFourHourMaltonPage() {
           <h2>What to browse when the door is open</h2>
           <p>
             The overnight counter is the same menu lanes as daytime: flower
-            tiers, pre-rolls, edibles, vapes, concentrates, accessories, and
-            listed cigarettes. Names and posted prices move; call{" "}
+            tiers, pre-rolls, edibles, vapes, concentrates, accessories
+            {SHOW_CIGARETTES ? ", and listed cigarettes" : ""}. Names and posted prices move; call{" "}
             <a href={`tel:${STORE_NAP.phoneIntl}`}>{STORE_NAP.phoneDisplay}</a> if
             one item is the only reason to come out. No medical claims —
             adult retail only.
@@ -223,10 +227,14 @@ export default function TwentyFourHourMaltonPage() {
             <Link href={PATHS.deliveryLp}>
               cannabis delivery in Malton / Airport Rd
             </Link>
-            ,{" "}
-            <Link href={PATHS.nativeCigarettesLp}>
-              Native cigarettes on Airport Rd
-            </Link>
+            {SHOW_CIGARETTES ? (
+              <>
+                ,{" "}
+                <Link href={PATHS.nativeCigarettesLp}>
+                  Native cigarettes on Airport Rd
+                </Link>
+              </>
+            ) : null}
             , and{" "}
             <Link href={PATHS.nicotineVapeLp}>
               nicotine vapes on Airport Rd
@@ -252,7 +260,7 @@ export default function TwentyFourHourMaltonPage() {
 
         <section className={styles.faq}>
           <h2>24-hour Malton / Airport Rd — quick answers</h2>
-          {TWENTY_FOUR_FAQS.map((faq) => (
+          {visibleFaqs(TWENTY_FOUR_FAQS).map((faq) => (
             <details key={faq.q}>
               <summary>{faq.q}</summary>
               <p>{faq.a}</p>

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import styles from "./GBPLandingPage.module.css";
 import { gbpLocation } from "../lib/gbp-location";
+import { SHOW_CIGARETTES } from "../lib/showCigarettes";
 
 // Dictionary mapping category names to their respective paths
 const categoryLinks: { [key: string]: string } = {
@@ -135,8 +136,12 @@ export function GBPLandingPage() {
           <Link href="/24-hour-malton-dispensary">24-hour Airport Rd</Link>
           {", "}
           <Link href="/cannabis-delivery-malton">Malton delivery</Link>
-          {", "}
-          <Link href="/native-cigarettes-malton">Native cigarettes</Link>
+          {SHOW_CIGARETTES ? (
+            <>
+              {", "}
+              <Link href="/native-cigarettes-malton">Native cigarettes</Link>
+            </>
+          ) : null}
           {", and "}
           <Link href="/nicotine-vape-malton">nicotine vapes</Link>.
         </p>

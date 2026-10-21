@@ -1,4 +1,5 @@
 import CigaretteSeasonalNotice from "../components/CigaretteSeasonalNotice";
+import { redirectCigarettesIfHidden } from "../lib/cigaretteRedirect";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
@@ -56,6 +57,7 @@ export const metadata: Metadata = {
 };
 
 export default function NativeCigarettesMaltonPage() {
+  redirectCigarettesIfHidden();
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",

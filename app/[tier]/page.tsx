@@ -26,6 +26,7 @@ import { getTierGuideLinks } from "../lib/guideRegistry";
 import { formatAsLowAsAfterPromos, formatPerGram, isBogoDeal, type BoardDeal } from "../lib/flowerDeals";
 import guideStyles from "../guides/[slug]/guide.module.css";
 import nearMeFaq from "../lib/nearMeFaq.json";
+import { publicCopy, visibleFaqs } from "../lib/showCigarettes";
 
 export const dynamic = "force-dynamic";
 
@@ -53,18 +54,20 @@ export async function generateMetadata({
 
   return {
     title: resolveDocumentTitle(title),
-    description:
+    description: publicCopy(
       seo?.metaDescription ||
       seo?.seoIntro ||
       `Shop ${flowers.length} ${tierInfo.config.name.toLowerCase()} cannabis strains at Green Air Cannabis on Airport Rd in Malton.`,
+    ),
     alternates: {
       canonical: `${STORE_NAP.canonicalHost}/${tierSlug}`,
     },
     openGraph: {
       title: seo?.h1 || title,
-      description:
+      description: publicCopy(
         seo?.metaDescription ||
         `Browse the ${tierInfo.config.name.toLowerCase()} flower tier at 7060 Airport Rd in Malton.`,
+      ),
     },
   };
 }
@@ -83,7 +86,8 @@ export default async function TierPage({
   const flowers = menuFlowers.filter((flower) => flower.tier.toUpperCase() === tierInfo.key.toUpperCase());
   const { config } = tierInfo;
   const categoryBanner = resolveTierBanner(tierSlug, config.banner);
-  const seo = TIER_SEO[tierInfo.key];
+  const seoSource = TIER_SEO[tierInfo.key];
+  const seo = seoSource ? { ...seoSource, faqs: visibleFaqs(seoSource.faqs) } : undefined;
 
   const saleFlowers = flowers.filter((f) => f.isSale);
   const tierRange = storeTierRange(flowers, tierInfo.key);
@@ -103,9 +107,10 @@ export default async function TierPage({
     "@id": `${pageUrl}#webpage`,
     url: pageUrl,
     name: seo?.h1 || config.name,
-    description:
+    description: publicCopy(
       seo?.metaDescription ||
       `${config.name} flower at Green Air Cannabis on Airport Rd in Malton.`,
+    ),
     isPartOf: { "@type": "WebSite", "@id": `${STORE_NAP.canonicalHost}/#website` },
     about: { "@id": `${STORE_NAP.canonicalHost}/#store` },
     mainEntity: {
@@ -243,13 +248,13 @@ export default async function TierPage({
         <section className={styles.seoSection}>
           <div className={styles.container}>
             <h2 className={styles.seoMainTitle}>{seo.h1}</h2>
-            <p className={styles.seoIntro}>{seo.seoIntro}</p>
+            <p className={styles.seoIntro}>{publicCopy(seo.seoIntro)}</p>
             {/^(exotic|premium|aaa)(-weed)?$/.test(tierSlug) ? <p className={styles.seoIntro} data-tier-near-line="">{nearMeFaq.tierLine}</p> : null}
 
             {seo.sections.map((s, i) => (
               <div key={i} className={styles.seoBlock}>
                 <h3 className={styles.seoHeading}>{s.heading}</h3>
-                <p className={styles.seoBody}>{s.body}</p>
+                <p className={styles.seoBody}>{publicCopy(s.body)}</p>
               </div>
             ))}
 
@@ -257,7 +262,7 @@ export default async function TierPage({
             {seo.faqs.length > 0 && (
               <div className={styles.faqSection}>
                 <h3 className={styles.seoHeading}>Frequently Asked Questions</h3>
-                {seo.faqs.map((faq, i) => (
+                {visibleFaqs(seo.faqs).map((faq, i) => (
                   <details key={i} className={styles.faqItem}>
                     <summary className={styles.faqQuestion}>{faq.q}</summary>
                     <p className={styles.faqAnswer}>{faq.a}</p>

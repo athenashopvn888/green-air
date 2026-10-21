@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import styles from "./guide.module.css";
+import { isHiddenCigarettePath, visibleGuideMarkdown } from "../../lib/showCigarettes";
 
 function renderInline(markdown: string): ReactNode[] {
   const tokens = markdown.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g);
@@ -8,7 +9,10 @@ function renderInline(markdown: string): ReactNode[] {
     const strong = token.match(/^\*\*(.+)\*\*$/);
     if (strong) return <strong key={index}>{strong[1]}</strong>;
     const link = token.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
-    if (link) return <Link key={index} href={link[2]}>{link[1]}</Link>;
+    if (link) {
+      if (isHiddenCigarettePath(link[2])) return null;
+      return <Link key={index} href={link[2]}>{link[1]}</Link>;
+    }
     return token;
   });
 }
@@ -18,7 +22,7 @@ export function stripMarkdown(markdown: string) {
 }
 
 export default function GuideBody({ markdown }: { markdown: string }) {
-  const lines = markdown.replace(/\r\n/g, "\n").split("\n");
+  const lines = visibleGuideMarkdown(markdown).replace(/\r\n/g, "\n").split("\n");
   const blocks: ReactNode[] = [];
   let paragraph: string[] = [];
   let bullets: string[] = [];

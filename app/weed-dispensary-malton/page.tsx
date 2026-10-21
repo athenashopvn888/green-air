@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import LocalSeoMesh from "../components/LocalSeoMesh";
 import { PATHS } from "../lib/organicPaths";
+import { SHOW_CIGARETTES, visibleFaqs } from "../lib/showCigarettes";
 import {
   STORE_NAP,
   faqPageJsonLd,
@@ -78,7 +79,7 @@ export default function WeedDispensaryMaltonPage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: stringifyJsonLd(faqPageJsonLd(WEED_DISPENSARY_FAQS, PAGE_URL)),
+          __html: stringifyJsonLd(faqPageJsonLd(WEED_DISPENSARY_FAQS.flatMap((faq) => visibleFaqs([faq])), PAGE_URL)),
         }}
       />
       <Navbar />
@@ -178,10 +179,14 @@ export default function WeedDispensaryMaltonPage() {
               cannabis delivery in Malton / Airport Rd
             </Link>
             . Listed{" "}
-            <Link href={PATHS.nativeCigarettesLp}>
-              Native cigarettes on Airport Rd
-            </Link>{" "}
-            and{" "}
+            {SHOW_CIGARETTES ? (
+              <>
+                <Link href={PATHS.nativeCigarettesLp}>
+                  Native cigarettes on Airport Rd
+                </Link>{" "}
+                and{" "}
+              </>
+            ) : null}
             <Link href={PATHS.nicotineVapeLp}>
               nicotine vapes on Airport Rd
             </Link>{" "}
@@ -206,7 +211,7 @@ export default function WeedDispensaryMaltonPage() {
 
         <section className={styles.faq}>
           <h2>Weed dispensary on this corridor — quick answers</h2>
-          {WEED_DISPENSARY_FAQS.map((faq) => (
+          {visibleFaqs(WEED_DISPENSARY_FAQS).map((faq) => (
             <details key={faq.q}>
               <summary>{faq.q}</summary>
               <p>{faq.a}</p>

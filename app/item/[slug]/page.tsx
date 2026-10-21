@@ -11,6 +11,8 @@ import { getItemPriceDisplay } from "../../lib/itemPricing";
 import Magnifier from "../../components/Magnifier";
 import styles from "../../flower/[slug]/flower.module.css";
 import { resolveDocumentTitle } from "../../lib/localSeo";
+import { redirectToVape } from "../../lib/cigaretteRedirect";
+import { isHiddenCigaretteItem, visibleCategoryHref, visibleCategoryLabel } from "../../lib/showCigarettes";
 
 // ONE product loader (same as /api/tv-data), filled per request by __loadMenuData(). Grok 2026-10-09.
 let __menu!: Awaited<ReturnType<typeof getLiveMenu>>;
@@ -37,12 +39,13 @@ export async function generateMetadata({
   const { slug } = await params;
   const { items } = await getWebMenuData();
   const item = items.find((i) => i.slug === slug);
+  if (item && isHiddenCigaretteItem(item)) redirectToVape();
   if (!item) return {};
 
   const itemData = getItemData(item.category, item.name);
 
   return {
-    title: resolveDocumentTitle(`${item.name} | ${item.category} | Green Air Cannabis Mississauga`),
+    title: resolveDocumentTitle(`${item.name} | ${visibleCategoryLabel(item.category, item)} | Green Air Cannabis Mississauga`),
     description: itemData.metaDescription,
     alternates: {
       canonical: `https://www.greenaircannabis.com/item/${slug}`,
@@ -100,6 +103,7 @@ function getJsonLd(item: ItemProduct) {
 /* -- Breadcrumb JSON-LD -- */
 function getBreadcrumbJsonLd(item: ItemProduct) {
   const catSlug = item.category.toLowerCase().replace(' ', '-');
+  const categoryHref = visibleCategoryHref(`/items/${catSlug}`, item);
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -113,8 +117,8 @@ function getBreadcrumbJsonLd(item: ItemProduct) {
       {
         "@type": "ListItem",
         "position": 2,
-        "name": item.category,
-        "item": `https://www.greenaircannabis.com/items/${catSlug}`
+        "name": visibleCategoryLabel(item.category, item),
+        "item": `https://www.greenaircannabis.com${categoryHref}`
       },
       {
         "@type": "ListItem",
@@ -136,6 +140,7 @@ export default async function ItemPage({
   const { slug } = await params;
   const { items } = await getWebMenuData();
   const item = items.find((i) => i.slug === slug);
+  if (item && isHiddenCigaretteItem(item)) redirectToVape();
   if (!item) notFound();
 
   const catInfo = Object.values(CATEGORY_CONFIG).find(c => c.name.toUpperCase() === item.category.toUpperCase() || c.name === item.category);
@@ -164,7 +169,7 @@ export default async function ItemPage({
           <nav className={styles.breadcrumb}>
             <Link href="/">Home</Link>
             <span>/</span>
-            <Link href={`/items/${catInfo?.slug || item.category.toLowerCase().replace(' ', '-')}`}>{item.category}</Link>
+            <Link href={visibleCategoryHref(`/items/${catInfo?.slug || item.category.toLowerCase().replace(' ', '-')}`, item)}>{visibleCategoryLabel(item.category, item)}</Link>
             <span>/</span>
             <span className={styles.breadcrumbCurrent}>{item.name}</span>
           </nav>
@@ -189,7 +194,7 @@ export default async function ItemPage({
             {/* -- Details -- */}
             <div className={styles.details}>
               <div className={styles.tierBadge} style={{ color: catColor, borderColor: `${catColor}33`, background: `${catColor}10` }}>
-                {catIcon} {item.category}
+                {catIcon} {visibleCategoryLabel(item.category, item)}
               </div>
 
               <h1 className={styles.strainName}>{item.name}</h1>

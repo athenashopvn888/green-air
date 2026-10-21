@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "./Footer.module.css";
 import { storeClaimsOpen24Hours } from "../lib/localSeo";
+import { SHOW_CIGARETTES } from "../lib/showCigarettes";
 
 export default function Footer() {
   return (
@@ -52,7 +53,7 @@ export default function Footer() {
                 <Link href="/24-hour-malton-dispensary">24-Hour Malton / Airport Rd</Link>
               ) : null}
               <Link href="/cannabis-delivery-malton">Cannabis Delivery Malton</Link>
-              <Link href="/native-cigarettes-malton">Native Cigarettes Airport Rd</Link>
+              {SHOW_CIGARETTES ? <Link href="/native-cigarettes-malton">Native Cigarettes Airport Rd</Link> : null}
               <Link href="/nicotine-vape-malton">Nicotine Vapes Airport Rd</Link>
               <Link href="/exotic-weed">Exotic Weed</Link>
               <Link href="/premium-weed">Premium Weed</Link>
@@ -60,7 +61,7 @@ export default function Footer() {
               <Link href="/aa-weed">AA Weed</Link>
               <Link href="/budget-weed">Budget Weed</Link>
               <Link href="/items/edibles">Edibles</Link>
-              <Link href="/items/cigarettes">Cigarettes</Link>
+              {SHOW_CIGARETTES ? <Link href="/items/cigarettes">Cigarettes</Link> : null}
               <Link href="/items/vapes">Nicotine Vape</Link>
               <Link href="/resources">Resources</Link>
               <Link href="/guides">Guides</Link>
@@ -68,7 +69,7 @@ export default function Footer() {
               <Link href="/delivery">Delivery Menu</Link>
               <Link href="/info/mississauga-weed-dispensary">Mississauga Dispensary</Link>
               <Link href="/info/cheap-weed-mississauga">Cheap Weed Mississauga</Link>
-              <Link href="/info/native-cigarettes-mississauga">Native Cigarettes</Link>
+              {SHOW_CIGARETTES ? <Link href="/info/native-cigarettes-mississauga">Native Cigarettes</Link> : null}
               <Link href="/info/nicotine-vapes-mississauga">Nicotine Vapes Mississauga</Link>
               <Link href="/info/weed-store-near-malton-airport">Weed Store Near Malton / Airport</Link>
               <Link href="/contact">Contact Us</Link>

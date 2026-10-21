@@ -6,6 +6,8 @@ import Navbar from "../../components/Navbar";
 import { DELIVERY_GUIDE_REGISTRY, getDeliveryGuide } from "../../lib/deliveryGuideRegistry";
 import { GUIDE_REGISTRY, GUIDE_STORE, getGuide, resolveGuideProduct, type GuideEntry } from "../../lib/guideRegistry";
 import GuideBody, { stripMarkdown } from "./GuideBody";
+import { redirectToVape } from "../../lib/cigaretteRedirect";
+import { isHiddenCigarettePath, isHiddenGuideSlug, SHOW_CIGARETTES, visibleCategoryHref, visibleGuideMarkdown } from "../../lib/showCigarettes";
 import DeliveryGuidePage from "./DeliveryGuidePage";
 import styles from "./guide.module.css";
 
@@ -23,11 +25,12 @@ export function generateStaticParams() { return [...GUIDE_REGISTRY, ...DELIVERY_
 
 export async function generateMetadata({ params }: GuidePageProps): Promise<Metadata> {
   const slug = (await params).slug;
+  if (isHiddenGuideSlug(slug)) redirectToVape();
   const deliveryGuide = getDeliveryGuide(slug);
   if (deliveryGuide) return { title: { absolute: deliveryGuide.title }, description: deliveryGuide.description, alternates: { canonical: `${BASE}/guides/${deliveryGuide.slug}` }, robots: { index: true, follow: true }, openGraph: { title: deliveryGuide.title, description: deliveryGuide.description, url: `${BASE}/guides/${deliveryGuide.slug}`, type: "website" } };
   const guide = getGuide(slug);
   if (!guide) return {};
-  const description = stripMarkdown(guide.description);
+  const description = stripMarkdown(visibleGuideMarkdown(guide.description));
   return {
     title: { absolute: guide.title },
     description,
@@ -38,16 +41,18 @@ export async function generateMetadata({ params }: GuidePageProps): Promise<Meta
   };
 }
 
-const relatedEntries = (guide: GuideEntry) => guide.relatedSlugs.map(getGuide).filter((entry): entry is GuideEntry => Boolean(entry));
+const relatedEntries = (guide: GuideEntry) => guide.relatedSlugs.map(getGuide).filter((entry): entry is GuideEntry => Boolean(entry)).filter((entry) => !isHiddenGuideSlug(entry.slug));
 
 export default async function GuidePage({ params }: GuidePageProps) {
   const slug = (await params).slug;
+  if (isHiddenGuideSlug(slug)) redirectToVape();
   const deliveryGuide = getDeliveryGuide(slug);
   if (deliveryGuide) return <DeliveryGuidePage guide={deliveryGuide} />;
   const guide = getGuide(slug);
   if (!guide) notFound();
   const product = resolveGuideProduct(guide);
-  const productHref = product ? `${guide.lane === "strain" ? "/flower" : "/item"}/${product.slug}` : undefined;
+  const productHref = product && !isHiddenCigarettePath(`${guide.lane === "strain" ? "/flower" : "/item"}/${product.slug}`) ? `${guide.lane === "strain" ? "/flower" : "/item"}/${product.slug}` : undefined;
+  const categoryPath = visibleCategoryHref(guide.preferredCategoryPath);
   const canonical = `${BASE}/guides/${guide.slug}`;
   const lane = laneCopy[guide.lane];
   const graph: Record<string, unknown>[] = [{
@@ -58,17 +63,19 @@ export default async function GuidePage({ params }: GuidePageProps) {
       { "@type": "ListItem", position: 3, name: guide.name, item: canonical },
     ],
   }];
-  if (guide.schema.types.includes("WebPage")) graph.push({ "@type": "WebPage", "@id": `${canonical}#webpage`, url: canonical, name: guide.title, description: stripMarkdown(guide.description) });
+  if (guide.schema.types.includes("WebPage")) graph.push({ "@type": "WebPage", "@id": `${canonical}#webpage`, url: canonical, name: guide.title, description: stripMarkdown(visibleGuideMarkdown(guide.description)) });
   if (guide.schema.types.includes("FAQPage")) graph.push({
     "@type": "FAQPage",
-    mainEntity: guide.schema.faq_items.map((faq) => ({ "@type": "Question", name: stripMarkdown(faq.question), acceptedAnswer: { "@type": "Answer", text: stripMarkdown(faq.answer) } })),
+    mainEntity: guide.schema.faq_items.filter((faq) => SHOW_CIGARETTES || !/\bgrabba\b/i.test(`${faq.question} ${faq.answer}`)).map((faq) => ({ "@type": "Question", name: stripMarkdown(visibleGuideMarkdown(faq.question)), acceptedAnswer: { "@type": "Answer", text: stripMarkdown(visibleGuideMarkdown(faq.answer)) } })),
   });
+  const laneLabel = !SHOW_CIGARETTES && guide.lane === "native_cig" ? "Backwoods" : lane.label;
+  const laneCategory = !SHOW_CIGARETTES && guide.lane === "native_cig" ? "Backwoods" : lane.category;
   if (guide.schema.types.includes("Product")) graph.push({
     "@type": "Product",
     name: guide.name,
     brand: { "@type": "Brand", name: guide.name },
-    description: stripMarkdown(guide.description),
-    category: lane.category,
+    description: stripMarkdown(visibleGuideMarkdown(guide.description)),
+    category: laneCategory,
     url: canonical,
   });
   const jsonLd = { "@context": "https://schema.org", "@graph": graph };
@@ -80,24 +87,24 @@ export default async function GuidePage({ params }: GuidePageProps) {
       <article className={styles.article}>
         <nav className={styles.breadcrumb} aria-label="Breadcrumb"><Link href="/">Home</Link><span>/</span><Link href="/guides">Guides</Link><span>/</span><span>{guide.name}</span></nav>
         <header className={styles.hero}>
-          <span className={styles.lane}>{lane.label}</span>
+          <span className={styles.lane}>{laneLabel}</span>
           <h1>{guide.title}</h1>
-          <p className={styles.lede}>{stripMarkdown(guide.description)}</p>
+          <p className={styles.lede}>{stripMarkdown(visibleGuideMarkdown(guide.description))}</p>
           <div className={styles.actions}>
-            <Link className={styles.primary} href={productHref ?? guide.preferredCategoryPath}>{productHref ? `Open the ${guide.name} menu listing` : "Check today’s board"}</Link>
-            <Link className={styles.secondary} href={guide.preferredCategoryPath}>Browse {lane.category}</Link>
+            <Link className={styles.primary} href={productHref ?? categoryPath}>{productHref ? `Open the ${guide.name} menu listing` : "Check today’s board"}</Link>
+            <Link className={styles.secondary} href={categoryPath}>Browse {SHOW_CIGARETTES ? lane.category : guide.lane === "native_cig" ? "wraps" : lane.category}</Link>
           </div>
         </header>
         <section className={styles.section} aria-label={`${guide.name} guide`}><GuideBody markdown={guide.bodyMd} /></section>
         <section className={styles.section} aria-labelledby="related-guides-heading">
-          <h2 id="related-guides-heading">Related {lane.label} guides</h2>
+          <h2 id="related-guides-heading">Related {laneLabel} guides</h2>
           <div className={styles.related}>{relatedEntries(guide).map((entry) => <Link key={entry.slug} href={`/guides/${entry.slug}`}>{entry.name}<span>{laneCopy[entry.lane].label}</span></Link>)}</div>
         </section>
         <aside className={styles.finalCta}>
           <h2>Check today&apos;s board</h2>
           <p>Use the current menu path for the latest posted listing and format details.</p>
           <div className={styles.actions}>
-            <Link className={styles.primary} href={productHref ?? guide.preferredCategoryPath}>Open today&apos;s menu path</Link>
+            <Link className={styles.primary} href={productHref ?? categoryPath}>Open today&apos;s menu path</Link>
             <Link className={styles.secondary} href="/visit">Visit {GUIDE_STORE.brand}</Link>
           </div>
         </aside>
