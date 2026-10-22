@@ -16,6 +16,7 @@ import { ORGANIC_HUB_CARDS, PATHS, TWENTY_FOUR_HOUR_HREF } from "./lib/organicPa
 import { visibleFaqs } from "./lib/showCigarettes";
 import { useCigaretteState } from "./components/CigaretteStateProvider";
 import FleetSheetBanners from "./components/FleetSheetBanners";
+import { codedBannerFor, nextBannerSrc } from "./lib/fleet/coded";
 import type { ResolvedBanner } from "./lib/fleet/types";
 import LocalSeoMesh from "./components/LocalSeoMesh";
 import Papa from "papaparse";
@@ -103,17 +104,16 @@ interface ReviewStats {
 }
 
 function WelcomeOverride({ banner }: { banner: ResolvedBanner }) {
-  const coded = "/banners/welcome_banner.webp";
+  const coded = codedBannerFor("welcome")?.image;
   const [src, setSrc] = useState(banner.render === "image" ? banner.image : "");
-  const [failed, setFailed] = useState(false);
-  if (failed) return null;
+  const [imageFailed, setImageFailed] = useState(banner.render === "text" || !banner.image);
   const bar = [banner.textBar, banner.caption].filter((line, index, all) => line && all.indexOf(line) === index).join(" ");
-  const showText = banner.render === "text" || !src;
+  const showText = imageFailed || !src;
   return (
     <section className={styles.welcomeBannerSection}>
       <div className={styles.welcomeBannerContainer}>
         {showText ? (
-          <div data-fleet-text-banner="" className={styles.welcomeBannerImg}>{banner.categoryName}</div>
+          <div data-fleet-text-banner="" role="img" aria-label={banner.alt} title={banner.title} className={styles.welcomeBannerImg} style={{ minHeight: 180, display: "flex", alignItems: "center", justifyContent: "center", background: "#04150c", color: "#22c55e", fontWeight: 800, fontSize: "clamp(28px, 4vw, 48px)", boxShadow: "inset 0 0 0 3px #22c55e" }}>{banner.categoryName}</div>
         ) : (
           <img
             src={src}
@@ -121,8 +121,9 @@ function WelcomeOverride({ banner }: { banner: ResolvedBanner }) {
             title={banner.title}
             className={styles.welcomeBannerImg}
             onError={() => {
-              if (src !== coded) setSrc(coded);
-              else setFailed(true);
+              const next = nextBannerSrc(src, coded);
+              if (next) setSrc(next);
+              else setImageFailed(true);
             }}
           />
         )}

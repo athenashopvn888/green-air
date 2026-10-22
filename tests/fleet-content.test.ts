@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import test from "node:test";
 import { cigaretteAccessFrom } from "../app/lib/cigDecision.ts";
-import { CODED_BANNERS, CODED_NAP, CODED_PAGES, fleetVersion } from "../app/lib/fleet/coded.ts";
+import { CODED_BANNERS, CODED_NAP, CODED_PAGES, codedBannerFor, fleetVersion, nextBannerSrc } from "../app/lib/fleet/coded.ts";
 import {
   TV_MANIFEST_CACHE_CONTROL,
   readEmergencyCoded,
@@ -146,8 +146,29 @@ test("a blank cell keeps coded copy and a missing image becomes the bold categor
   assert.equal(kept[0].render, "image");
   assert.equal(kept[0].image, "https://example.public.blob.vercel-storage.com/weed.webp");
   const bannerSource = readFileSync(new URL("../app/components/FleetSheetBanners.tsx", import.meta.url), "utf8");
-  assert.match(bannerSource, /setSrc\(coded\.image\)/);
+  const welcomeSource = readFileSync(new URL("../app/HomePageClient.tsx", import.meta.url), "utf8");
+  assert.match(bannerSource, /nextBannerSrc\(src, coded\?\.image\)/);
   assert.match(bannerSource, /data-fleet-text-banner/);
+  assert.match(welcomeSource, /nextBannerSrc\(src, coded\)/);
+  const weed = CODED_BANNERS.find((banner) => banner.id === "weed")!;
+  const welcome = CODED_BANNERS.find((banner) => banner.id === "welcome")!;
+  assert.equal(nextBannerSrc("https://sheet.example/custom.webp", weed.image), weed.image);
+  assert.equal(nextBannerSrc(weed.image, weed.image), null);
+  assert.equal(nextBannerSrc("https://sheet.example/custom.webp", ""), null);
+  assert.equal(nextBannerSrc("https://sheet.example/custom.webp", "  "), null);
+  assert.equal(nextBannerSrc("https://sheet.example/welcome.webp", welcome.image), welcome.image);
+  assert.notEqual(welcome.image, weed.image);
+  assert.equal(codedBannerFor("welcome")?.image, welcome.image);
+  assert.equal(codedBannerFor("weed")?.id, "weed");
+  assert.match(bannerSource, /#04150c/);
+  assert.match(bannerSource, /#22c55e/);
+  assert.match(bannerSource, /aria-label=\{banner\.alt\}/);
+  assert.match(bannerSource, /title=\{banner\.title\}/);
+  assert.match(bannerSource, /\{banner\.textBar\}/);
+  assert.match(welcomeSource, /#04150c/);
+  assert.match(welcomeSource, /aria-label=\{banner\.alt\}/);
+  assert.match(welcomeSource, /data-fleet-welcome-bar/);
+  assert.doesNotMatch(welcomeSource, /if \(failed\) return null/);
 });
 
 test("Follow ALL, Custom, Coded and Hidden each resolve on their own", () => {
