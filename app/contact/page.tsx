@@ -7,6 +7,8 @@ import { getFleetContent } from "../lib/fleetContent";
 import { STORE_NAP } from "../lib/localSeo";
 import styles from "./contact.module.css";
 
+export const dynamic = "force-dynamic";
+
 const CONTACT_METADATA: Metadata = {
   title: "Contact Us — 7060 Airport Rd, Malton",
   description:

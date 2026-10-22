@@ -1,9 +1,9 @@
 import { CODED_BANNERS, CODED_NAP, CODED_PAGES } from "./coded.ts";
 import type { ContentBundle, ContentField, ContentSlot, FieldMode, Nap, ResolvedBanner, ResolvedPage } from "./types.ts";
 
-const BLOCKED_COPY = /3\.5|farmers\s*link|telnyx/i;
+export const BLOCKED_COPY = /3\.5|farmers\s*link|telnyx/i;
 
-function safeText(value: string | undefined, coded: string): string {
+export function safeText(value: string | undefined, coded: string): string {
   const trimmed = value?.trim() ?? "";
   if (!trimmed || BLOCKED_COPY.test(trimmed)) return coded;
   return trimmed;

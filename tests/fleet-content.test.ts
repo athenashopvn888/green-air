@@ -3,6 +3,8 @@ import { readFileSync } from "node:fs";
 import test from "node:test";
 import { cigaretteAccessFrom } from "../app/lib/cigDecision.ts";
 import { CODED_BANNERS, CODED_NAP, CODED_PAGES, codedBannerFor, fleetVersion, nextBannerSrc } from "../app/lib/fleet/coded.ts";
+import { defaultManifestUrl, TV2_CARDS, TV_FULLSCREEN_SPOTS } from "../app/lib/fleet/config.ts";
+import { inPromoWindow, pickTv2Sheet, resolveFullscreenPromos, resolveTvCards } from "../app/lib/fleet/tv.ts";
 import {
   TV_MANIFEST_CACHE_CONTROL,
   readEmergencyCoded,
@@ -336,6 +338,9 @@ test("the version marker, tv manifest 304, emergency coded flag, and revalidate 
   assert.ok(FLEET_AFFECTED_PATHS.includes("/cigarettes"));
   assert.ok(FLEET_AFFECTED_PATHS.includes("/tv"));
   assert.ok(FLEET_AFFECTED_PATHS.includes("/tv2"));
+  assert.ok(FLEET_AFFECTED_PATHS.includes("/articles"));
+  assert.doesNotMatch(manifestRoute, /export const dynamic = "force-dynamic"/);
+  assert.doesNotMatch(manifestRoute, /from ["']next\/headers["']/);
 
   const coded = await readFleetContent({ manifestUrl: "", emergencyCoded: false, renderedAt: "2026-10-22T00:00:00.000Z" });
   const miss = tvManifestDecision(coded, '"other"');
@@ -389,6 +394,119 @@ test("manifest identity failures and a wrong-store manifest do not publish", () 
   const missing = parseBundle(JSON.stringify({ schemaVersion: 1 }), null);
   assert.equal(missing.ok, false);
   if (!missing.ok) assert.equal(missing.reason, "missing-identity");
+});
+
+test("TV2 card slots and fullscreen promos stay empty unless a Custom row is inside its window", () => {
+  assert.deepEqual(resolveTvCards(bundle, new Date("2026-10-22T12:00:00.000Z")), {});
+  assert.deepEqual(resolveFullscreenPromos(bundle, new Date("2026-10-22T12:00:00.000Z")), []);
+  assert.equal(inPromoWindow("2026-10-22T12:00:00.000Z", "2026-10-22T13:00:00.000Z", new Date("2026-10-22T12:30:00.000Z")), true);
+  assert.equal(inPromoWindow("not-a-date", "2026-10-22T13:00:00.000Z", new Date("2026-10-22T12:30:00.000Z")), false);
+
+  const withTv = structuredClone(bundle);
+  withTv.slots!.push(
+    { page: "TV2", spot: "CIGARETTES", mode: "Custom", image: "/promo.webp", offImage: "/off.webp", alt: "Cig promo", promoStart: "2026-10-22T12:00:00.000Z", promoEnd: "2026-10-22T13:00:00.000Z" },
+    { page: "TV2", spot: "VAPES", mode: "Coded", image: "/should-not.webp", offImage: "/nope.webp", promoStart: "2026-10-22T12:00:00.000Z", promoEnd: "2026-10-22T13:00:00.000Z" },
+    { page: "TV", spot: "Fullscreen promo 1", mode: "Custom", image: "/full.webp", alt: "Full", promoStart: "2026-10-22T12:00:00.000Z", promoEnd: "2026-10-22T13:00:00.000Z", showSeconds: 8, everyMinutes: 2 },
+    { page: "TV", spot: "Fullscreen promo 2", mode: "Custom", image: "/late.webp", promoStart: "2026-10-22T18:00:00.000Z", promoEnd: "2026-10-22T19:00:00.000Z" },
+    { page: "TV", spot: "Fullscreen promo 3", mode: "Hidden", image: "/hidden.webp", promoStart: "2026-10-22T12:00:00.000Z", promoEnd: "2026-10-22T13:00:00.000Z" },
+  );
+  const now = new Date("2026-10-22T12:30:00.000Z");
+  const cards = resolveTvCards(withTv, now);
+  assert.equal(cards.CIGARETTES.promoImage, "/promo.webp");
+  assert.equal(cards.CIGARETTES.offImage, "/off.webp");
+  assert.equal(cards.VAPES, undefined);
+  assert.equal(resolveTvCards(withTv, new Date("2026-10-22T14:00:00.000Z")).CIGARETTES.promoImage, null);
+  assert.equal(resolveTvCards(withTv, new Date("2026-10-22T14:00:00.000Z")).CIGARETTES.offImage, "/off.webp");
+  const full = resolveFullscreenPromos(withTv, now);
+  assert.equal(full.length, 1);
+  assert.equal(full[0].spot, "Fullscreen promo 1");
+  assert.equal(full[0].showSeconds, 8);
+  assert.equal(full[0].everyMinutes, 2);
+  assert.deepEqual(resolveFullscreenPromos(withTv, new Date("2026-10-22T18:30:00.000Z")).map((promo) => promo.spot), ["Fullscreen promo 2"]);
+  assert.equal(resolveFullscreenPromos(withTv, new Date("2026-10-22T18:30:00.000Z"))[0].showSeconds, 5);
+  assert.equal(resolveFullscreenPromos(withTv, new Date("2026-10-22T18:30:00.000Z"))[0].everyMinutes, 1);
+
+  const cig = cards.CIGARETTES;
+  assert.equal(pickTv2Sheet(cig, { categoryOff: false, noItems: false, promoBroken: false, offBroken: false })?.kind, "promo");
+  assert.equal(pickTv2Sheet(cig, { categoryOff: true, noItems: false, promoBroken: false, offBroken: false })?.kind, "off");
+  assert.equal(pickTv2Sheet(cig, { categoryOff: false, noItems: true, promoBroken: true, offBroken: false })?.kind, "off");
+  assert.equal(pickTv2Sheet(cig, { categoryOff: false, noItems: false, promoBroken: true, offBroken: false }), null);
+  assert.deepEqual(TV2_CARDS, ["PREROLLS_ADDONS", "VAPES", "EDIBLES", "CONCENTRATES", "CIGARETTES", "MAGIC"]);
+  assert.deepEqual(TV_FULLSCREEN_SPOTS, ["Fullscreen promo 1", "Fullscreen promo 2", "Fullscreen promo 3"]);
+
+  const tv2 = readFileSync(new URL("../app/tv2/page.tsx", import.meta.url), "utf8");
+  const tv = readFileSync(new URL("../app/tv/page.tsx", import.meta.url), "utf8");
+  assert.match(tv2, /pickTv2Sheet/);
+  assert.match(tv2, /onError=\{markBroken\}/);
+  assert.match(tv2, /naturalWidth === 0/);
+  assert.match(tv2, /useFleetTvManifest/);
+  assert.match(tv, /FleetTvTakeover/);
+  const tvLayout = readFileSync(new URL("../app/tv/layout.tsx", import.meta.url), "utf8");
+  const tv2Layout = readFileSync(new URL("../app/tv2/layout.tsx", import.meta.url), "utf8");
+  assert.match(tvLayout, /Green Air Cannabis In-Store Flower Display/);
+  assert.match(tv2Layout, /Green Air Cannabis In-Store Accessories Display/);
+  assert.match(tvLayout, /robots: \{ index: false, follow: false \}/);
+  assert.match(tv2Layout, /robots: \{ index: false, follow: false \}/);
+  assert.match(readFileSync(new URL("../app/components/fleet/TvPromoTakeover.tsx", import.meta.url), "utf8"), /TV_PROMO_INITIAL_DELAY_MS/);
+  assert.match(readFileSync(new URL("../app/api/tv-manifest/route.ts", import.meta.url), "utf8"), /s-maxage=60, stale-while-revalidate=300/);
+});
+
+test("the page meta version equals the manifest version, and the env URL still wins", async () => {
+  const previous = process.env.FLEET_CONTENT_MANIFEST_URL;
+  assert.match(readFileSync(new URL("../app/contact/page.tsx", import.meta.url), "utf8"), /export const dynamic = "force-dynamic"/);
+  assert.match(readFileSync(new URL("../app/tv/layout.tsx", import.meta.url), "utf8"), /export const dynamic = "force-dynamic"/);
+  assert.match(readFileSync(new URL("../app/tv2/layout.tsx", import.meta.url), "utf8"), /export const dynamic = "force-dynamic"/);
+  assert.equal(defaultManifestUrl(), "https://dhaah0upvlpukv56.public.blob.vercel-storage.com/GAC01/manifest.json");
+
+  delete process.env.FLEET_CONTENT_MANIFEST_URL;
+  resetFleetContentCache();
+  const blobUrl = defaultManifestUrl();
+  const served = fetchServing({
+    [blobUrl]: { body: JSON.stringify(manifest), headers: { etag: '"GAC01-1"' } },
+    [BUNDLE_URL]: { body: JSON.stringify(bundle) },
+  });
+  try {
+    const state = await readFleetContent({
+      fetchImpl: served.fetchImpl,
+      emergencyCoded: false,
+      renderedAt: "2026-10-22T12:00:01.000Z",
+    });
+    assert.deepEqual(served.calls, [blobUrl, BUNDLE_URL]);
+    assert.equal(state.active, true);
+    assert.equal(state.contentVersion, manifest.contentVersion);
+    assert.equal(state.version, `GAC01:${manifest.contentVersion}`);
+    assert.deepEqual(state.tvCards, {});
+    assert.deepEqual(state.fullscreenPromos, []);
+
+    const missing = fetchServing({});
+    resetFleetContentCache();
+    const coded = await readFleetContent({
+      fetchImpl: missing.fetchImpl,
+      emergencyCoded: false,
+      renderedAt: "2026-10-22T00:00:00.000Z",
+    });
+    assert.deepEqual(missing.calls, [blobUrl]);
+    assert.equal(coded.version, "GAC01:coded");
+    assert.equal(coded.mode, "coded");
+
+    resetFleetContentCache();
+    process.env.FLEET_CONTENT_MANIFEST_URL = MANIFEST_URL;
+    const fromEnv = fetchServing({
+      [MANIFEST_URL]: { body: JSON.stringify(manifest), headers: { etag: '"GAC01-1"' } },
+      [BUNDLE_URL]: { body: JSON.stringify(bundle) },
+    });
+    const envState = await readFleetContent({
+      fetchImpl: fromEnv.fetchImpl,
+      emergencyCoded: false,
+      renderedAt: "2026-10-22T12:00:01.000Z",
+    });
+    assert.deepEqual(fromEnv.calls, [MANIFEST_URL, BUNDLE_URL]);
+    assert.equal(envState.version, `GAC01:${manifest.contentVersion}`);
+  } finally {
+    if (previous == null) delete process.env.FLEET_CONTENT_MANIFEST_URL;
+    else process.env.FLEET_CONTENT_MANIFEST_URL = previous;
+    resetFleetContentCache();
+  }
 });
 
 test("coded content keeps the redirect and an explicit web off stays on the URL", () => {
