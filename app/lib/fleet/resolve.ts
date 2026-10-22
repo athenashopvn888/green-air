@@ -125,17 +125,21 @@ export function resolvePages(bundle: ContentBundle | null): Record<string, Resol
   return pages;
 }
 
+export function bannerMatchesCoded(banner: ResolvedBanner): boolean {
+  const coded = CODED_BANNERS.find((entry) => entry.id === banner.id);
+  if (!coded || coded.spot !== banner.spot) return false;
+  return banner.hidden === coded.hidden
+    && banner.render === coded.render
+    && banner.image === coded.image
+    && banner.textBar === coded.textBar
+    && banner.alt === coded.alt
+    && banner.title === coded.title
+    && banner.caption === coded.caption
+    && banner.href === coded.href;
+}
+
 export function bannersMatchCoded(banners: ResolvedBanner[]): boolean {
-  if (banners.length !== CODED_BANNERS.length) return false;
-  return banners.every((banner, index) => {
-    const coded = CODED_BANNERS[index];
-    return banner.hidden === coded.hidden
-      && banner.render === coded.render
-      && banner.image === coded.image
-      && banner.textBar === coded.textBar
-      && banner.alt === coded.alt
-      && banner.title === coded.title
-      && banner.caption === coded.caption
-      && banner.href === coded.href;
-  });
+  const coded = CODED_BANNERS.filter((entry) => banners.some((banner) => banner.id === entry.id));
+  if (banners.length !== coded.length) return false;
+  return banners.every((banner) => bannerMatchesCoded(banner));
 }

@@ -36,7 +36,7 @@ function BannerFigure({ banner }: { banner: ResolvedBanner }) {
           />
         </Link>
       )}
-      <figcaption style={captionStyle}>{banner.textBar}</figcaption>
+      <figcaption style={captionStyle}>{banner.textBar}{banner.caption && banner.caption !== banner.textBar ? ` ${banner.caption}` : ""}</figcaption>
     </figure>
   );
 }

@@ -10,7 +10,7 @@ import {
   resetFleetContentCache,
   tvManifestDecision,
 } from "../app/lib/fleet/read.ts";
-import { phoneToTel, resolveBanners, resolveModeValue, resolveNap, resolvePages } from "../app/lib/fleet/resolve.ts";
+import { bannerMatchesCoded, bannersMatchCoded, phoneToTel, resolveBanners, resolveModeValue, resolveNap, resolvePages } from "../app/lib/fleet/resolve.ts";
 import { revalidateAuthorized } from "../app/lib/fleet/secret.ts";
 import { FLEET_AFFECTED_PATHS } from "../app/lib/fleet/routes.ts";
 import { FLEET_MAX_BUNDLE_BYTES, type ContentBundle } from "../app/lib/fleet/types.ts";
@@ -71,7 +71,7 @@ test("a valid bundle is accepted and a missing manifest stays on coded content",
   assert.equal(live.manifest, "ok");
   assert.equal(live.bundleUrl, BUNDLE_URL);
   assert.deepEqual(calls, [MANIFEST_URL, BUNDLE_URL]);
-  assert.equal(live.banners.map((banner) => banner.id).join(","), "weed,vapes,cigarettes,premium-cigarettes");
+  assert.equal(live.banners.map((banner) => banner.id).join(","), "weed,vapes,cigarettes,premium-cigarettes,welcome");
   assert.equal(live.banners[0].textBar, "Sheet weed text bar");
   assert.equal(live.banners[0].render, "image");
   assert.equal(live.nap.hours, "Open 24 Hours Daily");
@@ -198,6 +198,103 @@ test("Follow ALL, Custom, Coded and Hidden each resolve on their own", () => {
   assert.equal(phoneToTel("1 (289) 514-9467", CODED_NAP.phoneTel), "+12895149467");
   assert.equal(phoneToTel("+1 289-514-9467", CODED_NAP.phoneTel), "+12895149467");
   assert.equal(phoneToTel("not a phone", CODED_NAP.phoneTel), CODED_NAP.phoneTel);
+});
+
+test("Home sheet spots hide or override without moving the coded fallback", () => {
+  const welcome = CODED_BANNERS.find((banner) => banner.id === "welcome");
+  const cigarettes = CODED_BANNERS.find((banner) => banner.id === "cigarettes");
+  assert.equal(welcome?.spot, "Promo banner 3");
+  assert.equal(cigarettes?.spot, "Coded cigarette banner");
+  assert.equal(CODED_BANNERS.map((banner) => banner.spot).filter((spot) => spot.startsWith("Promo") || spot === "Top banner").join(","), "Top banner,Promo banner 2,Promo banner 4,Promo banner 3");
+
+  const coded = resolveBanners(null);
+  assert.equal(coded.find((banner) => banner.id === "welcome")?.image, "/banners/welcome_banner.webp");
+  assert.equal(coded.find((banner) => banner.id === "welcome")?.alt, "Green Air Cannabis Dispensary Weed Delivery");
+  assert.equal(coded.find((banner) => banner.id === "welcome")?.hidden, false);
+  assert.equal(bannerMatchesCoded(coded.find((banner) => banner.id === "welcome")!), true);
+  assert.equal(bannersMatchCoded(coded.filter((banner) => banner.id !== "welcome")), true);
+
+  const hiddenWelcome = structuredClone(bundle);
+  hiddenWelcome.slots!.find((slot) => slot.spot === "Promo banner 3")!.mode = "Hidden";
+  hiddenWelcome.slots!.find((slot) => slot.spot === "Promo banner 3")!.image = "/banners/other.webp";
+  hiddenWelcome.slots!.find((slot) => slot.spot === "Promo banner 3")!.textBar = "do not show";
+  const hidden = resolveBanners(hiddenWelcome);
+  assert.equal(hidden.find((banner) => banner.id === "welcome")?.hidden, true);
+  assert.equal(hidden.find((banner) => banner.id === "cigarettes")?.hidden, false);
+  assert.equal(hidden.find((banner) => banner.id === "weed")?.hidden, false);
+  assert.equal(hidden.find((banner) => banner.id === "vapes")?.hidden, false);
+  assert.equal(bannerMatchesCoded(hidden.find((banner) => banner.id === "cigarettes")!), true);
+
+  const customWelcome = structuredClone(bundle);
+  const promo3 = customWelcome.slots!.find((slot) => slot.spot === "Promo banner 3")!;
+  promo3.mode = "Custom";
+  promo3.image = "/banners/sheet-welcome.webp";
+  promo3.alt = "Sheet welcome alt";
+  promo3.title = "Sheet welcome title";
+  promo3.textBar = "Sheet welcome bar";
+  promo3.caption = "Sheet welcome caption";
+  const custom = resolveBanners(customWelcome).find((banner) => banner.id === "welcome")!;
+  assert.equal(custom.hidden, false);
+  assert.equal(custom.render, "image");
+  assert.equal(custom.image, "/banners/sheet-welcome.webp");
+  assert.equal(custom.alt, "Sheet welcome alt");
+  assert.equal(custom.title, "Sheet welcome title");
+  assert.equal(custom.textBar, "Sheet welcome bar");
+  assert.equal(custom.caption, "Sheet welcome caption");
+  assert.equal(bannerMatchesCoded(custom), false);
+
+  const blankImage = structuredClone(bundle);
+  const blank = blankImage.slots!.find((slot) => slot.spot === "Promo banner 3")!;
+  blank.mode = "Custom";
+  blank.image = "";
+  blank.textBar = "";
+  blank.alt = "";
+  blank.title = "";
+  blank.caption = "";
+  const textWelcome = resolveBanners(blankImage).find((banner) => banner.id === "welcome")!;
+  assert.equal(textWelcome.render, "text");
+  assert.equal(textWelcome.categoryName, "Welcome");
+  assert.equal(textWelcome.alt, "Green Air Cannabis Dispensary Weed Delivery");
+
+  const top = resolveBanners(bundle).find((banner) => banner.spot === "Top banner")!;
+  assert.equal(top.image, "/banners/core-top-weed.webp");
+  assert.equal(top.alt, "Sheet weed alt");
+  assert.equal(top.title, "Sheet weed title");
+  assert.equal(top.textBar, "Sheet weed text bar");
+  assert.equal(top.caption, "Sheet weed caption");
+  const vapes = resolveBanners(bundle).find((banner) => banner.spot === "Promo banner 2")!;
+  assert.equal(vapes.textBar, CODED_BANNERS.find((banner) => banner.id === "vapes")!.textBar);
+  assert.equal(vapes.image, CODED_BANNERS.find((banner) => banner.id === "vapes")!.image);
+
+  const promo1 = structuredClone(bundle);
+  promo1.slots!.push({ page: "Home", spot: "Promo banner 1", mode: "Hidden", image: "/banners/extra.webp", textBar: "extra" });
+  const withPromo1 = resolveBanners(promo1);
+  assert.equal(withPromo1.some((banner) => banner.spot === "Promo banner 1"), false);
+  assert.equal(withPromo1.length, CODED_BANNERS.length);
+
+  const meta = structuredClone(bundle);
+  meta.slots!.push({
+    page: "Home",
+    spot: "Page meta",
+    mode: "Hidden",
+    metaTitle: "Hidden title",
+    metaDescription: "Hidden description",
+    description: "Hidden description",
+  });
+  assert.equal(resolvePages(meta).Home.metaTitle, CODED_PAGES.Home.metaTitle);
+  assert.equal(resolvePages(meta).Home.metaDescription, CODED_PAGES.Home.metaDescription);
+  assert.equal(resolvePages(meta).Home.description, CODED_PAGES.Home.description);
+  meta.slots!.find((slot) => slot.spot === "Page meta")!.mode = "Custom";
+  assert.equal(resolvePages(meta).Home.metaDescription, "Hidden description");
+
+  const home = readFileSync(new URL("../app/HomePageClient.tsx", import.meta.url), "utf8");
+  const page = readFileSync(new URL("../app/page.tsx", import.meta.url), "utf8");
+  assert.match(home, /welcomeBanner\.hidden \? null/);
+  assert.match(home, /src=\{welcomeBannerSrc\}/);
+  assert.match(home, /alt="Green Air Cannabis Dispensary Weed Delivery"/);
+  assert.match(home, /data-fleet-welcome-bar/);
+  assert.match(page, /banner\.id !== "welcome"/);
+  assert.match(page, /welcomeBanner=\{welcomeBanner\}/);
 });
 
 test("the version marker, tv manifest 304, emergency coded flag, and revalidate secret stay in their lanes", async () => {
