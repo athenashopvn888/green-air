@@ -20,8 +20,10 @@ import { PATHS } from "../../lib/organicPaths";
 import { resolveDocumentTitle } from "../../lib/localSeo";
 import styles from "./items.module.css";
 import { getCategoryGuideGroups } from "../../lib/guideRegistry";
-import { redirectCigarettesIfHidden, redirectToVape } from "../../lib/cigaretteRedirect";
-import { isHiddenCigaretteItem, isHiddenGuideSlug, SHOW_CIGARETTES, visibleCategoryLabel } from "../../lib/showCigarettes";
+import CigaretteUnavailable from "../../components/CigaretteUnavailable";
+import { getCigaretteAccess } from "../../lib/cigaretteAccess";
+import { redirectToVape } from "../../lib/cigaretteRedirect";
+import { isCigaretteSurfaceItem, isHiddenCigaretteItem, isHiddenGuideSlug, SHOW_CIGARETTES, visibleCategoryLabel } from "../../lib/showCigarettes";
 import guideStyles from "../../guides/[slug]/guide.module.css";
 import VapeActionPanel from "../../components/VapeActionPanel";
 
@@ -39,7 +41,7 @@ export async function generateMetadata({
   params: Promise<{ category: string }>;
 }): Promise<Metadata> {
   const { category: catSlug } = await params;
-  if (!SHOW_CIGARETTES && catSlug === "cigarettes") redirectToVape();
+  if (catSlug === "cigarettes" && (await getCigaretteAccess()) === "redirect") redirectToVape();
   const catInfo = getCategoryFromSlug(catSlug);
   if (!catInfo) return {};
   const { items: menuItems } = await getWebMenuData();
@@ -62,14 +64,17 @@ export default async function ItemsCategoryPage({
   params: Promise<{ category: string }>;
 }) {
   const { category: catSlug } = await params;
-  if (!SHOW_CIGARETTES && catSlug === "cigarettes") redirectCigarettesIfHidden();
+  const cigaretteAccess = catSlug === "cigarettes" ? await getCigaretteAccess() : "show";
+  if (cigaretteAccess === "redirect") redirectToVape();
+  const cigarettesClosed = cigaretteAccess === "unavailable";
+  const showCigarettes = cigaretteAccess === "show" && (catSlug === "cigarettes" || SHOW_CIGARETTES);
   const catInfo = getCategoryFromSlug(catSlug);
   if (!catInfo) notFound();
 
   /* Pre-Rolls also shows accessories (ADD ONS) */
   const { items: menuItems } = await getWebMenuData();
-  let items = menuItems.filter((item) => item.category.toUpperCase() === catInfo.key.toUpperCase() && !isHiddenCigaretteItem(item));
-  if (!SHOW_CIGARETTES && catInfo.key === "ADD ONS") {
+  let items = menuItems.filter((item) => item.category.toUpperCase() === catInfo.key.toUpperCase() && (showCigarettes || !isCigaretteSurfaceItem(item)));
+  if (!showCigarettes && catInfo.key === "ADD ONS") {
     const keptWraps = menuItems.filter((item) => item.category.toUpperCase() === "CIGARETTES" && !isHiddenCigaretteItem(item));
     const existingIds = new Set(items.map((item) => item.sku));
     items = [...items, ...keptWraps.filter((item) => !existingIds.has(item.sku))];
@@ -95,7 +100,8 @@ export default async function ItemsCategoryPage({
   return (
     <main className={styles.main}>
       <Navbar />
-      {catSlug === "cigarettes" && <CigaretteSeasonalNotice sticky />}
+      {cigarettesClosed ? <CigaretteUnavailable /> : null}
+      {catSlug === "cigarettes" && !cigarettesClosed && <CigaretteSeasonalNotice sticky />}
 
       {/* Hero Banner */}
       <section style={{ width: "100%", overflow: "hidden", marginTop: "92px", marginBottom: "24px" }}>

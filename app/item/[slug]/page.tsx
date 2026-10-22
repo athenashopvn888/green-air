@@ -11,8 +11,10 @@ import { getItemPriceDisplay } from "../../lib/itemPricing";
 import Magnifier from "../../components/Magnifier";
 import styles from "../../flower/[slug]/flower.module.css";
 import { resolveDocumentTitle } from "../../lib/localSeo";
+import CigaretteUnavailablePage from "../../components/CigaretteUnavailablePage";
+import { getCigaretteAccess } from "../../lib/cigaretteAccess";
 import { redirectToVape } from "../../lib/cigaretteRedirect";
-import { isHiddenCigaretteItem, visibleCategoryHref, visibleCategoryLabel } from "../../lib/showCigarettes";
+import { isCigaretteSurfaceItem, visibleCategoryHref, visibleCategoryLabel } from "../../lib/showCigarettes";
 
 // ONE product loader (same as /api/tv-data), filled per request by __loadMenuData(). Grok 2026-10-09.
 let __menu!: Awaited<ReturnType<typeof getLiveMenu>>;
@@ -39,7 +41,7 @@ export async function generateMetadata({
   const { slug } = await params;
   const { items } = await getWebMenuData();
   const item = items.find((i) => i.slug === slug);
-  if (item && isHiddenCigaretteItem(item)) redirectToVape();
+  if (item && isCigaretteSurfaceItem(item) && (await getCigaretteAccess()) === "redirect") redirectToVape();
   if (!item) return {};
 
   const itemData = getItemData(item.category, item.name);
@@ -140,7 +142,11 @@ export default async function ItemPage({
   const { slug } = await params;
   const { items } = await getWebMenuData();
   const item = items.find((i) => i.slug === slug);
-  if (item && isHiddenCigaretteItem(item)) redirectToVape();
+  if (item && isCigaretteSurfaceItem(item)) {
+    const access = await getCigaretteAccess();
+    if (access === "redirect") redirectToVape();
+    if (access === "unavailable") return <CigaretteUnavailablePage />;
+  }
   if (!item) notFound();
 
   const catInfo = Object.values(CATEGORY_CONFIG).find(c => c.name.toUpperCase() === item.category.toUpperCase() || c.name === item.category);

@@ -13,7 +13,10 @@ import Footer from "./components/Footer";
 import FlowerCard from "./components/FlowerCard";
 import { HOMEPAGE_FAQS, STORE_NAP, faqPageJsonLd, storeClaimsOpen24Hours } from "./lib/localSeo";
 import { ORGANIC_HUB_CARDS, PATHS, TWENTY_FOUR_HOUR_HREF } from "./lib/organicPaths";
-import { SHOW_CIGARETTES, visibleFaqs } from "./lib/showCigarettes";
+import { visibleFaqs } from "./lib/showCigarettes";
+import { useCigaretteState } from "./components/CigaretteStateProvider";
+import FleetSheetBanners from "./components/FleetSheetBanners";
+import type { ResolvedBanner } from "./lib/fleet/types";
 import LocalSeoMesh from "./components/LocalSeoMesh";
 import Papa from "papaparse";
 import { useLiveFlowers } from "./lib/useLiveMenu";
@@ -99,7 +102,14 @@ interface ReviewStats {
   avg: number;
 }
 
-export default function HomePageClient({ initialFlowers }: { initialFlowers: Parameters<typeof storeTierRange>[0] }) {
+export default function HomePageClient({
+  initialFlowers,
+  sheetBanners,
+}: {
+  initialFlowers: Parameters<typeof storeTierRange>[0];
+  sheetBanners?: ResolvedBanner[];
+}) {
+  const showCigarettes = useCigaretteState().web;
     const __liveFlowers = useLiveFlowers();
   const [featuredStrains, setFeaturedStrains] = useState<any[]>([]);
   const [reviews, setReviews] = useState<Review[]>([]);
@@ -199,7 +209,7 @@ export default function HomePageClient({ initialFlowers }: { initialFlowers: Par
       <Navbar />
       <h1 data-home-store-title="" style={{ margin: 0, padding: "14px 16px", background: "#111827", color: "#ffffff", textAlign: "center", fontSize: "clamp(1.1rem, 3vw, 2rem)", fontWeight: 900, lineHeight: 1.2, position: "relative", zIndex: 60 }}>{HOME_TITLE}</h1>
       <HomepageTopNotices />
-      <FleetAnnouncementBanner />
+      {sheetBanners ? <FleetSheetBanners banners={sheetBanners} /> : <FleetAnnouncementBanner />}
       {/* ── NAVBAR ── */}
 
 
@@ -281,7 +291,7 @@ export default function HomePageClient({ initialFlowers }: { initialFlowers: Par
           </div>
 
           <div className={styles.categoriesGrid}>
-            {EXPLORE_CATEGORIES.filter((cat) => SHOW_CIGARETTES || cat.slug !== "items/cigarettes").map((cat) => (
+            {EXPLORE_CATEGORIES.filter((cat) => showCigarettes || cat.slug !== "items/cigarettes").map((cat) => (
               <Link
                 key={cat.slug}
                 href={`/${cat.slug}`}
@@ -344,7 +354,7 @@ export default function HomePageClient({ initialFlowers }: { initialFlowers: Par
               <Link href={TWENTY_FOUR_HOUR_HREF}>24-hour / open-now Airport Rd</Link>{" "}
               page,{" "}
               <Link href={PATHS.deliveryLp}>cannabis delivery in Malton</Link>
-              {SHOW_CIGARETTES ? (
+              {showCigarettes ? (
                 <>
                   ,{" "}
                   <Link href={PATHS.nativeCigarettesLp}>Native cigarettes on Airport Rd</Link>
@@ -370,7 +380,7 @@ export default function HomePageClient({ initialFlowers }: { initialFlowers: Par
             </p>
           </div>
           <div className={styles.hubGrid}>
-            {ORGANIC_HUB_CARDS.filter((card) => (!card.onlyWhen24h || storeClaimsOpen24Hours()) && (SHOW_CIGARETTES || card.href !== PATHS.nativeCigarettesLp)).map((card) => (
+            {ORGANIC_HUB_CARDS.filter((card) => (!card.onlyWhen24h || storeClaimsOpen24Hours()) && (showCigarettes || card.href !== PATHS.nativeCigarettesLp)).map((card) => (
               <Link key={card.href} href={card.href} className={styles.hubCard}>
                 <h3 className={styles.hubCardTitle}>{card.title}</h3>
                 <p className={styles.hubCardBody}>{card.body}</p>

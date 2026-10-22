@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 import { SEO_ROUTE_REDIRECTS } from "./app/lib/seoRouteAliases";
-import { cigaretteHideRedirects, SHOW_CIGARETTES } from "./app/lib/showCigarettes";
+import { SHOW_CIGARETTES } from "./app/lib/showCigarettes";
 
 const nextConfig: NextConfig = {
   images: {
@@ -43,7 +43,6 @@ const nextConfig: NextConfig = {
         ...redirect,
         permanent: true as const,
       })),
-      ...cigaretteHideRedirects(),
     ];
   },
 };

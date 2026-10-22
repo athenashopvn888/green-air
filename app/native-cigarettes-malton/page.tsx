@@ -1,5 +1,6 @@
 import CigaretteSeasonalNotice from "../components/CigaretteSeasonalNotice";
-import { redirectCigarettesIfHidden } from "../lib/cigaretteRedirect";
+import CigaretteUnavailablePage from "../components/CigaretteUnavailablePage";
+import { openCigaretteSurface } from "../lib/cigaretteRedirect";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
@@ -56,8 +57,8 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function NativeCigarettesMaltonPage() {
-  redirectCigarettesIfHidden();
+export default async function NativeCigarettesMaltonPage() {
+  if ((await openCigaretteSurface(true)) === "unavailable") return <CigaretteUnavailablePage />;
   const webPageSchema = {
     "@context": "https://schema.org",
     "@type": "WebPage",

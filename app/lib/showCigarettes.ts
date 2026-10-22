@@ -8,6 +8,15 @@ export const VAPE_PAGE = "/vape-shop-malton";
 
 export const SHOW_CIGARETTES = process.env.NEXT_PUBLIC_SHOW_CIGARETTES === "true";
 
+/**
+ * Explicit false / 0 / no / off forces cigarettes off. Unset is not that override.
+ * webOn is folded in by cigaretteAccess: coded content keeps this switch.
+ */
+export function cigaretteEnvHardOff(raw: string | undefined = process.env.SHOW_CIGARETTES ?? process.env.NEXT_PUBLIC_SHOW_CIGARETTES): boolean {
+  if (raw == null) return false;
+  return /^(0|false|no|off)$/i.test(raw.trim());
+}
+
 const KEPT_GUIDE_SLUGS = new Set(["backwoods", "backwoods-delivery-malton"]);
 
 const HIDDEN_GUIDE_SLUGS = new Set([
@@ -143,11 +152,15 @@ export function cigaretteHideRedirects(): { source: string; destination: string;
   }));
 }
 
-export function isHiddenGuideSlug(slug: string): boolean {
-  if (SHOW_CIGARETTES) return false;
+export function isCigaretteSurfaceGuideSlug(slug: string): boolean {
   const clean = slug.replace(/^\/+|\/+$/g, "");
   if (KEPT_GUIDE_SLUGS.has(clean)) return false;
   return HIDDEN_GUIDE_SLUGS.has(clean);
+}
+
+export function isHiddenGuideSlug(slug: string): boolean {
+  if (SHOW_CIGARETTES) return false;
+  return isCigaretteSurfaceGuideSlug(slug);
 }
 
 export function isGrabbaItem(item: MenuItemLike): boolean {
@@ -158,8 +171,8 @@ export function isKeptWrapItem(item: MenuItemLike): boolean {
   return KEPT_WRAP_RE.test(`${item.name || ""} ${item.slug || ""}`);
 }
 
-export function isHiddenCigaretteItem(item: MenuItemLike): boolean {
-  if (SHOW_CIGARETTES) return false;
+/** Real cigarette shelf rows, ignoring the coded env switch. Wraps and pouches stay. */
+export function isCigaretteSurfaceItem(item: MenuItemLike): boolean {
   if (isGrabbaItem(item)) return true;
   if (isKeptWrapItem(item)) return false;
   if (HIDDEN_ITEM_SLUGS.has(item.slug || "")) return true;
@@ -169,19 +182,28 @@ export function isHiddenCigaretteItem(item: MenuItemLike): boolean {
   return true;
 }
 
+export function isHiddenCigaretteItem(item: MenuItemLike): boolean {
+  if (SHOW_CIGARETTES) return false;
+  return isCigaretteSurfaceItem(item);
+}
+
 function normalizePath(pathname: string): string {
   const path = pathname.split("?")[0].split("#")[0];
   if (path.length > 1 && path.endsWith("/")) return path.slice(0, -1);
   return path || "/";
 }
 
-export function isHiddenCigarettePath(pathname: string): boolean {
-  if (SHOW_CIGARETTES) return false;
+export function isCigaretteSurfacePath(pathname: string): boolean {
   const path = normalizePath(pathname);
   if (HIDDEN_EXACT_PATHS.includes(path) || path.startsWith("/resources/native-smokes/")) return true;
-  if (path.startsWith("/guides/")) return isHiddenGuideSlug(path.slice("/guides/".length));
+  if (path.startsWith("/guides/")) return isCigaretteSurfaceGuideSlug(path.slice("/guides/".length));
   if (path.startsWith("/item/")) return HIDDEN_ITEM_SLUGS.has(path.slice("/item/".length));
   return false;
+}
+
+export function isHiddenCigarettePath(pathname: string): boolean {
+  if (SHOW_CIGARETTES) return false;
+  return isCigaretteSurfacePath(pathname);
 }
 
 export function visibleCategoryHref(path: string, item?: MenuItemLike): string {

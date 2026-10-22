@@ -12,8 +12,9 @@ import { TIER_CONFIG } from "../../lib/products";
 import LocalSeoMesh from "../../components/LocalSeoMesh";
 import styles from "./seo.module.css";
 import { resolveDocumentTitle } from "../../lib/localSeo";
-import { redirectToVape } from "../../lib/cigaretteRedirect";
-import { isHiddenCigarettePath, publicCopy, SHOW_CIGARETTES } from "../../lib/showCigarettes";
+import CigaretteUnavailablePage from "../../components/CigaretteUnavailablePage";
+import { openCigaretteSurface } from "../../lib/cigaretteRedirect";
+import { isCigaretteSurfacePath, isHiddenCigarettePath, publicCopy, SHOW_CIGARETTES } from "../../lib/showCigarettes";
 
 /* ── Generate all SEO pages ── */
 export function generateStaticParams() {
@@ -29,7 +30,7 @@ export async function generateMetadata({
   params: Promise<{ seoPage: string }>;
 }): Promise<Metadata> {
   const { seoPage: slug } = await params;
-  if (isHiddenCigarettePath(`/info/${slug}`)) redirectToVape();
+  if (isCigaretteSurfacePath(`/info/${slug}`) && (await openCigaretteSurface(true)) === "unavailable") return {};
   const page = getSeoPageBySlug(slug);
   if (!page) return {};
 
@@ -52,7 +53,9 @@ export default async function SeoLandingPage({
   params: Promise<{ seoPage: string }>;
 }) {
   const { seoPage: slug } = await params;
-  if (isHiddenCigarettePath(`/info/${slug}`)) redirectToVape();
+  if (isCigaretteSurfacePath(`/info/${slug}`) && (await openCigaretteSurface(true)) === "unavailable") {
+    return <CigaretteUnavailablePage />;
+  }
   const page = getSeoPageBySlug(slug);
   if (!page) notFound();
 

@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import ResourceView from "../ResourceView";
 import { getResourcePage, RESOURCE_PAGES } from "../resourceData";
 import { resolveDocumentTitle } from "../../lib/localSeo";
-import { redirectToVape } from "../../lib/cigaretteRedirect";
-import { isHiddenCigarettePath, publicCopy } from "../../lib/showCigarettes";
+import CigaretteUnavailablePage from "../../components/CigaretteUnavailablePage";
+import { openCigaretteSurface } from "../../lib/cigaretteRedirect";
+import { isCigaretteSurfacePath, publicCopy } from "../../lib/showCigarettes";
 
 type ResourceRouteProps = {
   params: Promise<{ slug?: string[] }>;
@@ -21,7 +22,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: ResourceRouteProps): Promise<Metadata> {
   const { slug } = await params;
   const page = getResourcePage(routeSlug(slug));
-  if (page && isHiddenCigarettePath(`/resources/${page.slug}`)) redirectToVape();
+  if (page && isCigaretteSurfacePath(`/resources/${page.slug}`) && (await openCigaretteSurface(true)) === "unavailable") return {};
   if (!page) return {};
   return {
     title: resolveDocumentTitle(publicCopy(page.seoTitle)),
@@ -33,7 +34,9 @@ export async function generateMetadata({ params }: ResourceRouteProps): Promise<
 export default async function ResourcePage({ params }: ResourceRouteProps) {
   const { slug } = await params;
   const page = getResourcePage(routeSlug(slug));
-  if (page && isHiddenCigarettePath(`/resources/${page.slug}`)) redirectToVape();
+  if (page && isCigaretteSurfacePath(`/resources/${page.slug}`) && (await openCigaretteSurface(true)) === "unavailable") {
+    return <CigaretteUnavailablePage />;
+  }
   if (!page) notFound();
   return <ResourceView page={page} />;
 }
