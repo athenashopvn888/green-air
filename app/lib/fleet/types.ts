@@ -121,7 +121,7 @@ export type Nap = {
 };
 
 export type ResolvedBanner = {
-  id: "weed" | "vapes" | "cigarettes" | "premium-cigarettes";
+  id: "weed" | "vapes" | "cigarettes" | "premium-cigarettes" | "welcome";
   page: string;
   spot: string;
   href: string;

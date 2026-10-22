@@ -43,7 +43,8 @@ export const CODED_BANNERS: ResolvedBanner[] = [
   {
     id: "cigarettes",
     page: "Home",
-    spot: "Promo banner 3",
+    // Not a sheet row. The sheet's "Promo banner 3" is the welcome image below the core stack.
+    spot: "Coded cigarette banner",
     href: "/items/cigarettes",
     categoryName: "Cigarettes",
     hidden: false,
@@ -71,6 +72,20 @@ export const CODED_BANNERS: ResolvedBanner[] = [
     title: "BB Full Flavor + Lights 2 packs $5 · Marlboro & Belmont $10/pack",
     textBar: "BB Full Flavor + Lights 2 packs $5 · Marlboro & Belmont $10/pack",
     caption: "BB Full Flavor + Lights 2 packs $5 · Marlboro & Belmont $10/pack",
+  },
+  {
+    id: "welcome",
+    page: "Home",
+    spot: "Promo banner 3",
+    href: "/",
+    categoryName: "Welcome",
+    hidden: false,
+    render: "image",
+    image: "/banners/welcome_banner.webp",
+    alt: "Green Air Cannabis Dispensary Weed Delivery",
+    title: "Green Air Cannabis Dispensary Weed Delivery",
+    textBar: "",
+    caption: "",
   },
 ];
 

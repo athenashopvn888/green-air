@@ -102,12 +102,44 @@ interface ReviewStats {
   avg: number;
 }
 
+function WelcomeOverride({ banner }: { banner: ResolvedBanner }) {
+  const coded = "/banners/welcome_banner.webp";
+  const [src, setSrc] = useState(banner.render === "image" ? banner.image : "");
+  const [failed, setFailed] = useState(false);
+  if (failed) return null;
+  const bar = [banner.textBar, banner.caption].filter((line, index, all) => line && all.indexOf(line) === index).join(" ");
+  const showText = banner.render === "text" || !src;
+  return (
+    <section className={styles.welcomeBannerSection}>
+      <div className={styles.welcomeBannerContainer}>
+        {showText ? (
+          <div data-fleet-text-banner="" className={styles.welcomeBannerImg}>{banner.categoryName}</div>
+        ) : (
+          <img
+            src={src}
+            alt={banner.alt}
+            title={banner.title}
+            className={styles.welcomeBannerImg}
+            onError={() => {
+              if (src !== coded) setSrc(coded);
+              else setFailed(true);
+            }}
+          />
+        )}
+        {bar ? <p data-fleet-welcome-bar="">{bar}</p> : null}
+      </div>
+    </section>
+  );
+}
+
 export default function HomePageClient({
   initialFlowers,
   sheetBanners,
+  welcomeBanner,
 }: {
   initialFlowers: Parameters<typeof storeTierRange>[0];
   sheetBanners?: ResolvedBanner[];
+  welcomeBanner?: ResolvedBanner;
 }) {
   const showCigarettes = useCigaretteState().web;
     const __liveFlowers = useLiveFlowers();
@@ -214,7 +246,9 @@ export default function HomePageClient({
 
 
       {/* ── WELCOME BANNER ── */}
-      {hasWelcomeBanner && !welcomeBannerError && (
+      {welcomeBanner ? (
+        welcomeBanner.hidden ? null : <WelcomeOverride banner={welcomeBanner} />
+      ) : hasWelcomeBanner && !welcomeBannerError && (
         <section className={styles.welcomeBannerSection}>
           <div className={styles.welcomeBannerContainer}>
             <img
