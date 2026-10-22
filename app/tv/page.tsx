@@ -11,6 +11,8 @@ import { tvHiring } from "../lib/tvHiring";
 import { formatBoardTime, readStockUpdatedAt } from "../lib/tvStockTime";
 import TvThemeArtwork from "../tv-theme/TvThemeArtwork";
 import { getTvTheme, getTvThemeVariables } from "../tv-theme/theme";
+import FleetTvTakeover from "../components/fleet/FleetTvTakeover";
+import { useFleetTvManifest } from "../components/fleet/useFleetTvManifest";
 
 /* -- Types -- */
 interface PricePoint { regular: number; sale: number | null; }
@@ -740,6 +742,7 @@ export default function TVMenuPage() {
   const [lastUpdate, setLastUpdate] = useState("");
   const [stockUpdated, setStockUpdated] = useState<string | null>(null);
   const [particles, setParticles] = useState<Array<{size:number;left:string;color:string;shadow:string;dur:string;delay:string}>>([]);
+  const fleetTv = useFleetTvManifest();
   const wrapRef = useRef<HTMLDivElement>(null);
 
   const TIERS = ["EXOTIC","PREMIUM","AAA+","AA","BUDGET"];
@@ -897,6 +900,7 @@ export default function TVMenuPage() {
         
       </div>
       {lastUpdate ? <div className={styles.lastUpdated}>Refreshed {lastUpdate}</div> : null}
+      <FleetTvTakeover promos={fleetTv.fullscreenPromos} />
     </div>
   );
 }

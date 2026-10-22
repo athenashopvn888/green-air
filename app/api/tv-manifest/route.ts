@@ -4,7 +4,6 @@ import { getFleetContent, tvManifestDecision } from "../../lib/fleetContent";
 const TV_MANIFEST_CACHE_CONTROL = "public, max-age=0, s-maxage=60, stale-while-revalidate=300";
 
 export const runtime = "nodejs";
-export const dynamic = "force-dynamic";
 
 export async function GET(request: Request) {
   const fleet = await getFleetContent();
