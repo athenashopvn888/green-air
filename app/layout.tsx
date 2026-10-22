@@ -1,12 +1,16 @@
+import CigaretteStateProvider from "./components/CigaretteStateProvider";
+import FleetContentProvider from "./components/FleetContentProvider";
 import FullNameNap from "./components/FullNameNap";
 import PinnedNavClearance from "./components/PinnedNavClearance";
+import { getPublicCigaretteFlags } from "./lib/cigaretteAccess";
+import { getFleetContent } from "./lib/fleetContent";
 import { HOME_DOC_TITLE } from "./lib/homeDelivery";
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 import { cannabisStoreJsonLd, renderedDocumentTitle, STORE_NAP } from "./lib/localSeo";
 
-export const metadata: Metadata = {
+const ROOT_METADATA: Metadata = {
   metadataBase: new URL(STORE_NAP.canonicalHost),
   title: {
     default: HOME_DOC_TITLE,
@@ -71,14 +75,29 @@ export const metadata: Metadata = {
 
 const jsonLd = cannabisStoreJsonLd();
 
-export default function RootLayout({
+export async function generateMetadata(): Promise<Metadata> {
+  const fleet = await getFleetContent();
+  if (!fleet.active) return ROOT_METADATA;
+  const description = fleet.pages.Home?.metaDescription || "";
+  if (!description || description === ROOT_METADATA.description) return ROOT_METADATA;
+  return {
+    ...ROOT_METADATA,
+    description,
+    openGraph: { ...ROOT_METADATA.openGraph, description },
+    twitter: { ...ROOT_METADATA.twitter, description },
+  };
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [fleet, cigarettes] = await Promise.all([getFleetContent(), getPublicCigaretteFlags()]);
   return (
     <html lang="en">
       <head>
+        <meta name="fleet-content-version" content={fleet.version} />
         <meta name="geo.region" content="CA-ON" />
         <meta name="geo.placename" content="Malton, Mississauga" />
         <meta name="geo.position" content="43.704554;-79.6443735" />
@@ -109,9 +128,13 @@ export default function RootLayout({
         <Link className="deliveryAnnouncement" href="/delivery">
           NEW DELIVERY MENU IS HERE — CLICK TO EXPLORE
         </Link>
-        {children}
-        <FullNameNap />
-        <PinnedNavClearance />
+        <FleetContentProvider value={{ active: fleet.active, version: fleet.version, nap: fleet.nap }}>
+          <CigaretteStateProvider value={cigarettes}>
+            {children}
+            <FullNameNap />
+            <PinnedNavClearance />
+          </CigaretteStateProvider>
+        </FleetContentProvider>
       </body>
     </html>
   );

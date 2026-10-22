@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { CODED_NAP } from "../lib/fleet/coded";
+import { getFleetContent } from "../lib/fleetContent";
 import { STORE_NAP } from "../lib/localSeo";
 import styles from "./contact.module.css";
 
-export const metadata: Metadata = {
+const CONTACT_METADATA: Metadata = {
   title: "Contact Us — 7060 Airport Rd, Malton",
   description:
     "Call or walk into Green Air Cannabis at 7060 Airport Rd, Malton, Mississauga, ON L4T 2G8. Open 24 hours daily. Phone +1 (289) 514-9467.",
@@ -19,7 +21,30 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+export async function generateMetadata(): Promise<Metadata> {
+  const fleet = await getFleetContent();
+  if (!fleet.active) return CONTACT_METADATA;
+  const page = fleet.pages.Contact;
+  const description = page?.metaDescription || "";
+  const title = page?.metaTitle || "";
+  if ((!description || description === CONTACT_METADATA.description) && (!title || title === "Contact Us — 7060 Airport Rd, Malton")) {
+    return CONTACT_METADATA;
+  }
+  return {
+    ...CONTACT_METADATA,
+    ...(description && description !== CONTACT_METADATA.description ? { description } : {}),
+    ...(title && title !== "Contact Us — 7060 Airport Rd, Malton" ? { title: { absolute: title } } : {}),
+  };
+}
+
+export default async function ContactPage() {
+  const fleet = await getFleetContent();
+  const nap = fleet.active ? fleet.nap : CODED_NAP;
+  const street = nap.street === CODED_NAP.street ? STORE_NAP.streetAddress : nap.street;
+  const phoneDisplay = nap.phoneDisplay === CODED_NAP.phoneDisplay ? STORE_NAP.phoneDisplay : nap.phoneDisplay;
+  const phoneTel = nap.phoneTel === CODED_NAP.phoneTel ? STORE_NAP.phoneIntl : nap.phoneTel;
+  const mapSrc = nap.mapsEmbedUrl === CODED_NAP.mapsEmbedUrl ? STORE_NAP.mapEmbedUrl : nap.mapsEmbedUrl;
+  const localityChanged = nap.city !== CODED_NAP.city || nap.province !== CODED_NAP.province || nap.postalCode !== CODED_NAP.postalCode || nap.area !== CODED_NAP.area;
   return (
     <main className={styles.main}>
       <Navbar />
@@ -41,14 +66,14 @@ export default function ContactPage() {
               <div className={styles.infoIcon}>📍</div>
               <h2 className={styles.infoTitle}>Location</h2>
               <p className={styles.infoText}>
-                {STORE_NAP.streetAddress}
+                {street}
                 <br />
-                Malton · {STORE_NAP.addressLocality}, {STORE_NAP.addressRegion} {STORE_NAP.postalCode}
+                {localityChanged ? `${nap.area} · ${nap.city}, ${nap.province} ${nap.postalCode}` : <>Malton · {STORE_NAP.addressLocality}, {STORE_NAP.addressRegion} {STORE_NAP.postalCode}</>}
                 <br />
                 <span className={styles.infoMuted}>Airport Road / Pearson / Derry corridor</span>
               </p>
               <p className={styles.infoText}>
-                <a href={`tel:${STORE_NAP.phoneIntl}`}>{STORE_NAP.phoneDisplay}</a>
+                <a href={`tel:${phoneTel}`}>{phoneDisplay}</a>
               </p>
             </div>
 
@@ -107,7 +132,7 @@ export default function ContactPage() {
           <div className={styles.mapSection}>
             <iframe
               title="Map of Green Air Cannabis at 7060 Airport Rd, Malton"
-              src={STORE_NAP.mapEmbedUrl}
+              src={mapSrc}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               style={{ width: "100%", height: "360px", border: 0, display: "block" }}

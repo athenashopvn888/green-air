@@ -6,8 +6,9 @@ import Navbar from "../../components/Navbar";
 import { DELIVERY_GUIDE_REGISTRY, getDeliveryGuide } from "../../lib/deliveryGuideRegistry";
 import { GUIDE_REGISTRY, GUIDE_STORE, getGuide, resolveGuideProduct, type GuideEntry } from "../../lib/guideRegistry";
 import GuideBody, { stripMarkdown } from "./GuideBody";
-import { redirectToVape } from "../../lib/cigaretteRedirect";
-import { isHiddenCigarettePath, isHiddenGuideSlug, SHOW_CIGARETTES, visibleCategoryHref, visibleGuideMarkdown } from "../../lib/showCigarettes";
+import CigaretteUnavailablePage from "../../components/CigaretteUnavailablePage";
+import { openCigaretteSurface } from "../../lib/cigaretteRedirect";
+import { isCigaretteSurfaceGuideSlug, isHiddenCigarettePath, isHiddenGuideSlug, SHOW_CIGARETTES, visibleCategoryHref, visibleGuideMarkdown } from "../../lib/showCigarettes";
 import DeliveryGuidePage from "./DeliveryGuidePage";
 import styles from "./guide.module.css";
 
@@ -25,7 +26,9 @@ export function generateStaticParams() { return [...GUIDE_REGISTRY, ...DELIVERY_
 
 export async function generateMetadata({ params }: GuidePageProps): Promise<Metadata> {
   const slug = (await params).slug;
-  if (isHiddenGuideSlug(slug)) redirectToVape();
+  if (isCigaretteSurfaceGuideSlug(slug) && (await openCigaretteSurface(true)) === "unavailable") {
+    return { title: "Cigarettes", robots: { index: false, follow: true } };
+  }
   const deliveryGuide = getDeliveryGuide(slug);
   if (deliveryGuide) return { title: { absolute: deliveryGuide.title }, description: deliveryGuide.description, alternates: { canonical: `${BASE}/guides/${deliveryGuide.slug}` }, robots: { index: true, follow: true }, openGraph: { title: deliveryGuide.title, description: deliveryGuide.description, url: `${BASE}/guides/${deliveryGuide.slug}`, type: "website" } };
   const guide = getGuide(slug);
@@ -45,7 +48,9 @@ const relatedEntries = (guide: GuideEntry) => guide.relatedSlugs.map(getGuide).f
 
 export default async function GuidePage({ params }: GuidePageProps) {
   const slug = (await params).slug;
-  if (isHiddenGuideSlug(slug)) redirectToVape();
+  if (isCigaretteSurfaceGuideSlug(slug) && (await openCigaretteSurface(true)) === "unavailable") {
+    return <CigaretteUnavailablePage />;
+  }
   const deliveryGuide = getDeliveryGuide(slug);
   if (deliveryGuide) return <DeliveryGuidePage guide={deliveryGuide} />;
   const guide = getGuide(slug);

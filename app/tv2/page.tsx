@@ -1,6 +1,8 @@
 "use client";
 import { isNicotineItem } from "../tv/flashMessages";
-import { isHiddenCigaretteItem, SHOW_CIGARETTES } from "../lib/showCigarettes";
+import { readCigaretteTvHeader } from "../lib/cigDecision";
+import { isCigaretteSurfaceItem, SHOW_CIGARETTES } from "../lib/showCigarettes";
+import { useCigaretteState } from "../components/CigaretteStateProvider";
 import { useState, useEffect, useCallback, useRef } from "react";
 import styles from "./tv2.module.css";
 import HiringRibbon from "../components/HiringRibbon";
@@ -52,8 +54,8 @@ function CigarettePriceFlash() {
 }
 
 /* -- ITEM CARD -- */
-function ItemCard({ title, accent, items, hiIdx, preset, offerPromo, reviewQr }: {
-  title:string; accent:string; items:Item[]; hiIdx:number; preset:string; offerPromo?:Tv2DaytimePromo; reviewQr?:boolean;
+function ItemCard({ title, accent, items, hiIdx, preset, offerPromo, reviewQr, showCigarettes = SHOW_CIGARETTES }: {
+  title:string; accent:string; items:Item[]; hiIdx:number; preset:string; offerPromo?:Tv2DaytimePromo; reviewQr?:boolean; showCigarettes?:boolean;
 }) {
   const MAX = reviewQr ? 6 : 10;
   const hiW = Math.min(hiIdx % Math.max(1, items.length), items.length - 1);
@@ -116,7 +118,7 @@ function ItemCard({ title, accent, items, hiIdx, preset, offerPromo, reviewQr }:
                 {metaParts.map((p,i) => (
                   <span key={i}>
                     {i > 0 && <span className={styles.detailSep}> · </span>}
-                    {SHOW_CIGARETTES && p===fmtPrice(hi?.price) && isTwentyFiveCarton(hi)
+                    {showCigarettes && p===fmtPrice(hi?.price) && isTwentyFiveCarton(hi)
                       ? <CigarettePriceFlash />
                       : <span className={p===fmtTHC(hi?.thc)?styles.detailThc:undefined} style={p===fmtPrice(hi?.price)?{fontWeight:900}:undefined}>{p}</span>}
                   </span>
@@ -149,7 +151,7 @@ function ItemCard({ title, accent, items, hiIdx, preset, offerPromo, reviewQr }:
                     {it.thc && <span className={styles.submeta}> · {fmtTHC(it.thc)}</span>}
                     {it.mg && <span className={styles.submeta}> · {fmtMG(it.mg)}</span>}
                   </div>
-                  <div className={styles.mcPrice}>{SHOW_CIGARETTES && isTwentyFiveCarton(it) ? <CigarettePriceFlash /> : fmtPrice(it.price)}</div>
+                  <div className={styles.mcPrice}>{showCigarettes && isTwentyFiveCarton(it) ? <CigarettePriceFlash /> : fmtPrice(it.price)}</div>
                 </div>
               );
             })}
@@ -206,6 +208,8 @@ function VerticalTicker() {
 
 /* -- MAIN TV2 PAGE -- */
 export default function TV2Page() {
+  const seeded = useCigaretteState();
+  const [tvCig, setTvCig] = useState({ show: seeded.tv, wording: seeded.wording });
   const theme = getTvTheme(tvHiring?.store);
   const [bgUrl, setBgUrl] = useState("");
   useEffect(() => {
@@ -245,6 +249,7 @@ export default function TV2Page() {
     try {
       const res = await fetch("/api/tv-data?type=items");
       const data: Item[] = res.ok ? await res.json() : [];
+      if (res.ok) setTvCig(readCigaretteTvHeader(res.headers));
       setItems(data);
       setStockUpdated(readStockUpdatedAt(res, data));
       const hi: Record<string,number> = {};
@@ -300,10 +305,11 @@ export default function TV2Page() {
           <HiringRibbon hiring={tvHiring} />
           <div className={styles.grid}>
             {CARD_CONFIG.map(card => {
-              const filtered = items.filter(card.filter).filter((it) => !isHiddenCigaretteItem(it)).filter(it => !(daytime && isNicotineItem(it)));
-              const promo = card.id === "CIGARETTES" && !SHOW_CIGARETTES ? undefined : getTv2DaytimePromo(card.id, daytime, promoElapsedMs);
-              if (card.id === "CIGARETTES" && !SHOW_CIGARETTES && filtered.length === 0 && !promo) return null;
-              const title = card.id === "CIGARETTES" && !SHOW_CIGARETTES ? "🍂 WRAPS" : card.title;
+              const showCigarettes = tvCig.show;
+              const filtered = items.filter(card.filter).filter((it) => showCigarettes || !isCigaretteSurfaceItem(it)).filter(it => !(daytime && isNicotineItem(it)));
+              const promo = card.id === "CIGARETTES" && !showCigarettes ? undefined : getTv2DaytimePromo(card.id, daytime, promoElapsedMs);
+              if (card.id === "CIGARETTES" && !showCigarettes && filtered.length === 0 && !promo) return null;
+              const title = card.id === "CIGARETTES" && !showCigarettes ? tvCig.wording.wrapsTitle : (card.id === "CIGARETTES" && showCigarettes ? tvCig.wording.tv2BoardTitle : card.title);
 
               if (promo) {
                 return (
@@ -342,7 +348,8 @@ export default function TV2Page() {
                 <ItemCard key={card.id} title={title} accent={card.accent}
                   items={filtered} hiIdx={highlights[card.id]||0} preset={card.preset}
                   reviewQr={card.id === "PREROLLS_ADDONS"}
-                  offerPromo={SHOW_CIGARETTES && card.id === "CIGARETTES" ? getCigaretteOfferPromo(daytime, promoElapsedMs) : undefined} />
+                  offerPromo={showCigarettes && card.id === "CIGARETTES" ? getCigaretteOfferPromo(daytime, promoElapsedMs) : undefined}
+                  showCigarettes={showCigarettes} />
               );
             })}
           </div>

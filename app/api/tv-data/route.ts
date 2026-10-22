@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { getCigaretteSnapshot, snapshotHeaders } from "../../lib/cigaretteFeed";
 import { allFlowers, allItems } from "../../lib/products";
 import { getTvData } from "../../lib/tvStock";
 
@@ -10,11 +11,28 @@ export const revalidate = 0;
 
 export async function GET(request: Request) {
   const type = new URL(request.url).searchParams.get("type") || "flowers";
-  const { body, headers } = await getTvData({
-    type,
-    staticFlowers: allFlowers,
-    staticItems: allItems,
-  });
+  const [payload, snap] = await Promise.all([
+    getTvData({
+      type,
+      staticFlowers: allFlowers,
+      staticItems: allItems,
+    }),
+    getCigaretteSnapshot(),
+  ]);
+  const cigHeaders = snapshotHeaders(snap);
 
-  return NextResponse.json(body, { headers });
+  if (type === "cig") {
+    return NextResponse.json(
+      {
+        on: snap.tv.show,
+        tvOn: snap.tv.show,
+        webOn: snap.web.show,
+        wording: snap.wording,
+        live: snap.live,
+      },
+      { headers: { ...cigHeaders, "Cache-Control": "no-store" } },
+    );
+  }
+
+  return NextResponse.json(payload.body, { headers: { ...payload.headers, ...cigHeaders } });
 }
