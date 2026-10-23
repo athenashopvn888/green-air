@@ -513,6 +513,8 @@ test("coded content keeps the redirect and an explicit web off stays on the URL"
   assert.equal(cigaretteAccessFrom({ fleetActive: false, decision: { show: false, reason: "off" }, codedShow: false }), "redirect");
   assert.equal(cigaretteAccessFrom({ fleetActive: true, decision: { show: false, reason: "off" }, codedShow: false }), "unavailable");
   assert.equal(cigaretteAccessFrom({ fleetActive: true, decision: { show: false, reason: "error" }, codedShow: false }), "redirect");
+  assert.equal(cigaretteAccessFrom({ fleetActive: true, decision: { show: true, reason: "error" }, codedShow: true }), "redirect");
+  assert.equal(cigaretteAccessFrom({ fleetActive: true, decision: { show: true, reason: "missing" }, codedShow: true }), "redirect");
   assert.equal(cigaretteAccessFrom({ fleetActive: true, decision: { show: true, reason: "on" }, codedShow: false }), "show");
   assert.equal(cigaretteAccessFrom({ fleetActive: false, decision: { show: true, reason: "on" }, codedShow: true }), "show");
 });

@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getCigaretteSnapshot, snapshotHeaders } from "../../lib/cigaretteFeed";
+import { getCigaretteSnapshot, snapshotHeaders, toPublicCigaretteState } from "../../lib/cigaretteFeed";
 import { allFlowers, allItems } from "../../lib/products";
 import { getTvData } from "../../lib/tvStock";
 
@@ -20,14 +20,15 @@ export async function GET(request: Request) {
     getCigaretteSnapshot(),
   ]);
   const cigHeaders = snapshotHeaders(snap);
+  const cigarettes = toPublicCigaretteState(snap);
 
   if (type === "cig") {
     return NextResponse.json(
       {
-        on: snap.tv.show,
-        tvOn: snap.tv.show,
-        webOn: snap.web.show,
-        wording: snap.wording,
+        on: cigarettes.tv,
+        tvOn: cigarettes.tv,
+        webOn: cigarettes.web,
+        wording: cigarettes.wording,
         live: snap.live,
       },
       { headers: { ...cigHeaders, "Cache-Control": "no-store" } },

@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useState, useRef, useCallback } from "react";
+import { readCigaretteTvHeader } from "../lib/cigDecision";
+import { isRealCigaretteItem } from "../lib/cigMarkers";
+import { useCigaretteState } from "../components/CigaretteStateProvider";
 import styles from "./tv.module.css";
 import { getFlowerEffects } from "./flowerEffects";
 import { TOP_TIER_BUNDLE_LABELS } from "./bundleLabels";
@@ -722,6 +725,8 @@ function VerticalTicker() {
    MAIN TV PAGE
    ============================================================ */
 export default function TVMenuPage() {
+  const seeded = useCigaretteState();
+  const [tvCig, setTvCig] = useState({ show: seeded.tv, wording: seeded.wording });
   const theme = getTvTheme(tvHiring?.store);
   const [bgUrl, setBgUrl] = useState("");
   useEffect(() => {
@@ -755,6 +760,9 @@ export default function TVMenuPage() {
       ]);
       const fData: Flower[] = fRes.ok ? await fRes.json() : [];
       const iData: Item[] = iRes.ok ? await iRes.json() : [];
+      const header = iRes.ok ? readCigaretteTvHeader(iRes.headers) : null;
+      setTvCig((current) => header ?? { show: false, wording: current.wording });
+      const showCigarettes = header?.show ?? false;
       setStockUpdated(readStockUpdatedAt(fRes, fData) || readStockUpdatedAt(iRes, iData));
 
       for (const f of fData) {
@@ -789,14 +797,17 @@ export default function TVMenuPage() {
       }
       setFlowers(grouped);
 
-      setAddOns(iData.filter(it => it.category === "ADD ONS" || it.category === "PREROLLS").slice(0, 14));
+      setAddOns(iData.filter((it) => (it.category === "ADD ONS" || it.category === "PREROLLS") && (showCigarettes || !isRealCigaretteItem(it))).slice(0, 14));
 
       const hi: Record<string,number> = {};
       for (const t of TIERS) hi[t] = 0;
       hi["OZ"] = 0; hi["ADDONS"] = 0;
       setHighlights(hi);
       setLastUpdate(formatBoardTime(new Date()) || "");
-    } catch (err) { console.warn("[TV] Load failed:", err); }
+    } catch (err) {
+      console.warn("[TV] Load failed:", err);
+      setTvCig((current) => ({ show: false, wording: current.wording }));
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -879,7 +890,7 @@ export default function TVMenuPage() {
 
         {/* GRID */}
         <div className={styles.stage}>
-          <HiringRibbon hiring={tvHiring} />
+          <HiringRibbon hiring={tvHiring} showCigarettes={tvCig.show} />
           <div className={styles.grid}>
             {/* Row 1: EXOTIC, PREMIUM, AAA+ */}
             {TIERS.slice(0,3).map(tier => (

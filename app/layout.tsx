@@ -4,6 +4,7 @@ import FullNameNap from "./components/FullNameNap";
 import PinnedNavClearance from "./components/PinnedNavClearance";
 import { getPublicCigaretteFlags } from "./lib/cigaretteAccess";
 import { getFleetContent } from "./lib/fleetContent";
+import { SHOW_CIGARETTES } from "./lib/showCigarettes";
 import { HOME_DOC_TITLE } from "./lib/homeDelivery";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -129,7 +130,7 @@ export default async function RootLayout({
           NEW DELIVERY MENU IS HERE — CLICK TO EXPLORE
         </Link>
         <FleetContentProvider value={{ active: fleet.active, version: fleet.version, nap: fleet.nap }}>
-          <CigaretteStateProvider value={cigarettes}>
+          <CigaretteStateProvider value={{ ...cigarettes, web: SHOW_CIGARETTES ? cigarettes.web : false }}>
             {children}
             <FullNameNap />
             <PinnedNavClearance />
