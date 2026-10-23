@@ -54,8 +54,9 @@ function fitPolicyLine(node: HTMLSpanElement) {
   node.style.textOverflow = "";
 }
 
-export default function HiringRibbon({ hiring }: { hiring: TvHiringConfig | null }) {
-  const [showCigaretteFlash, setShowCigaretteFlash] = useState(() => SHOW_CIGARETTES && isCigaretteFlashWindow());
+export default function HiringRibbon({ hiring, showCigarettes }: { hiring: TvHiringConfig | null; showCigarettes?: boolean }) {
+  const cigOn = showCigarettes ?? SHOW_CIGARETTES;
+  const [showCigaretteFlash, setShowCigaretteFlash] = useState(() => cigOn && isCigaretteFlashWindow());
   const policy = trimmed(TV_POLICY_MESSAGE);
   const hiringOn = hiring !== null && trimmed(hiring.displayUrl).length > 0;
   const messages = [
@@ -73,10 +74,11 @@ export default function HiringRibbon({ hiring }: { hiring: TvHiringConfig | null
   const policyRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    const update = () => setShowCigaretteFlash(SHOW_CIGARETTES && isCigaretteFlashWindow());
+    const update = () => setShowCigaretteFlash(cigOn && isCigaretteFlashWindow());
+    update();
     const timer = window.setInterval(update, 60_000);
     return () => window.clearInterval(timer);
-  }, []);
+  }, [cigOn]);
 
   useEffect(() => {
     const media = window.matchMedia("(prefers-reduced-motion: reduce)");

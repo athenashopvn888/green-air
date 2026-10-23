@@ -99,15 +99,29 @@ export function decideCigaretteSurface(input: {
       : undefined,
   );
   if (cigaretteEnvHardOff(input.envRaw)) return { show: false, reason: "env", wording };
-  // A missing feed or a feed error keeps the coded switch. Only an explicit false flag hides a live surface.
-  if (input.errored) return { show: codedCigaretteShow(input.envRaw), reason: "error", wording };
+  // TV hides unless a successful feed says tvOn. A feed error or a missing cig block stays off.
+  // The raw website decision keeps the coded switch. publicWebsiteCigaretteFlag applies the static gate.
+  if (input.errored) {
+    return { show: input.surface === "tv" ? false : codedCigaretteShow(input.envRaw), reason: "error", wording };
+  }
   if (!input.cig || typeof input.cig !== "object" || Array.isArray(input.cig)) {
-    return { show: codedCigaretteShow(input.envRaw), reason: "missing", wording };
+    return { show: input.surface === "tv" ? false : codedCigaretteShow(input.envRaw), reason: "missing", wording };
   }
   if (!resolveSurfaceFlag(input.cig, input.surface)) return { show: false, reason: "off", wording };
   const items = Array.isArray(input.items) ? input.items : [];
   if (!items.some((item) => isRealCigaretteItem(item))) return { show: false, reason: "no-items", wording };
   return { show: true, reason: "on", wording };
+}
+
+/**
+ * Website flag. The coded switch stays in front of the feed.
+ * A feed error or a missing block stays off, even when that switch is on.
+ * TV does not use this.
+ */
+export function publicWebsiteCigaretteFlag(decision: CigaretteSurfaceDecision, codedOn: boolean): boolean {
+  if (!codedOn) return false;
+  if (decision.reason === "error" || decision.reason === "missing") return false;
+  return decision.show;
 }
 
 /** Guide pages follow the master switch (`master`, otherwise `on`), not the web/TV split. */
@@ -145,7 +159,7 @@ export function reconcileSurfaceItems<T extends ShelfItem>(menuItems: T[], liveI
 
 export type CigaretteAccess = "show" | "redirect" | "unavailable";
 
-/** Coded content keeps today's redirect. Explicit web off stays on the URL. A feed error uses the coded switch. */
+/** Coded content keeps today's redirect. Explicit web off stays on the URL. A feed error or a missing block hides cigarettes. */
 export function cigaretteAccessFrom(input: {
   fleetActive: boolean;
   decision: Pick<CigaretteSurfaceDecision, "show" | "reason">;
@@ -153,9 +167,8 @@ export function cigaretteAccessFrom(input: {
 }): CigaretteAccess {
   const codedShow = input.codedShow ?? SHOW_CIGARETTES;
   if (!input.fleetActive) return codedShow ? "show" : "redirect";
-  if (input.decision.reason === "error" || input.decision.reason === "missing" || input.decision.reason === "env") {
-    return codedShow ? "show" : "redirect";
-  }
+  if (input.decision.reason === "error" || input.decision.reason === "missing") return "redirect";
+  if (input.decision.reason === "env") return codedShow ? "show" : "redirect";
   if (!input.decision.show) return "unavailable";
   return "show";
 }

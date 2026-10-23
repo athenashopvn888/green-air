@@ -1,19 +1,27 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import test from "node:test";
 import {
   CIG_WORDING_FALLBACK,
   codedCigaretteShow,
   decideCigaretteGuide,
   decideCigaretteSurface,
+  publicWebsiteCigaretteFlag,
   reconcileSurfaceItems,
   resolveCigWording,
   resolveSurfaceFlag,
 } from "../app/lib/cigDecision.ts";
+import { isCigaretteSurfaceItem, SHOW_CIGARETTES } from "../app/lib/showCigarettes.ts";
 
 const carton = { category: "CIGARETTES", name: "BB FULL CARTON", slug: "bb-full-carton" };
 const grabba = { category: "CIGARETTES", name: "GRABBA", slug: "grabba" };
 const backwoods = { category: "CIGARETTES", name: "BACKWOODS ASSORTED FLAVORS $20-$25", slug: "backwoods-assorted-flavors-20-25" };
 const pouch = { category: "CIGARETTES", name: "NICOTINE POUCHES , VELO, PABLO, KILLA", slug: "nicotine-pouches-velo-pablo-killa" };
+const zyn = { category: "CIGARETTES", name: "ZYN COOL MINT", slug: "zyn-cool-mint" };
+const velo = { category: "CIGARETTES", name: "VELO", slug: "velo-mint" };
+const papers = { category: "CIGARETTES", name: "RAW PAPERS", slug: "raw-papers" };
+const wraps = { category: "CIGARETTES", name: "HEMP WRAPS", slug: "hemp-wraps" };
+const cigarillo = { category: "CIGARETTES", name: "CIGARILLOS", slug: "cigarillos" };
 const vape = { category: "VAPE PENS", name: "Mango Ice", slug: "mango-ice" };
 
 const wording = {
@@ -86,9 +94,51 @@ test("guide pages follow the master switch and a feed error stays on coded behav
 });
 
 test("each surface hides real cigarettes itself and always keeps wraps and pouches", () => {
-  const menu = [vape, carton, grabba, backwoods, pouch];
+  const menu = [vape, carton, grabba, backwoods, pouch, zyn, velo, papers, wraps, cigarillo];
   const hidden = reconcileSurfaceItems(menu, menu, false);
-  assert.deepEqual(hidden.map((item) => item.slug), [vape.slug, backwoods.slug, pouch.slug]);
+  assert.deepEqual(hidden.map((item) => item.slug), [vape.slug, backwoods.slug, pouch.slug, zyn.slug, velo.slug, papers.slug, wraps.slug, cigarillo.slug]);
+  for (const item of [backwoods, pouch, zyn, velo, papers, wraps, cigarillo]) {
+    assert.equal(isCigaretteSurfaceItem(item), false);
+  }
+  assert.equal(isCigaretteSurfaceItem(carton), true);
+  assert.equal(isCigaretteSurfaceItem(grabba), true);
   const shown = reconcileSurfaceItems([vape, backwoods], [carton, backwoods], true);
   assert.deepEqual(shown.map((item) => item.slug), [vape.slug, backwoods.slug, carton.slug]);
+});
+
+test("TV hides on a feed error or a missing block, and follows tvOn only after a successful feed", () => {
+  const items = [carton, grabba, backwoods, pouch, zyn, velo];
+  const missing = decideCigaretteSurface({ cig: null, items, surface: "tv" });
+  assert.equal(missing.reason, "missing");
+  assert.equal(missing.show, false);
+  assert.equal(decideCigaretteSurface({ cig: cig({ on: true, webOn: true, tvOn: true }), items, surface: "tv" }).show, true);
+  assert.equal(decideCigaretteSurface({ cig: cig({ on: true, webOn: true, tvOn: false }), items, surface: "tv" }).show, false);
+  const errored = decideCigaretteSurface({ cig: cig({ on: true, webOn: true, tvOn: true }), items, surface: "tv", errored: true });
+  assert.equal(errored.reason, "error");
+  assert.equal(errored.show, false);
+  const hidden = reconcileSurfaceItems(items, items, errored.show).map((item) => item.slug);
+  assert.deepEqual(hidden, [backwoods.slug, pouch.slug, zyn.slug, velo.slug]);
+});
+
+test("the website flag stays off whenever the static gate is off, including a feed error or a missing block", () => {
+  const items = [carton];
+  const on = decideCigaretteSurface({ cig: cig({ on: true, webOn: true, tvOn: true }), items, surface: "web" });
+  const errored = decideCigaretteSurface({ cig: cig({ on: true, webOn: true, tvOn: true }), items, surface: "web", errored: true });
+  const missing = decideCigaretteSurface({ cig: null, items, surface: "web" });
+  assert.equal(on.show, true);
+  assert.equal(publicWebsiteCigaretteFlag(on, SHOW_CIGARETTES), false);
+  assert.equal(publicWebsiteCigaretteFlag(errored, SHOW_CIGARETTES), false);
+  assert.equal(publicWebsiteCigaretteFlag(missing, SHOW_CIGARETTES), false);
+  assert.equal(publicWebsiteCigaretteFlag(on, false), false);
+  assert.equal(publicWebsiteCigaretteFlag(errored, true), false);
+  assert.equal(publicWebsiteCigaretteFlag(missing, true), false);
+  assert.equal(publicWebsiteCigaretteFlag({ show: false, reason: "off" }, true), false);
+  assert.equal(SHOW_CIGARETTES ? on.show : false, false);
+  const layout = readFileSync(new URL("../app/layout.tsx", import.meta.url), "utf8");
+  assert.match(layout, /web: SHOW_CIGARETTES \? cigarettes\.web : false/);
+  const tv = readFileSync(new URL("../app/tv/page.tsx", import.meta.url), "utf8");
+  const tv2 = readFileSync(new URL("../app/tv2/page.tsx", import.meta.url), "utf8");
+  assert.match(tv, /readCigaretteTvHeader/);
+  assert.match(tv2, /readCigaretteTvHeader/);
+  assert.match(tv2, /5\*60\*1000/);
 });

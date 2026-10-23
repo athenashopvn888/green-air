@@ -1,3 +1,5 @@
+import { isKeptSmokeName } from "./cigMarkers.ts";
+
 /**
  * Site-wide recall switch for cigarette and tobacco pages.
  * Default is hidden. Set NEXT_PUBLIC_SHOW_CIGARETTES=true to restore the previous site.
@@ -171,10 +173,10 @@ export function isKeptWrapItem(item: MenuItemLike): boolean {
   return KEPT_WRAP_RE.test(`${item.name || ""} ${item.slug || ""}`);
 }
 
-/** Real cigarette shelf rows, ignoring the coded env switch. Wraps and pouches stay. */
+/** Real cigarette shelf rows, ignoring the coded env switch. Wraps, papers, pouches, Zyn, and Velo stay. */
 export function isCigaretteSurfaceItem(item: MenuItemLike): boolean {
   if (isGrabbaItem(item)) return true;
-  if (isKeptWrapItem(item)) return false;
+  if (isKeptSmokeName(item.name, item.slug) || isKeptWrapItem(item)) return false;
   if (HIDDEN_ITEM_SLUGS.has(item.slug || "")) return true;
   const category = (item.category || "").toUpperCase();
   if (category !== "CIGARETTES") return false;

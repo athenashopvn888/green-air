@@ -254,14 +254,18 @@ export default function TV2Page() {
     try {
       const res = await fetch("/api/tv-data?type=items");
       const data: Item[] = res.ok ? await res.json() : [];
-      if (res.ok) setTvCig(readCigaretteTvHeader(res.headers));
+      const header = res.ok ? readCigaretteTvHeader(res.headers) : null;
+      setTvCig((current) => header ?? { show: false, wording: current.wording });
       setItems(data);
       setStockUpdated(readStockUpdatedAt(res, data));
       const hi: Record<string,number> = {};
       CARD_CONFIG.forEach(c => { hi[c.id] = 0; });
       setHighlights(hi);
       setLastUpdate(formatBoardTime(new Date()) || "");
-    } catch (err) { console.warn("[TV2] Load failed:", err); }
+    } catch (err) {
+      console.warn("[TV2] Load failed:", err);
+      setTvCig((current) => ({ show: false, wording: current.wording }));
+    }
   }, []);
 
   const fitToScreen = useCallback(() => {
@@ -307,7 +311,7 @@ export default function TV2Page() {
 
         {/* GRID */}
         <div className={styles.stage}>
-          <HiringRibbon hiring={tvHiring} />
+          <HiringRibbon hiring={tvHiring} showCigarettes={tvCig.show} />
           <div className={styles.grid}>
             {CARD_CONFIG.map(card => {
               const showCigarettes = tvCig.show;
