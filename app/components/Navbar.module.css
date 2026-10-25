@@ -83,6 +83,24 @@
   gap: 10px;
 }
 
+.directions {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 13px;
+  border: 1px solid #6ee7b7;
+  border-radius: 999px;
+  color: #ecfdf5;
+  background: linear-gradient(180deg, #15803d, #166534);
+  box-shadow: 0 5px 18px rgba(34,197,94,.2);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-decoration: none;
+}
+
 
 /* ── Horizontal scrollable link bar ── */
 .scrollShell {
@@ -210,6 +228,10 @@
 
 @media (max-width: 720px) {
   .menuToggle { display: inline-flex; }
+  .topBar { gap: 7px; padding-inline: 12px; }
+  .topBarRight { gap: 7px; }
+  .directions { padding-inline: 10px; }
 }
 
-@media (max-width: 390px) { .brandName { display: none; } }
+@media (max-width: 430px) { .brandName { display: none; } }
+@media (max-width: 370px) { .open { padding-inline: 9px; } .directions { padding-inline: 8px; } }
