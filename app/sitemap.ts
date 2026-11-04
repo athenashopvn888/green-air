@@ -114,6 +114,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   });
 
+  resourcePages.push({
+    url: `${BASE}/resources/how-to-clean-a-bong`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.6,
+  });
+
   const guidePages: MetadataRoute.Sitemap = [...GUIDE_REGISTRY, ...DELIVERY_GUIDE_REGISTRY].filter((guide) => !isHiddenGuideSlug(guide.slug)).map((guide) => ({
     url: `${BASE}/guides/${guide.slug}`,
     lastModified: now,
