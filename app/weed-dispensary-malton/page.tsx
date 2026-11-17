@@ -39,7 +39,7 @@ const WEED_DISPENSARY_FAQS = [
 
 export const metadata: Metadata = {
   title: {
-    absolute: "Weed Dispensary on Airport Rd | Green Air Cannabis",
+    absolute: "Weed Dispensary near me on Airport Rd | Green Air Cannabis",
   },
   description:
     "Weed dispensary at Green Air Cannabis, 7060 Airport Rd on the Malton / Pearson / Derry corridor. Adults 19+. Equal neighbourhood owner — not a city-wide Mississauga list. Homepage keeps the map hub.",
