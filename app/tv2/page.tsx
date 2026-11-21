@@ -315,7 +315,7 @@ export default function TV2Page() {
           <div className={styles.grid}>
             {CARD_CONFIG.map(card => {
               const showCigarettes = tvCig.show;
-              const filtered = items.filter(card.filter).filter((it) => showCigarettes || !isCigaretteSurfaceItem(it)).filter(it => !(daytime && isNicotineItem(it)));
+              const filtered = items.filter(card.filter).filter((it) => showCigarettes || !isCigaretteSurfaceItem(it)).filter(it => card.id === "CIGARETTES" || !(daytime && isNicotineItem(it)));
               const broken = sheetBroken[card.id] || {};
               const sheet = pickTv2Sheet(fleetTv.cards[card.id], {
                 categoryOff: card.id === "CIGARETTES" && !showCigarettes,
